@@ -1,10 +1,14 @@
 import 'package:crypto_freebie/routes/routes.dart';
+import 'package:crypto_freebie/services/app_service.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
-void main() => runApp(const MyApp());
+void main() async {
+  await AppService.init();
+  runApp(const MyApp());
+}
 
 class MyApp extends GetView {
   const MyApp({Key? key}) : super(key: key);
