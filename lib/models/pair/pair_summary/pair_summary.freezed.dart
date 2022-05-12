@@ -1,5 +1,6 @@
+// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'pair_summary.dart';
 
@@ -31,7 +32,7 @@ class _$PairSummaryTearOff {
     );
   }
 
-  PairSummary fromJson(Map<String, Object> json) {
+  PairSummary fromJson(Map<String, Object?> json) {
     return PairSummary.fromJson(json);
   }
 }
@@ -152,7 +153,7 @@ class _$_PairSummary implements _PairSummary {
       {required this.price, required this.volume, required this.volumeQuote});
 
   factory _$_PairSummary.fromJson(Map<String, dynamic> json) =>
-      _$_$_PairSummaryFromJson(json);
+      _$$_PairSummaryFromJson(json);
 
   @override
   final Price price;
@@ -169,22 +170,20 @@ class _$_PairSummary implements _PairSummary {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _PairSummary &&
-            (identical(other.price, price) ||
-                const DeepCollectionEquality().equals(other.price, price)) &&
-            (identical(other.volume, volume) ||
-                const DeepCollectionEquality().equals(other.volume, volume)) &&
-            (identical(other.volumeQuote, volumeQuote) ||
-                const DeepCollectionEquality()
-                    .equals(other.volumeQuote, volumeQuote)));
+        (other.runtimeType == runtimeType &&
+            other is _PairSummary &&
+            const DeepCollectionEquality().equals(other.price, price) &&
+            const DeepCollectionEquality().equals(other.volume, volume) &&
+            const DeepCollectionEquality()
+                .equals(other.volumeQuote, volumeQuote));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(price) ^
-      const DeepCollectionEquality().hash(volume) ^
-      const DeepCollectionEquality().hash(volumeQuote);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(price),
+      const DeepCollectionEquality().hash(volume),
+      const DeepCollectionEquality().hash(volumeQuote));
 
   @JsonKey(ignore: true)
   @override
@@ -193,7 +192,7 @@ class _$_PairSummary implements _PairSummary {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$_$_PairSummaryToJson(this);
+    return _$$_PairSummaryToJson(this);
   }
 }
 
@@ -207,11 +206,11 @@ abstract class _PairSummary implements PairSummary {
       _$_PairSummary.fromJson;
 
   @override
-  Price get price => throw _privateConstructorUsedError;
+  Price get price;
   @override
-  double get volume => throw _privateConstructorUsedError;
+  double get volume;
   @override
-  double get volumeQuote => throw _privateConstructorUsedError;
+  double get volumeQuote;
   @override
   @JsonKey(ignore: true)
   _$PairSummaryCopyWith<_PairSummary> get copyWith =>

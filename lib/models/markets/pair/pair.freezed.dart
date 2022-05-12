@@ -1,5 +1,6 @@
+// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'pair.dart';
 
@@ -35,7 +36,7 @@ class _$PairTearOff {
     );
   }
 
-  Pair fromJson(Map<String, Object> json) {
+  Pair fromJson(Map<String, Object?> json) {
     return Pair.fromJson(json);
   }
 }
@@ -166,8 +167,7 @@ class _$_Pair implements _Pair {
       this.active,
       this.route});
 
-  factory _$_Pair.fromJson(Map<String, dynamic> json) =>
-      _$_$_PairFromJson(json);
+  factory _$_Pair.fromJson(Map<String, dynamic> json) => _$$_PairFromJson(json);
 
   @override
   final int? id;
@@ -188,28 +188,23 @@ class _$_Pair implements _Pair {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _Pair &&
-            (identical(other.id, id) ||
-                const DeepCollectionEquality().equals(other.id, id)) &&
-            (identical(other.exchange, exchange) ||
-                const DeepCollectionEquality()
-                    .equals(other.exchange, exchange)) &&
-            (identical(other.pair, pair) ||
-                const DeepCollectionEquality().equals(other.pair, pair)) &&
-            (identical(other.active, active) ||
-                const DeepCollectionEquality().equals(other.active, active)) &&
-            (identical(other.route, route) ||
-                const DeepCollectionEquality().equals(other.route, route)));
+        (other.runtimeType == runtimeType &&
+            other is _Pair &&
+            const DeepCollectionEquality().equals(other.id, id) &&
+            const DeepCollectionEquality().equals(other.exchange, exchange) &&
+            const DeepCollectionEquality().equals(other.pair, pair) &&
+            const DeepCollectionEquality().equals(other.active, active) &&
+            const DeepCollectionEquality().equals(other.route, route));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(id) ^
-      const DeepCollectionEquality().hash(exchange) ^
-      const DeepCollectionEquality().hash(pair) ^
-      const DeepCollectionEquality().hash(active) ^
-      const DeepCollectionEquality().hash(route);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(id),
+      const DeepCollectionEquality().hash(exchange),
+      const DeepCollectionEquality().hash(pair),
+      const DeepCollectionEquality().hash(active),
+      const DeepCollectionEquality().hash(route));
 
   @JsonKey(ignore: true)
   @override
@@ -218,7 +213,7 @@ class _$_Pair implements _Pair {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$_$_PairToJson(this);
+    return _$$_PairToJson(this);
   }
 }
 
@@ -233,15 +228,15 @@ abstract class _Pair implements Pair {
   factory _Pair.fromJson(Map<String, dynamic> json) = _$_Pair.fromJson;
 
   @override
-  int? get id => throw _privateConstructorUsedError;
+  int? get id;
   @override
-  String get exchange => throw _privateConstructorUsedError;
+  String get exchange;
   @override
-  String get pair => throw _privateConstructorUsedError;
+  String get pair;
   @override
-  bool? get active => throw _privateConstructorUsedError;
+  bool? get active;
   @override
-  String? get route => throw _privateConstructorUsedError;
+  String? get route;
   @override
   @JsonKey(ignore: true)
   _$PairCopyWith<_Pair> get copyWith => throw _privateConstructorUsedError;

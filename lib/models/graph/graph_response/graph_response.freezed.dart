@@ -1,5 +1,6 @@
+// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'graph_response.dart';
 
@@ -151,19 +152,17 @@ class _$_GraphResponse implements _GraphResponse {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _GraphResponse &&
-            (identical(other.result, result) ||
-                const DeepCollectionEquality().equals(other.result, result)) &&
-            (identical(other.allowance, allowance) ||
-                const DeepCollectionEquality()
-                    .equals(other.allowance, allowance)));
+        (other.runtimeType == runtimeType &&
+            other is _GraphResponse &&
+            const DeepCollectionEquality().equals(other.result, result) &&
+            const DeepCollectionEquality().equals(other.allowance, allowance));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(result) ^
-      const DeepCollectionEquality().hash(allowance);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(result),
+      const DeepCollectionEquality().hash(allowance));
 
   @JsonKey(ignore: true)
   @override
@@ -176,9 +175,9 @@ abstract class _GraphResponse implements GraphResponse {
       {required Graph result, required Allowance allowance}) = _$_GraphResponse;
 
   @override
-  Graph get result => throw _privateConstructorUsedError;
+  Graph get result;
   @override
-  Allowance get allowance => throw _privateConstructorUsedError;
+  Allowance get allowance;
   @override
   @JsonKey(ignore: true)
   _$GraphResponseCopyWith<_GraphResponse> get copyWith =>

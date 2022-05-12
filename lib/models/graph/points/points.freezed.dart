@@ -1,5 +1,6 @@
+// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'points.dart';
 
@@ -220,39 +221,29 @@ class _$_Points implements _Points {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _Points &&
-            (identical(other.closeTime, closeTime) ||
-                const DeepCollectionEquality()
-                    .equals(other.closeTime, closeTime)) &&
-            (identical(other.openTime, openTime) ||
-                const DeepCollectionEquality()
-                    .equals(other.openTime, openTime)) &&
-            (identical(other.highPrice, highPrice) ||
-                const DeepCollectionEquality()
-                    .equals(other.highPrice, highPrice)) &&
-            (identical(other.lowPrice, lowPrice) ||
-                const DeepCollectionEquality()
-                    .equals(other.lowPrice, lowPrice)) &&
-            (identical(other.closePrice, closePrice) ||
-                const DeepCollectionEquality()
-                    .equals(other.closePrice, closePrice)) &&
-            (identical(other.volume, volume) ||
-                const DeepCollectionEquality().equals(other.volume, volume)) &&
-            (identical(other.quoteVolume, quoteVolume) ||
-                const DeepCollectionEquality()
-                    .equals(other.quoteVolume, quoteVolume)));
+        (other.runtimeType == runtimeType &&
+            other is _Points &&
+            const DeepCollectionEquality().equals(other.closeTime, closeTime) &&
+            const DeepCollectionEquality().equals(other.openTime, openTime) &&
+            const DeepCollectionEquality().equals(other.highPrice, highPrice) &&
+            const DeepCollectionEquality().equals(other.lowPrice, lowPrice) &&
+            const DeepCollectionEquality()
+                .equals(other.closePrice, closePrice) &&
+            const DeepCollectionEquality().equals(other.volume, volume) &&
+            const DeepCollectionEquality()
+                .equals(other.quoteVolume, quoteVolume));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(closeTime) ^
-      const DeepCollectionEquality().hash(openTime) ^
-      const DeepCollectionEquality().hash(highPrice) ^
-      const DeepCollectionEquality().hash(lowPrice) ^
-      const DeepCollectionEquality().hash(closePrice) ^
-      const DeepCollectionEquality().hash(volume) ^
-      const DeepCollectionEquality().hash(quoteVolume);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(closeTime),
+      const DeepCollectionEquality().hash(openTime),
+      const DeepCollectionEquality().hash(highPrice),
+      const DeepCollectionEquality().hash(lowPrice),
+      const DeepCollectionEquality().hash(closePrice),
+      const DeepCollectionEquality().hash(volume),
+      const DeepCollectionEquality().hash(quoteVolume));
 
   @JsonKey(ignore: true)
   @override
@@ -271,19 +262,19 @@ abstract class _Points implements Points {
       required double quoteVolume}) = _$_Points;
 
   @override
-  double get closeTime => throw _privateConstructorUsedError;
+  double get closeTime;
   @override
-  double get openTime => throw _privateConstructorUsedError;
+  double get openTime;
   @override
-  double get highPrice => throw _privateConstructorUsedError;
+  double get highPrice;
   @override
-  double get lowPrice => throw _privateConstructorUsedError;
+  double get lowPrice;
   @override
-  double get closePrice => throw _privateConstructorUsedError;
+  double get closePrice;
   @override
-  double get volume => throw _privateConstructorUsedError;
+  double get volume;
   @override
-  double get quoteVolume => throw _privateConstructorUsedError;
+  double get quoteVolume;
   @override
   @JsonKey(ignore: true)
   _$PointsCopyWith<_Points> get copyWith => throw _privateConstructorUsedError;

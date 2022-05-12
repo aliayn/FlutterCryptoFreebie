@@ -1,5 +1,6 @@
+// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'pair_response.dart';
 
@@ -27,7 +28,7 @@ class _$PairResponseTearOff {
     );
   }
 
-  PairResponse fromJson(Map<String, Object> json) {
+  PairResponse fromJson(Map<String, Object?> json) {
     return PairResponse.fromJson(json);
   }
 }
@@ -146,7 +147,7 @@ class _$_PairResponse implements _PairResponse {
   const _$_PairResponse(this.result, this.allowance);
 
   factory _$_PairResponse.fromJson(Map<String, dynamic> json) =>
-      _$_$_PairResponseFromJson(json);
+      _$$_PairResponseFromJson(json);
 
   @override
   final PairSummary result;
@@ -161,19 +162,17 @@ class _$_PairResponse implements _PairResponse {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _PairResponse &&
-            (identical(other.result, result) ||
-                const DeepCollectionEquality().equals(other.result, result)) &&
-            (identical(other.allowance, allowance) ||
-                const DeepCollectionEquality()
-                    .equals(other.allowance, allowance)));
+        (other.runtimeType == runtimeType &&
+            other is _PairResponse &&
+            const DeepCollectionEquality().equals(other.result, result) &&
+            const DeepCollectionEquality().equals(other.allowance, allowance));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(result) ^
-      const DeepCollectionEquality().hash(allowance);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(result),
+      const DeepCollectionEquality().hash(allowance));
 
   @JsonKey(ignore: true)
   @override
@@ -182,7 +181,7 @@ class _$_PairResponse implements _PairResponse {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$_$_PairResponseToJson(this);
+    return _$$_PairResponseToJson(this);
   }
 }
 
@@ -194,9 +193,9 @@ abstract class _PairResponse implements PairResponse {
       _$_PairResponse.fromJson;
 
   @override
-  PairSummary get result => throw _privateConstructorUsedError;
+  PairSummary get result;
   @override
-  Allowance get allowance => throw _privateConstructorUsedError;
+  Allowance get allowance;
   @override
   @JsonKey(ignore: true)
   _$PairResponseCopyWith<_PairResponse> get copyWith =>

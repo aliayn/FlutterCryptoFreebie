@@ -1,5 +1,6 @@
+// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'settings_details.dart';
 
@@ -173,28 +174,24 @@ class _$_SettingsDetails implements _SettingsDetails {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _SettingsDetails &&
-            (identical(other.currentLanguage, currentLanguage) ||
-                const DeepCollectionEquality()
-                    .equals(other.currentLanguage, currentLanguage)) &&
-            (identical(other.favoriteExchange, favoriteExchange) ||
-                const DeepCollectionEquality()
-                    .equals(other.favoriteExchange, favoriteExchange)) &&
-            (identical(other.favoritePair, favoritePair) ||
-                const DeepCollectionEquality()
-                    .equals(other.favoritePair, favoritePair)) &&
-            (identical(other.themeMode, themeMode) ||
-                const DeepCollectionEquality()
-                    .equals(other.themeMode, themeMode)));
+        (other.runtimeType == runtimeType &&
+            other is _SettingsDetails &&
+            const DeepCollectionEquality()
+                .equals(other.currentLanguage, currentLanguage) &&
+            const DeepCollectionEquality()
+                .equals(other.favoriteExchange, favoriteExchange) &&
+            const DeepCollectionEquality()
+                .equals(other.favoritePair, favoritePair) &&
+            const DeepCollectionEquality().equals(other.themeMode, themeMode));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(currentLanguage) ^
-      const DeepCollectionEquality().hash(favoriteExchange) ^
-      const DeepCollectionEquality().hash(favoritePair) ^
-      const DeepCollectionEquality().hash(themeMode);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(currentLanguage),
+      const DeepCollectionEquality().hash(favoriteExchange),
+      const DeepCollectionEquality().hash(favoritePair),
+      const DeepCollectionEquality().hash(themeMode));
 
   @JsonKey(ignore: true)
   @override
@@ -210,13 +207,13 @@ abstract class _SettingsDetails implements SettingsDetails {
       required String themeMode}) = _$_SettingsDetails;
 
   @override
-  String get currentLanguage => throw _privateConstructorUsedError;
+  String get currentLanguage;
   @override
-  String get favoriteExchange => throw _privateConstructorUsedError;
+  String get favoriteExchange;
   @override
-  String get favoritePair => throw _privateConstructorUsedError;
+  String get favoritePair;
   @override
-  String get themeMode => throw _privateConstructorUsedError;
+  String get themeMode;
   @override
   @JsonKey(ignore: true)
   _$SettingsDetailsCopyWith<_SettingsDetails> get copyWith =>

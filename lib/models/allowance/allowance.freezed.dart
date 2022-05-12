@@ -1,5 +1,6 @@
+// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'allowance.dart';
 
@@ -27,7 +28,7 @@ class _$AllowanceTearOff {
     );
   }
 
-  Allowance fromJson(Map<String, Object> json) {
+  Allowance fromJson(Map<String, Object?> json) {
     return Allowance.fromJson(json);
   }
 }
@@ -121,7 +122,7 @@ class _$_Allowance implements _Allowance {
   const _$_Allowance({required this.cost, required this.remaining});
 
   factory _$_Allowance.fromJson(Map<String, dynamic> json) =>
-      _$_$_AllowanceFromJson(json);
+      _$$_AllowanceFromJson(json);
 
   @override
   final double cost;
@@ -136,19 +137,17 @@ class _$_Allowance implements _Allowance {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _Allowance &&
-            (identical(other.cost, cost) ||
-                const DeepCollectionEquality().equals(other.cost, cost)) &&
-            (identical(other.remaining, remaining) ||
-                const DeepCollectionEquality()
-                    .equals(other.remaining, remaining)));
+        (other.runtimeType == runtimeType &&
+            other is _Allowance &&
+            const DeepCollectionEquality().equals(other.cost, cost) &&
+            const DeepCollectionEquality().equals(other.remaining, remaining));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(cost) ^
-      const DeepCollectionEquality().hash(remaining);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(cost),
+      const DeepCollectionEquality().hash(remaining));
 
   @JsonKey(ignore: true)
   @override
@@ -157,7 +156,7 @@ class _$_Allowance implements _Allowance {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$_$_AllowanceToJson(this);
+    return _$$_AllowanceToJson(this);
   }
 }
 
@@ -169,9 +168,9 @@ abstract class _Allowance implements Allowance {
       _$_Allowance.fromJson;
 
   @override
-  double get cost => throw _privateConstructorUsedError;
+  double get cost;
   @override
-  double get remaining => throw _privateConstructorUsedError;
+  double get remaining;
   @override
   @JsonKey(ignore: true)
   _$AllowanceCopyWith<_Allowance> get copyWith =>

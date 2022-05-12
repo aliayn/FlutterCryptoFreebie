@@ -1,5 +1,6 @@
+// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'orderbook.dart';
 
@@ -138,21 +139,19 @@ class _$_OrderBook implements _OrderBook {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _OrderBook &&
-            (identical(other.asks, asks) ||
-                const DeepCollectionEquality().equals(other.asks, asks)) &&
-            (identical(other.bids, bids) ||
-                const DeepCollectionEquality().equals(other.bids, bids)) &&
-            (identical(other.seqNum, seqNum) ||
-                const DeepCollectionEquality().equals(other.seqNum, seqNum)));
+        (other.runtimeType == runtimeType &&
+            other is _OrderBook &&
+            const DeepCollectionEquality().equals(other.asks, asks) &&
+            const DeepCollectionEquality().equals(other.bids, bids) &&
+            const DeepCollectionEquality().equals(other.seqNum, seqNum));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(asks) ^
-      const DeepCollectionEquality().hash(bids) ^
-      const DeepCollectionEquality().hash(seqNum);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(asks),
+      const DeepCollectionEquality().hash(bids),
+      const DeepCollectionEquality().hash(seqNum));
 
   @JsonKey(ignore: true)
   @override
@@ -165,11 +164,11 @@ abstract class _OrderBook implements OrderBook {
       _$_OrderBook;
 
   @override
-  List<Price> get asks => throw _privateConstructorUsedError;
+  List<Price> get asks;
   @override
-  List<Price> get bids => throw _privateConstructorUsedError;
+  List<Price> get bids;
   @override
-  int get seqNum => throw _privateConstructorUsedError;
+  int get seqNum;
   @override
   @JsonKey(ignore: true)
   _$OrderBookCopyWith<_OrderBook> get copyWith =>

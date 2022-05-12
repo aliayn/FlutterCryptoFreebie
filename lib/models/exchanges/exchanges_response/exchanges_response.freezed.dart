@@ -1,5 +1,6 @@
+// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'exchanges_response.dart';
 
@@ -26,7 +27,7 @@ class _$ExchangesResponseTearOff {
     );
   }
 
-  ExchangesResponse fromJson(Map<String, Object> json) {
+  ExchangesResponse fromJson(Map<String, Object?> json) {
     return ExchangesResponse.fromJson(json);
   }
 }
@@ -114,7 +115,7 @@ class _$_ExchangesResponse implements _ExchangesResponse {
   const _$_ExchangesResponse({required this.result});
 
   factory _$_ExchangesResponse.fromJson(Map<String, dynamic> json) =>
-      _$_$_ExchangesResponseFromJson(json);
+      _$$_ExchangesResponseFromJson(json);
 
   @override
   final List<Exchange> result;
@@ -127,14 +128,14 @@ class _$_ExchangesResponse implements _ExchangesResponse {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _ExchangesResponse &&
-            (identical(other.result, result) ||
-                const DeepCollectionEquality().equals(other.result, result)));
+        (other.runtimeType == runtimeType &&
+            other is _ExchangesResponse &&
+            const DeepCollectionEquality().equals(other.result, result));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(result);
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(result));
 
   @JsonKey(ignore: true)
   @override
@@ -143,7 +144,7 @@ class _$_ExchangesResponse implements _ExchangesResponse {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$_$_ExchangesResponseToJson(this);
+    return _$$_ExchangesResponseToJson(this);
   }
 }
 
@@ -155,7 +156,7 @@ abstract class _ExchangesResponse implements ExchangesResponse {
       _$_ExchangesResponse.fromJson;
 
   @override
-  List<Exchange> get result => throw _privateConstructorUsedError;
+  List<Exchange> get result;
   @override
   @JsonKey(ignore: true)
   _$ExchangesResponseCopyWith<_ExchangesResponse> get copyWith =>

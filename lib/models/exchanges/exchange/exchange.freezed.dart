@@ -1,5 +1,6 @@
+// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'exchange.dart';
 
@@ -35,7 +36,7 @@ class _$ExchangeTearOff {
     );
   }
 
-  Exchange fromJson(Map<String, Object> json) {
+  Exchange fromJson(Map<String, Object?> json) {
     return Exchange.fromJson(json);
   }
 }
@@ -166,7 +167,7 @@ class _$_Exchange implements _Exchange {
       required this.active});
 
   factory _$_Exchange.fromJson(Map<String, dynamic> json) =>
-      _$_$_ExchangeFromJson(json);
+      _$$_ExchangeFromJson(json);
 
   @override
   final int id;
@@ -187,27 +188,23 @@ class _$_Exchange implements _Exchange {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _Exchange &&
-            (identical(other.id, id) ||
-                const DeepCollectionEquality().equals(other.id, id)) &&
-            (identical(other.symbol, symbol) ||
-                const DeepCollectionEquality().equals(other.symbol, symbol)) &&
-            (identical(other.name, name) ||
-                const DeepCollectionEquality().equals(other.name, name)) &&
-            (identical(other.route, route) ||
-                const DeepCollectionEquality().equals(other.route, route)) &&
-            (identical(other.active, active) ||
-                const DeepCollectionEquality().equals(other.active, active)));
+        (other.runtimeType == runtimeType &&
+            other is _Exchange &&
+            const DeepCollectionEquality().equals(other.id, id) &&
+            const DeepCollectionEquality().equals(other.symbol, symbol) &&
+            const DeepCollectionEquality().equals(other.name, name) &&
+            const DeepCollectionEquality().equals(other.route, route) &&
+            const DeepCollectionEquality().equals(other.active, active));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(id) ^
-      const DeepCollectionEquality().hash(symbol) ^
-      const DeepCollectionEquality().hash(name) ^
-      const DeepCollectionEquality().hash(route) ^
-      const DeepCollectionEquality().hash(active);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(id),
+      const DeepCollectionEquality().hash(symbol),
+      const DeepCollectionEquality().hash(name),
+      const DeepCollectionEquality().hash(route),
+      const DeepCollectionEquality().hash(active));
 
   @JsonKey(ignore: true)
   @override
@@ -216,7 +213,7 @@ class _$_Exchange implements _Exchange {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$_$_ExchangeToJson(this);
+    return _$$_ExchangeToJson(this);
   }
 }
 
@@ -231,15 +228,15 @@ abstract class _Exchange implements Exchange {
   factory _Exchange.fromJson(Map<String, dynamic> json) = _$_Exchange.fromJson;
 
   @override
-  int get id => throw _privateConstructorUsedError;
+  int get id;
   @override
-  String get symbol => throw _privateConstructorUsedError;
+  String get symbol;
   @override
-  String get name => throw _privateConstructorUsedError;
+  String get name;
   @override
-  String get route => throw _privateConstructorUsedError;
+  String get route;
   @override
-  bool get active => throw _privateConstructorUsedError;
+  bool get active;
   @override
   @JsonKey(ignore: true)
   _$ExchangeCopyWith<_Exchange> get copyWith =>

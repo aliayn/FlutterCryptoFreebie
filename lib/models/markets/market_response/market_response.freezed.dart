@@ -1,5 +1,6 @@
+// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'market_response.dart';
 
@@ -28,7 +29,7 @@ class _$MarketResponseTearOff {
     );
   }
 
-  MarketResponse fromJson(Map<String, Object> json) {
+  MarketResponse fromJson(Map<String, Object?> json) {
     return MarketResponse.fromJson(json);
   }
 }
@@ -139,7 +140,7 @@ class _$_MarketResponse implements _MarketResponse {
   const _$_MarketResponse({required this.result, required this.allowance});
 
   factory _$_MarketResponse.fromJson(Map<String, dynamic> json) =>
-      _$_$_MarketResponseFromJson(json);
+      _$$_MarketResponseFromJson(json);
 
   @override
   final List<Pair> result;
@@ -154,19 +155,17 @@ class _$_MarketResponse implements _MarketResponse {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _MarketResponse &&
-            (identical(other.result, result) ||
-                const DeepCollectionEquality().equals(other.result, result)) &&
-            (identical(other.allowance, allowance) ||
-                const DeepCollectionEquality()
-                    .equals(other.allowance, allowance)));
+        (other.runtimeType == runtimeType &&
+            other is _MarketResponse &&
+            const DeepCollectionEquality().equals(other.result, result) &&
+            const DeepCollectionEquality().equals(other.allowance, allowance));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(result) ^
-      const DeepCollectionEquality().hash(allowance);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(result),
+      const DeepCollectionEquality().hash(allowance));
 
   @JsonKey(ignore: true)
   @override
@@ -175,7 +174,7 @@ class _$_MarketResponse implements _MarketResponse {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$_$_MarketResponseToJson(this);
+    return _$$_MarketResponseToJson(this);
   }
 }
 
@@ -188,9 +187,9 @@ abstract class _MarketResponse implements MarketResponse {
       _$_MarketResponse.fromJson;
 
   @override
-  List<Pair> get result => throw _privateConstructorUsedError;
+  List<Pair> get result;
   @override
-  Allowance get allowance => throw _privateConstructorUsedError;
+  Allowance get allowance;
   @override
   @JsonKey(ignore: true)
   _$MarketResponseCopyWith<_MarketResponse> get copyWith =>

@@ -1,5 +1,6 @@
+// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'pair_graph.dart';
 
@@ -124,18 +125,17 @@ class _$_PairGraph implements _PairGraph {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _PairGraph &&
-            (identical(other.period, period) ||
-                const DeepCollectionEquality().equals(other.period, period)) &&
-            (identical(other.points, points) ||
-                const DeepCollectionEquality().equals(other.points, points)));
+        (other.runtimeType == runtimeType &&
+            other is _PairGraph &&
+            const DeepCollectionEquality().equals(other.period, period) &&
+            const DeepCollectionEquality().equals(other.points, points));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(period) ^
-      const DeepCollectionEquality().hash(points);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(period),
+      const DeepCollectionEquality().hash(points));
 
   @JsonKey(ignore: true)
   @override
@@ -148,9 +148,9 @@ abstract class _PairGraph implements PairGraph {
       {required String period, required List<Points> points}) = _$_PairGraph;
 
   @override
-  String get period => throw _privateConstructorUsedError;
+  String get period;
   @override
-  List<Points> get points => throw _privateConstructorUsedError;
+  List<Points> get points;
   @override
   @JsonKey(ignore: true)
   _$PairGraphCopyWith<_PairGraph> get copyWith =>

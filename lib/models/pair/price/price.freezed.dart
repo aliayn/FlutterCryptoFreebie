@@ -1,5 +1,6 @@
+// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'price.dart';
 
@@ -33,7 +34,7 @@ class _$PriceTearOff {
     );
   }
 
-  Price fromJson(Map<String, Object> json) {
+  Price fromJson(Map<String, Object?> json) {
     return Price.fromJson(json);
   }
 }
@@ -163,7 +164,7 @@ class _$_Price implements _Price {
       required this.change});
 
   factory _$_Price.fromJson(Map<String, dynamic> json) =>
-      _$_$_PriceFromJson(json);
+      _$$_PriceFromJson(json);
 
   @override
   final double last;
@@ -182,24 +183,21 @@ class _$_Price implements _Price {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _Price &&
-            (identical(other.last, last) ||
-                const DeepCollectionEquality().equals(other.last, last)) &&
-            (identical(other.high, high) ||
-                const DeepCollectionEquality().equals(other.high, high)) &&
-            (identical(other.low, low) ||
-                const DeepCollectionEquality().equals(other.low, low)) &&
-            (identical(other.change, change) ||
-                const DeepCollectionEquality().equals(other.change, change)));
+        (other.runtimeType == runtimeType &&
+            other is _Price &&
+            const DeepCollectionEquality().equals(other.last, last) &&
+            const DeepCollectionEquality().equals(other.high, high) &&
+            const DeepCollectionEquality().equals(other.low, low) &&
+            const DeepCollectionEquality().equals(other.change, change));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(last) ^
-      const DeepCollectionEquality().hash(high) ^
-      const DeepCollectionEquality().hash(low) ^
-      const DeepCollectionEquality().hash(change);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(last),
+      const DeepCollectionEquality().hash(high),
+      const DeepCollectionEquality().hash(low),
+      const DeepCollectionEquality().hash(change));
 
   @JsonKey(ignore: true)
   @override
@@ -208,7 +206,7 @@ class _$_Price implements _Price {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$_$_PriceToJson(this);
+    return _$$_PriceToJson(this);
   }
 }
 
@@ -222,13 +220,13 @@ abstract class _Price implements Price {
   factory _Price.fromJson(Map<String, dynamic> json) = _$_Price.fromJson;
 
   @override
-  double get last => throw _privateConstructorUsedError;
+  double get last;
   @override
-  double get high => throw _privateConstructorUsedError;
+  double get high;
   @override
-  double get low => throw _privateConstructorUsedError;
+  double get low;
   @override
-  Change get change => throw _privateConstructorUsedError;
+  Change get change;
   @override
   @JsonKey(ignore: true)
   _$PriceCopyWith<_Price> get copyWith => throw _privateConstructorUsedError;

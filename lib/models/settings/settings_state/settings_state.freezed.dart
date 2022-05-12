@@ -1,5 +1,6 @@
+// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'settings_state.dart';
 
@@ -24,8 +25,8 @@ class _$SettingsStateTearOff {
     return const _SettingsStateLoading();
   }
 
-  _SettingsStateData data({required SettingsDetails details}) {
-    return _SettingsStateData(
+  _$_SettingsStateData data({required SettingsDetails details}) {
+    return _$_SettingsStateData(
       details: details,
     );
   }
@@ -51,6 +52,14 @@ mixin _$SettingsState {
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(SettingsDetails details)? data,
+    TResult Function(String? error)? error,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
   TResult maybeWhen<TResult extends Object?>({
     TResult Function()? initial,
     TResult Function()? loading,
@@ -63,15 +72,23 @@ mixin _$SettingsState {
   TResult map<TResult extends Object?>({
     required TResult Function(_SettingsStateInitial value) initial,
     required TResult Function(_SettingsStateLoading value) loading,
-    required TResult Function(_SettingsStateData value) data,
+    required TResult Function(_$_SettingsStateData value) data,
     required TResult Function(_SettingsStateError value) error,
+  }) =>
+      throw _privateConstructorUsedError;
+  @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_SettingsStateInitial value)? initial,
+    TResult Function(_SettingsStateLoading value)? loading,
+    TResult Function(_$_SettingsStateData value)? data,
+    TResult Function(_SettingsStateError value)? error,
   }) =>
       throw _privateConstructorUsedError;
   @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_SettingsStateInitial value)? initial,
     TResult Function(_SettingsStateLoading value)? loading,
-    TResult Function(_SettingsStateData value)? data,
+    TResult Function(_$_SettingsStateData value)? data,
     TResult Function(_SettingsStateError value)? error,
     required TResult orElse(),
   }) =>
@@ -126,7 +143,8 @@ class _$_SettingsStateInitial implements _SettingsStateInitial {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is _SettingsStateInitial);
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _SettingsStateInitial);
   }
 
   @override
@@ -141,6 +159,17 @@ class _$_SettingsStateInitial implements _SettingsStateInitial {
     required TResult Function(String? error) error,
   }) {
     return initial();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(SettingsDetails details)? data,
+    TResult Function(String? error)? error,
+  }) {
+    return initial?.call();
   }
 
   @override
@@ -163,7 +192,7 @@ class _$_SettingsStateInitial implements _SettingsStateInitial {
   TResult map<TResult extends Object?>({
     required TResult Function(_SettingsStateInitial value) initial,
     required TResult Function(_SettingsStateLoading value) loading,
-    required TResult Function(_SettingsStateData value) data,
+    required TResult Function(_$_SettingsStateData value) data,
     required TResult Function(_SettingsStateError value) error,
   }) {
     return initial(this);
@@ -171,10 +200,21 @@ class _$_SettingsStateInitial implements _SettingsStateInitial {
 
   @override
   @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_SettingsStateInitial value)? initial,
+    TResult Function(_SettingsStateLoading value)? loading,
+    TResult Function(_$_SettingsStateData value)? data,
+    TResult Function(_SettingsStateError value)? error,
+  }) {
+    return initial?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_SettingsStateInitial value)? initial,
     TResult Function(_SettingsStateLoading value)? loading,
-    TResult Function(_SettingsStateData value)? data,
+    TResult Function(_$_SettingsStateData value)? data,
     TResult Function(_SettingsStateError value)? error,
     required TResult orElse(),
   }) {
@@ -220,7 +260,8 @@ class _$_SettingsStateLoading implements _SettingsStateLoading {
 
   @override
   bool operator ==(dynamic other) {
-    return identical(this, other) || (other is _SettingsStateLoading);
+    return identical(this, other) ||
+        (other.runtimeType == runtimeType && other is _SettingsStateLoading);
   }
 
   @override
@@ -235,6 +276,17 @@ class _$_SettingsStateLoading implements _SettingsStateLoading {
     required TResult Function(String? error) error,
   }) {
     return loading();
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(SettingsDetails details)? data,
+    TResult Function(String? error)? error,
+  }) {
+    return loading?.call();
   }
 
   @override
@@ -257,7 +309,7 @@ class _$_SettingsStateLoading implements _SettingsStateLoading {
   TResult map<TResult extends Object?>({
     required TResult Function(_SettingsStateInitial value) initial,
     required TResult Function(_SettingsStateLoading value) loading,
-    required TResult Function(_SettingsStateData value) data,
+    required TResult Function(_$_SettingsStateData value) data,
     required TResult Function(_SettingsStateError value) error,
   }) {
     return loading(this);
@@ -265,10 +317,21 @@ class _$_SettingsStateLoading implements _SettingsStateLoading {
 
   @override
   @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_SettingsStateInitial value)? initial,
+    TResult Function(_SettingsStateLoading value)? loading,
+    TResult Function(_$_SettingsStateData value)? data,
+    TResult Function(_SettingsStateError value)? error,
+  }) {
+    return loading?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_SettingsStateInitial value)? initial,
     TResult Function(_SettingsStateLoading value)? loading,
-    TResult Function(_SettingsStateData value)? data,
+    TResult Function(_$_SettingsStateData value)? data,
     TResult Function(_SettingsStateError value)? error,
     required TResult orElse(),
   }) {
@@ -284,31 +347,31 @@ abstract class _SettingsStateLoading implements SettingsState {
 }
 
 /// @nodoc
-abstract class _$SetttingsStateDataCopyWith<$Res> {
-  factory _$SetttingsStateDataCopyWith(
-          _SettingsStateData value, $Res Function(_SettingsStateData) then) =
-      __$SetttingsStateDataCopyWithImpl<$Res>;
+abstract class _$$_SettingsStateDataCopyWith<$Res> {
+  factory _$$_SettingsStateDataCopyWith(_$_SettingsStateData value,
+          $Res Function(_$_SettingsStateData) then) =
+      __$$_SettingsStateDataCopyWithImpl<$Res>;
   $Res call({SettingsDetails details});
 
   $SettingsDetailsCopyWith<$Res> get details;
 }
 
 /// @nodoc
-class __$SetttingsStateDataCopyWithImpl<$Res>
+class __$$_SettingsStateDataCopyWithImpl<$Res>
     extends _$SettingsStateCopyWithImpl<$Res>
-    implements _$SetttingsStateDataCopyWith<$Res> {
-  __$SetttingsStateDataCopyWithImpl(
-      _SettingsStateData _value, $Res Function(_SettingsStateData) _then)
-      : super(_value, (v) => _then(v as _SettingsStateData));
+    implements _$$_SettingsStateDataCopyWith<$Res> {
+  __$$_SettingsStateDataCopyWithImpl(
+      _$_SettingsStateData _value, $Res Function(_$_SettingsStateData) _then)
+      : super(_value, (v) => _then(v as _$_SettingsStateData));
 
   @override
-  _SettingsStateData get _value => super._value as _SettingsStateData;
+  _$_SettingsStateData get _value => super._value as _$_SettingsStateData;
 
   @override
   $Res call({
     Object? details = freezed,
   }) {
-    return _then(_SettingsStateData(
+    return _then(_$_SettingsStateData(
       details: details == freezed
           ? _value.details
           : details // ignore: cast_nullable_to_non_nullable
@@ -326,8 +389,8 @@ class __$SetttingsStateDataCopyWithImpl<$Res>
 
 /// @nodoc
 
-class _$_SettingsStateData implements _SettingsStateData {
-  const _$_SettingsStateData({required this.details});
+class _$_$_SettingsStateData implements _$_SettingsStateData {
+  const _$_$_SettingsStateData({required this.details});
 
   @override
   final SettingsDetails details;
@@ -340,19 +403,20 @@ class _$_SettingsStateData implements _SettingsStateData {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _SettingsStateData &&
-            (identical(other.details, details) ||
-                const DeepCollectionEquality().equals(other.details, details)));
+        (other.runtimeType == runtimeType &&
+            other is _$_SettingsStateData &&
+            const DeepCollectionEquality().equals(other.details, details));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(details);
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(details));
 
   @JsonKey(ignore: true)
   @override
-  _$SetttingsStateDataCopyWith<_SettingsStateData> get copyWith =>
-      __$SetttingsStateDataCopyWithImpl<_SettingsStateData>(this, _$identity);
+  _$$_SettingsStateDataCopyWith<_$_SettingsStateData> get copyWith =>
+      __$$_SettingsStateDataCopyWithImpl<_$_SettingsStateData>(
+          this, _$identity);
 
   @override
   @optionalTypeArgs
@@ -363,6 +427,17 @@ class _$_SettingsStateData implements _SettingsStateData {
     required TResult Function(String? error) error,
   }) {
     return data(details);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(SettingsDetails details)? data,
+    TResult Function(String? error)? error,
+  }) {
+    return data?.call(details);
   }
 
   @override
@@ -385,7 +460,7 @@ class _$_SettingsStateData implements _SettingsStateData {
   TResult map<TResult extends Object?>({
     required TResult Function(_SettingsStateInitial value) initial,
     required TResult Function(_SettingsStateLoading value) loading,
-    required TResult Function(_SettingsStateData value) data,
+    required TResult Function(_$_SettingsStateData value) data,
     required TResult Function(_SettingsStateError value) error,
   }) {
     return data(this);
@@ -393,10 +468,21 @@ class _$_SettingsStateData implements _SettingsStateData {
 
   @override
   @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_SettingsStateInitial value)? initial,
+    TResult Function(_SettingsStateLoading value)? loading,
+    TResult Function(_$_SettingsStateData value)? data,
+    TResult Function(_SettingsStateError value)? error,
+  }) {
+    return data?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_SettingsStateInitial value)? initial,
     TResult Function(_SettingsStateLoading value)? loading,
-    TResult Function(_SettingsStateData value)? data,
+    TResult Function(_$_SettingsStateData value)? data,
     TResult Function(_SettingsStateError value)? error,
     required TResult orElse(),
   }) {
@@ -407,13 +493,13 @@ class _$_SettingsStateData implements _SettingsStateData {
   }
 }
 
-abstract class _SettingsStateData implements SettingsState {
-  const factory _SettingsStateData({required SettingsDetails details}) =
-      _$_SettingsStateData;
+abstract class _$_SettingsStateData implements SettingsState {
+  const factory _$_SettingsStateData({required SettingsDetails details}) =
+      _$_$_SettingsStateData;
 
-  SettingsDetails get details => throw _privateConstructorUsedError;
+  SettingsDetails get details;
   @JsonKey(ignore: true)
-  _$SetttingsStateDataCopyWith<_SettingsStateData> get copyWith =>
+  _$$_SettingsStateDataCopyWith<_$_SettingsStateData> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
@@ -465,14 +551,14 @@ class _$_SettingsStateError implements _SettingsStateError {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _SettingsStateError &&
-            (identical(other.error, error) ||
-                const DeepCollectionEquality().equals(other.error, error)));
+        (other.runtimeType == runtimeType &&
+            other is _SettingsStateError &&
+            const DeepCollectionEquality().equals(other.error, error));
   }
 
   @override
   int get hashCode =>
-      runtimeType.hashCode ^ const DeepCollectionEquality().hash(error);
+      Object.hash(runtimeType, const DeepCollectionEquality().hash(error));
 
   @JsonKey(ignore: true)
   @override
@@ -488,6 +574,17 @@ class _$_SettingsStateError implements _SettingsStateError {
     required TResult Function(String? error) error,
   }) {
     return error(this.error);
+  }
+
+  @override
+  @optionalTypeArgs
+  TResult? whenOrNull<TResult extends Object?>({
+    TResult Function()? initial,
+    TResult Function()? loading,
+    TResult Function(SettingsDetails details)? data,
+    TResult Function(String? error)? error,
+  }) {
+    return error?.call(this.error);
   }
 
   @override
@@ -510,7 +607,7 @@ class _$_SettingsStateError implements _SettingsStateError {
   TResult map<TResult extends Object?>({
     required TResult Function(_SettingsStateInitial value) initial,
     required TResult Function(_SettingsStateLoading value) loading,
-    required TResult Function(_SettingsStateData value) data,
+    required TResult Function(_$_SettingsStateData value) data,
     required TResult Function(_SettingsStateError value) error,
   }) {
     return error(this);
@@ -518,10 +615,21 @@ class _$_SettingsStateError implements _SettingsStateError {
 
   @override
   @optionalTypeArgs
+  TResult? mapOrNull<TResult extends Object?>({
+    TResult Function(_SettingsStateInitial value)? initial,
+    TResult Function(_SettingsStateLoading value)? loading,
+    TResult Function(_$_SettingsStateData value)? data,
+    TResult Function(_SettingsStateError value)? error,
+  }) {
+    return error?.call(this);
+  }
+
+  @override
+  @optionalTypeArgs
   TResult maybeMap<TResult extends Object?>({
     TResult Function(_SettingsStateInitial value)? initial,
     TResult Function(_SettingsStateLoading value)? loading,
-    TResult Function(_SettingsStateData value)? data,
+    TResult Function(_$_SettingsStateData value)? data,
     TResult Function(_SettingsStateError value)? error,
     required TResult orElse(),
   }) {
@@ -535,7 +643,7 @@ class _$_SettingsStateError implements _SettingsStateError {
 abstract class _SettingsStateError implements SettingsState {
   const factory _SettingsStateError({String? error}) = _$_SettingsStateError;
 
-  String? get error => throw _privateConstructorUsedError;
+  String? get error;
   @JsonKey(ignore: true)
   _$SettingsStateErrorCopyWith<_SettingsStateError> get copyWith =>
       throw _privateConstructorUsedError;

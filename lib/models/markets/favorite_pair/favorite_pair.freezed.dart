@@ -1,5 +1,6 @@
+// coverage:ignore-file
 // GENERATED CODE - DO NOT MODIFY BY HAND
-// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides
+// ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target
 
 part of 'favorite_pair.dart';
 
@@ -27,7 +28,7 @@ class _$FavoritePairTearOff {
     );
   }
 
-  FavoritePair fromJson(Map<String, Object> json) {
+  FavoritePair fromJson(Map<String, Object?> json) {
     return FavoritePair.fromJson(json);
   }
 }
@@ -146,7 +147,7 @@ class _$_FavoritePair implements _FavoritePair {
   const _$_FavoritePair({required this.pair, required this.pairSummary});
 
   factory _$_FavoritePair.fromJson(Map<String, dynamic> json) =>
-      _$_$_FavoritePairFromJson(json);
+      _$$_FavoritePairFromJson(json);
 
   @override
   final Pair pair;
@@ -161,19 +162,18 @@ class _$_FavoritePair implements _FavoritePair {
   @override
   bool operator ==(dynamic other) {
     return identical(this, other) ||
-        (other is _FavoritePair &&
-            (identical(other.pair, pair) ||
-                const DeepCollectionEquality().equals(other.pair, pair)) &&
-            (identical(other.pairSummary, pairSummary) ||
-                const DeepCollectionEquality()
-                    .equals(other.pairSummary, pairSummary)));
+        (other.runtimeType == runtimeType &&
+            other is _FavoritePair &&
+            const DeepCollectionEquality().equals(other.pair, pair) &&
+            const DeepCollectionEquality()
+                .equals(other.pairSummary, pairSummary));
   }
 
   @override
-  int get hashCode =>
-      runtimeType.hashCode ^
-      const DeepCollectionEquality().hash(pair) ^
-      const DeepCollectionEquality().hash(pairSummary);
+  int get hashCode => Object.hash(
+      runtimeType,
+      const DeepCollectionEquality().hash(pair),
+      const DeepCollectionEquality().hash(pairSummary));
 
   @JsonKey(ignore: true)
   @override
@@ -182,7 +182,7 @@ class _$_FavoritePair implements _FavoritePair {
 
   @override
   Map<String, dynamic> toJson() {
-    return _$_$_FavoritePairToJson(this);
+    return _$$_FavoritePairToJson(this);
   }
 }
 
@@ -194,9 +194,9 @@ abstract class _FavoritePair implements FavoritePair {
       _$_FavoritePair.fromJson;
 
   @override
-  Pair get pair => throw _privateConstructorUsedError;
+  Pair get pair;
   @override
-  PairSummary get pairSummary => throw _privateConstructorUsedError;
+  PairSummary get pairSummary;
   @override
   @JsonKey(ignore: true)
   _$FavoritePairCopyWith<_FavoritePair> get copyWith =>
