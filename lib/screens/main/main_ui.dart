@@ -5,7 +5,7 @@ import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../controllers/main/main_controller.dart';
-import '../../generated/locale_keys.g.dart';
+import '../../locale/locale_keys.dart';
 import '../home/home_page.dart';
 import '../settings/settings_page.dart';
 

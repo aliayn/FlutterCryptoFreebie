@@ -1,5 +1,5 @@
 import 'package:dio/dio.dart';
-import '../../generated/locale_keys.g.dart';
+import '../locale/locale_keys.dart';
 
 class DataException implements Exception {
   DataException({required this.message});
@@ -36,7 +36,7 @@ class DataException implements Exception {
       case 404:
         return LocaleKeys.errorRequestNotFound;
       case 500:
-        return LocaleKeys.errorIntenalServer;
+        return LocaleKeys.errorInternalServer;
       default:
         return LocaleKeys.errorSomethingWentWrong;
     }
