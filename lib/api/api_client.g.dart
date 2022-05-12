@@ -75,7 +75,7 @@ class _ApiClient implements ApiClient {
                     data: _data,
                     cancelToken: cancelToken)
                 .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
-   try {
+    try {
       return OrderBookResponse.fromJson(_result.data!).result;
     } on DioError catch (error) {
       throw DataException.fromDioError(error);
@@ -84,7 +84,7 @@ class _ApiClient implements ApiClient {
 
   @override
   Future<Graph> getPairGraph(market, pair,
-      {periods = "", after = "", before = "", cancelToken}) async {
+      [periods = "", after = "", before = "", cancelToken]) async {
     const _extra = <String, dynamic>{};
     final queryParameters = <String, dynamic>{};
     queryParameters.removeWhere((k, v) => v == null);
@@ -112,14 +112,13 @@ class _ApiClient implements ApiClient {
     queryParameters.removeWhere((k, v) => v == null);
     final _headers = <String, dynamic>{};
     final _data = <String, dynamic>{};
-    final _result = await _dio.fetch(
-        _setStreamType<List<Exchange>>(
-            Options(method: 'GET', headers: _headers, extra: _extra)
-                .compose(_dio.options, '/exchanges',
-                    queryParameters: queryParameters,
-                    data: _data,
-                    cancelToken: cancelToken)
-                .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
+    final _result = await _dio.fetch(_setStreamType<List<Exchange>>(
+        Options(method: 'GET', headers: _headers, extra: _extra)
+            .compose(_dio.options, '/exchanges',
+                queryParameters: queryParameters,
+                data: _data,
+                cancelToken: cancelToken)
+            .copyWith(baseUrl: baseUrl ?? _dio.options.baseUrl)));
     try {
       return ExchangesResponse.fromJson(_result.data!).result;
     } on DioError catch (error) {

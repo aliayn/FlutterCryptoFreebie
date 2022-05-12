@@ -49,10 +49,10 @@ abstract class ApiClient {
   @GET(_Apis.pairsGraph)
   Future<Graph> getPairGraph(
       @Path('market') String market, @Path('pair') String pair,
-      {String periods = "",
+      [String periods = "",
       String after = "",
       String before = "",
-      @CancelRequest() CancelToken? cancelToken});
+      @CancelRequest() CancelToken? cancelToken]);
 
   @GET(_Apis.exchanges)
   Future<List<Exchange>> getExchanges(

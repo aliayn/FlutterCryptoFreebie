@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 import 'package:get_storage/get_storage.dart';
 
 class Storage {
@@ -6,7 +7,6 @@ class Storage {
 
   final _box = GetStorage();
 
-  final String _defaultLanguage = "English";
   final String _defaultLocale = "en";
   final String _defaultExchange = "binance";
   final String _defaultPair = "btcusdt";
@@ -21,11 +21,14 @@ class Storage {
 
   getPair() => _box.read(_pairKey) ?? _defaultPair;
 
-  setLanguage(value) => _box.write(_languageKey, value);
+  setLanguage(value) {
+    Get.updateLocale(value);
+    return _box.write(_languageKey, value);
+  }
 
-  getLanguage() => _box.read(_languageKey) ?? _defaultLanguage;
+  String getLanguage() => _box.read(_languageKey) ?? _defaultLocale;
 
-  getDefaultLocale() => Locale(_box.read(_languageKey) ?? _defaultLocale);
+  getDefaultLocale() => Locale(getLanguage());
 
   setExchange(value) => _box.write(_exchangeKey, value);
 

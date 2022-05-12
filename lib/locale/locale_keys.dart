@@ -10,6 +10,8 @@ abstract class  LocaleKeys {
   static const dataSection = 'dataSection';
   static const exchange = 'exchange';
   static const topPair = 'topPair';
+  static const dark = 'dark';
+  static const light = 'light';
   static const designSection = 'designSection';
   static const appTheme = 'appTheme';
   static const spanish = 'spanish';
