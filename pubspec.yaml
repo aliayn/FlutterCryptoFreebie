@@ -23,7 +23,6 @@ dependencies:
   auto_size_text: ^3.0.0
   floor: ^1.2.0
   sqflite: ^2.0.2
-  flutter_secure_storage: ^5.0.2
   freezed_annotation:
   dio: ^4.0.4
   retrofit: 
