@@ -1,5 +1,7 @@
 import 'package:crypto_freebie/routes/routes.dart';
 import 'package:crypto_freebie/services/app_service.dart';
+import 'package:crypto_freebie/theme/theme_config.dart';
+import 'package:crypto_freebie/theme/theme_service.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';
@@ -16,9 +18,12 @@ class MyApp extends GetView {
   @override
   Widget build(BuildContext context) => Sizer(
         builder: ((context, orientation, deviceType) => GetMaterialApp(
-              debugShowCheckedModeBanner: false,
+              debugShowCheckedModeBanner: true,
               getPages: AppPages.routes,
               initialRoute: AppPages.initial,
+              theme: lightTheme(context),
+              darkTheme: darkTheme(context),
+              themeMode: ThemeService.instance.theme,
             )),
       );
 }
