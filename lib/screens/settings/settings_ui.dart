@@ -1,11 +1,11 @@
 import 'package:crypto_freebie/controllers/settings/settings_controller.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:get/get.dart';
 import 'package:settings_ui/settings_ui.dart';
+import 'package:sizer/sizer.dart';
 
 import '../../locale/locale_keys.dart';
-import '../../utils/const.dart';
 import '../../utils/keys.dart';
 
 Widget settingsUI() => _buildBody();
@@ -27,43 +27,55 @@ _buildBody() => GetX<SettingsController>(
                 contentPadding: EdgeInsets.zero,
                 sections: [
                   SettingsSection(
-                    title: Text(LocaleKeys.languageSection.tr),
+                    title: LocaleKeys.languageSection.tr,
                     tiles: [
                       SettingsTile(
-                          title: Text(LocaleKeys.language.tr),
-                          description: Text(controller.language.value.tr),
-                          leading: const FaIcon(FontAwesomeIcons.globe),
+                          title: LocaleKeys.language.tr,
+                          subtitle: controller.language.value.tr,
+                          leading: const Icon(
+                            CupertinoIcons.globe,
+                            size: 24,
+                          ),
                           onPressed: (context) =>
                               showLanguageSelectionDialog(controller, context)),
                     ],
                   ),
                   SettingsSection(
-                    title: Text(LocaleKeys.dataSection.tr),
+                    title: LocaleKeys.dataSection.tr,
                     tiles: [
                       SettingsTile(
-                        title: Text(LocaleKeys.exchange.tr),
-                        description: Text(controller.exchange.value),
-                        leading: const FaIcon(FontAwesomeIcons.cashRegister),
-                        onPressed: (BuildContext context) =>
+                        title: LocaleKeys.exchange.tr,
+                        subtitle: controller.exchange.value,
+                        leading: const Icon(
+                          CupertinoIcons.arrow_2_circlepath,
+                          size: 24,
+                        ),
+                        onPressed: (context) =>
                             showExchangeSelectDialog(controller, context),
                       ),
                       SettingsTile(
-                          title: Text(LocaleKeys.topPair.tr),
-                          description: Text(controller.pair.value.tr),
-                          leading: const FaIcon(FontAwesomeIcons.dollarSign),
+                          title: LocaleKeys.topPair.tr,
+                          subtitle: controller.pair.value.tr,
+                          leading: const Icon(
+                            CupertinoIcons.bitcoin,
+                            size: 24,
+                          ),
                           onPressed: (BuildContext context) =>
                               showTopPairSelectDialog(controller, context)),
                     ],
                   ),
                   SettingsSection(
-                    title: Text(LocaleKeys.designSection.tr),
+                    title: LocaleKeys.designSection.tr,
                     tiles: [
                       SettingsTile(
-                        title: Text(LocaleKeys.appTheme.tr),
-                        description: Text(controller.themeMode.value
+                        title: LocaleKeys.appTheme.tr,
+                        subtitle: controller.themeMode.value
                             ? LocaleKeys.dark.tr
-                            : LocaleKeys.light.tr),
-                        leading: const FaIcon(FontAwesomeIcons.moon),
+                            : LocaleKeys.light.tr,
+                        leading: const Icon(
+                          CupertinoIcons.moon,
+                          size: 24,
+                        ),
                         onPressed: (BuildContext context) =>
                             showThemeSelectDialog(controller, context),
                       ),
@@ -77,136 +89,140 @@ _buildBody() => GetX<SettingsController>(
       );
     }));
 
-void showLanguageSelectionDialog(SettingsController controller, context) {
-  showDialog(
-    context: context,
-    builder: (_) => AlertDialog(
-      title: Text(LocaleKeys.language.tr),
-      content: SizedBox(
-        height: 100,
-        child: Column(
-          children: [
-            Row(
+void showLanguageSelectionDialog(SettingsController controller, context) =>
+    Get.defaultDialog(
+        title: LocaleKeys.language.tr,
+        content: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
-                Radio<String>(
-                  value: controller.language.value,
-                  groupValue: LocaleKeys.english,
-                  onChanged: (value) async {
+                ListTile(
+                  leading: const Icon(CupertinoIcons.flag),
+                  title: Text(LocaleKeys.english.tr,
+                      style: TextStyle(fontSize: 14.sp)),
+                  onTap: () {
                     controller.setLanguage('en');
                     Navigator.pop(context);
                   },
                 ),
-                Text(
-                  LocaleKeys.english.tr,
-                  style: const TextStyle(fontSize: 18),
-                )
-              ],
-            ),
-            Row(
-              children: [
-                Radio<String>(
-                  value: controller.language.value,
-                  groupValue: LocaleKeys.spanish,
-                  onChanged: (value) async {
+                ListTile(
+                  leading: const Icon(CupertinoIcons.flag_fill),
+                  title: Text(LocaleKeys.spanish.tr,
+                      style: TextStyle(fontSize: 14.sp)),
+                  onTap: () {
                     controller.setLanguage('es');
                     Navigator.pop(context);
                   },
-                ),
-                Text(
-                  LocaleKeys.spanish.tr,
-                  style: const TextStyle(fontSize: 18),
-                ),
+                )
               ],
             ),
-          ],
-        ),
-      ),
-    ),
-  );
-}
+          ),
+        ));
 
-showExchangeSelectDialog(SettingsController controller, context) => showDialog(
-    context: context,
-    builder: (context) => AlertDialog(
-          content: SizedBox(
-            height: 300,
-            width: 200,
-            child: ListView.builder(
-              itemCount: controller.exchanges.length,
+showExchangeSelectDialog(SettingsController controller, context) =>
+    Get.bottomSheet(
+      Container(
+        color: Theme.of(context).backgroundColor,
+        child: controller.exchanges.isNotEmpty
+            ? ListView.builder(
+                itemCount: controller.exchanges.length,
+                itemBuilder: (context, index) => GestureDetector(
+                  onTap: () {
+                    controller.setExchange(controller.exchanges[index].symbol);
+                    Get.back();
+                  },
+                  child: Center(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(
+                              controller.exchanges[index].name,
+                              style: TextStyle(fontSize: 14.sp),
+                            ),
+                          ),
+                          const Divider()
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              )
+            : Center(
+                child: Text(
+                LocaleKeys.errorSomethingWentWrong.tr,
+                style: TextStyle(fontSize: 18.sp),
+              )),
+      ),
+    );
+
+showTopPairSelectDialog(SettingsController controller, context) =>
+    Get.bottomSheet(Container(
+      color: Theme.of(context).backgroundColor,
+      child: controller.pairs.isNotEmpty
+          ? ListView.builder(
+              itemCount: controller.pairs.length,
               itemBuilder: (context, index) => GestureDetector(
                 onTap: () {
-                  controller.setExchange(controller.exchanges[index].symbol);
-                  Navigator.pop(context);
+                  controller.setPair(controller.pairs[index].pair);
+                  Get.back();
                 },
-                child: Container(
-                  padding: const EdgeInsets.symmetric(vertical: 3),
-                  child: Text(
-                    controller.exchanges[index].name,
-                    style: const TextStyle(fontSize: 18),
+                child: Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Column(
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.all(8.0),
+                          child: Text(controller.pairs[index].pair,
+                              style: TextStyle(fontSize: 14.sp)),
+                        ),
+                        const Divider()
+                      ],
+                    ),
                   ),
                 ),
               ),
-            ),
-          ),
-        ));
+            )
+          : Center(
+              child: Text(
+              LocaleKeys.errorSomethingWentWrong.tr,
+              style: TextStyle(fontSize: 18.sp),
+            )),
+    ));
 
-showTopPairSelectDialog(SettingsController controller, context) => showDialog(
-    context: context,
-    builder: (context) => AlertDialog(
-          content: SizedBox(
-            height: 300,
-            width: 200,
-            child: ListView.builder(
-              itemCount: controller.pairs.length,
-              itemBuilder: (context, index) => Row(
-                children: [
-                  GestureDetector(
-                    onTap: () {
-                      controller.setPair(controller.pairs[index].pair);
-                      Get.back();
-                      //Navigator.pop(context);
-                    },
-                    child: Container(
-                      padding: const EdgeInsets.symmetric(vertical: 3),
-                      child: Text(controller.pairs[index].pair,
-                          style: const TextStyle(fontSize: 18)),
-                    ),
-                  )
-                ],
-              ),
-            ),
-          ),
-        ));
-
-showThemeSelectDialog(SettingsController controller, context) => showDialog(
-    context: context,
-    builder: (context) => AlertDialog(
-          content: SizedBox(
-            height: 150,
+showThemeSelectDialog(SettingsController controller, context) =>
+    Get.defaultDialog(
+        title: LocaleKeys.appTheme.tr,
+        content: Center(
+          child: Padding(
+            padding: const EdgeInsets.all(8.0),
             child: Column(
-              children: themeModes
-                  .map((data) => GestureDetector(
-                        onTap: () {
-                          controller.switchTheme();
-                          Navigator.pop(context);
-                        },
-                        child: Row(
-                          children: [
-                            Radio<String>(
-                              onChanged: (value) {
-                                controller.switchTheme();
-                                Navigator.pop(context);
-                              },
-                              value: data,
-                              groupValue: controller.themeMode.value
-                                  ? LocaleKeys.dark.tr
-                                  : LocaleKeys.light.tr,
-                            ),
-                            Text(data, style: const TextStyle(fontSize: 18))
-                          ],
-                        ),
-                      ))
-                  .toList(),
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                ListTile(
+                  leading: const Icon(CupertinoIcons.lightbulb_fill),
+                  title: Text(LocaleKeys.light.tr),
+                  onTap: () {
+                    controller.switchTheme(false);
+                    Get.back();
+                  },
+                ),
+                ListTile(
+                  leading: const Icon(CupertinoIcons.lightbulb),
+                  title: Text(LocaleKeys.dark.tr),
+                  onTap: () {
+                    controller.switchTheme(true);
+                    Get.back();
+                  },
+                )
+              ],
             ),
           ),
         ));

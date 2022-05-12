@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:crypto_freebie/base/base_controller.dart';
 import 'package:crypto_freebie/database/storage.dart';
 import 'package:crypto_freebie/theme/theme_config.dart';
@@ -56,13 +58,15 @@ class SettingsController extends BaseController {
   }
 
   setLanguage(value) {
+    Get.updateLocale(Locale(value));
     _storage.setLanguage(value);
     language(value);
   }
 
-  switchTheme() {
-    ThemeService.instance.switchTheme();
-    themeMode(ThemeService.instance.isDarkMode());
+  switchTheme(isDark) {
+    if (themeMode.value != isDark) {
+      ThemeService.instance.switchTheme();
+      themeMode(ThemeService.instance.isDarkMode());
+    }
   }
-
 }

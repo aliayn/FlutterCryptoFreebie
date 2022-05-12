@@ -21,10 +21,7 @@ class Storage {
 
   getPair() => _box.read(_pairKey) ?? _defaultPair;
 
-  setLanguage(value) {
-    Get.updateLocale(value);
-    return _box.write(_languageKey, value);
-  }
+  setLanguage(value) => _box.write(_languageKey, value);
 
   String getLanguage() => _box.read(_languageKey) ?? _defaultLocale;
 

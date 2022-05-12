@@ -23,7 +23,7 @@ ThemeData lightTheme(context) => ThemeData(
     brightness: Brightness.light,
     appBarTheme: const AppBarTheme(
         elevation: 0.0, backgroundColor: _widgetLightBackgroundColor),
-    textTheme: GoogleFonts.acmeTextTheme(Theme.of(context).textTheme)
+    textTheme: GoogleFonts.openSansTextTheme(Theme.of(context).textTheme)
         .apply(bodyColor: _darkPrimary, displayColor: _darkPrimary),
     colorScheme: ColorScheme.fromSwatch()
         .copyWith(brightness: Brightness.light, secondary: _lightAccent),
@@ -42,7 +42,7 @@ ThemeData darkTheme(context) => ThemeData(
         unselectedItemColor: Colors.white70),
     appBarTheme:
         const AppBarTheme(elevation: 0.0, backgroundColor: _darkPrimary),
-    textTheme: GoogleFonts.acmeTextTheme(Theme.of(context).textTheme)
+    textTheme: GoogleFonts.openSansTextTheme(Theme.of(context).textTheme)
         .apply(bodyColor: _lightPrimary, displayColor: _lightPrimary),
     colorScheme: ColorScheme.fromSwatch()
         .copyWith(brightness: Brightness.dark, secondary: _darkAccent),
