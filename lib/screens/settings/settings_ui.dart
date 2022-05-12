@@ -12,7 +12,7 @@ Widget settingsUI() => _buildBody();
 
 _buildBody() => GetX<SettingsController>(
     initState: ((state) => state.controller?.init()),
-    builder: ((SettingsController controller) {
+    builder: ((controller) {
       return Container(
         key: Keys.settingsScreen,
         child: Column(
