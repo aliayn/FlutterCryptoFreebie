@@ -2,6 +2,7 @@ import 'dart:ui';
 
 import 'package:crypto_freebie/base/base_controller.dart';
 import 'package:crypto_freebie/database/storage.dart';
+import 'package:crypto_freebie/locale/locale_keys.dart';
 import 'package:crypto_freebie/theme/theme_config.dart';
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
@@ -23,9 +24,9 @@ class SettingsController extends BaseController {
 
   init() {
     if (_storage.getLanguage() == 'en') {
-      language('English');
+      language(LocaleKeys.english.tr);
     } else {
-      language('Spanish');
+      language(LocaleKeys.spanish.tr);
     }
     pair(_storage.getPair());
     exchange(_storage.getExchange());
@@ -40,7 +41,8 @@ class SettingsController extends BaseController {
   }
 
   _getPairs() async {
-    pairs.assignAll(await provider.getPairs(exchange.value, _cancelToken));
+    var list = await provider.getPairs(exchange.value, _cancelToken);
+    pairs.assignAll(list);
   }
 
   _getExchanges() async {
@@ -60,7 +62,11 @@ class SettingsController extends BaseController {
   setLanguage(value) {
     Get.updateLocale(Locale(value));
     _storage.setLanguage(value);
-    language(value);
+    if (_storage.getLanguage() == 'en') {
+      language(LocaleKeys.english.tr);
+    } else {
+      language(LocaleKeys.spanish.tr);
+    }
   }
 
   switchTheme(isDark) {
