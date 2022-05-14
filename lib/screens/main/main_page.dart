@@ -14,12 +14,14 @@ class MainPage extends GetView<MainController> {
   const MainPage({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) => Scaffold(
-      bottomNavigationBar: _buildBottomNavigationMenu(),
-      body: IndexedStack(
-        index: controller.tabIndex.value,
-        children: _buildScreens(),
-      ));
+  Widget build(BuildContext context) => Obx(
+        () => Scaffold(
+            bottomNavigationBar: _buildBottomNavigationMenu(),
+            body: IndexedStack(
+              index: controller.tabIndex.value,
+              children: _buildScreens(),
+            )),
+      );
 
   _buildScreens() => [
         const HomePage(),

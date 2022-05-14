@@ -16,31 +16,26 @@ class HomeController extends BaseController {
   final pairsLoading = false.obs;
   final pairsError = ''.obs;
 
-  @override
-  void onReady() {
+  getFeed() {
     getFavoritePair();
     getPairs();
-    super.onReady();
   }
 
   getFavoritePair() async {
     favoriteLoading(true);
     var pairSummery = await provider
-        .getPairSummary(
-            getExchange(), getPair(), _cancelToken)
+        .getPairSummary(getExchange(), getPair(), _cancelToken)
         .catchError((e) {
       favoriteError(e.toString());
     });
-    favoritePair(
-        FavoritePair(pair: getPair(), pairSummary: pairSummery));
+    favoritePair(FavoritePair(pair: getPair(), pairSummary: pairSummery));
     favoriteLoading(false);
   }
 
   getPairs() async {
     pairsLoading(true);
-    pairs.assignAll(await provider
-        .getPairs(getExchange(), _cancelToken)
-        .catchError((e) {
+    pairs.assignAll(
+        await provider.getPairs(getExchange(), _cancelToken).catchError((e) {
       pairsError(e.toString());
     }));
     pairsLoading(true);
