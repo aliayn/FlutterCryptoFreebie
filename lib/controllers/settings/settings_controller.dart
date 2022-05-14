@@ -3,7 +3,7 @@ import 'dart:ui';
 import 'package:crypto_freebie/base/base_controller.dart';
 import 'package:crypto_freebie/database/storage.dart';
 import 'package:crypto_freebie/locale/locale_keys.dart';
-import 'package:crypto_freebie/theme/theme_config.dart';
+import 'package:crypto_freebie/theme/theme_service.dart';
 import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 

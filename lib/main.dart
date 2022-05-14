@@ -2,8 +2,8 @@ import 'package:crypto_freebie/database/storage.dart';
 import 'package:crypto_freebie/locale/app_translation.dart';
 import 'package:crypto_freebie/routes/routes.dart';
 import 'package:crypto_freebie/services/app_service.dart';
-import 'package:crypto_freebie/theme/theme_config.dart';
 import 'package:crypto_freebie/theme/theme_service.dart';
+import 'package:crypto_freebie/theme/theme_config.dart';
 import 'package:flutter/material.dart';
 
 import 'package:get/get.dart';

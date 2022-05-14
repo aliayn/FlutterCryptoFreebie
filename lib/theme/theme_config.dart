@@ -1,36 +1,42 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
-import 'package:get/get.dart';
-import 'package:get_storage/get_storage.dart';
+import 'package:google_fonts/google_fonts.dart';
 
-class ThemeService {
-  final _box = GetStorage();
-  final _key = 'isDarkMode';
+const Color _lightPrimary = Colors.white;
+const Color _darkPrimary = Color(0xff1f1f1f);
+const Color _lightAccent = Color(0xff2ca8e2);
+const Color _darkAccent = Color(0xff2ca8e2);
 
-  ThemeService._() {
-    setStatusStyle();
-    _box.listenKey(_key, (value) => setStatusStyle());
-  }
+ThemeData lightTheme(context) => ThemeData(
+    iconTheme: const IconThemeData(color: Colors.black87),
+    bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+        backgroundColor: Colors.blueGrey,
+        selectedItemColor: Colors.white,
+        unselectedItemColor: Colors.white70),
+    appBarTheme: const AppBarTheme(
+      color: Colors.blueGrey,
+    ),
+    brightness: Brightness.light,
+    scaffoldBackgroundColor: Colors.white,
+    cardColor: Colors.grey[500],
+    unselectedWidgetColor: Colors.black45,
+    focusColor: Colors.black,
+    textTheme: GoogleFonts.openSansTextTheme(Theme.of(context).textTheme)
+        .apply(bodyColor: _darkPrimary, displayColor: _darkPrimary),
+    textSelectionTheme:
+        const TextSelectionThemeData(cursorColor: _lightAccent));
 
-  static late final ThemeService instance = ThemeService._();
-
-  /// Get isDarkMode info from local storage and return ThemeMode
-  ThemeMode get theme => isDarkMode() ? ThemeMode.dark : ThemeMode.light;
-
-  /// Load isDArkMode from local storage and if it's empty, returns false (that means default theme is light)
-  bool isDarkMode() => _box.read(_key) ?? false;
-
-  /// Save isDarkMode to local storage
-  _saveThemeToBox(bool isDarkMode) => _box.write(_key, isDarkMode);
-
-  /// Switch theme and save to local storage
-  switchTheme() {
-    Get.changeThemeMode(isDarkMode() ? ThemeMode.light : ThemeMode.dark);
-    _saveThemeToBox(!isDarkMode());
-  }
-
-  setStatusStyle() {
-    SystemChrome.setSystemUIOverlayStyle(
-        isDarkMode() ? SystemUiOverlayStyle.light : SystemUiOverlayStyle.dark);
-  }
-}
+ThemeData darkTheme(context) => ThemeData(
+    primaryColor: Colors.black12,
+    bottomNavigationBarTheme: BottomNavigationBarThemeData(
+        backgroundColor: Colors.grey[10000],
+        selectedItemColor: Colors.white,
+        unselectedItemColor: Colors.white70),
+    appBarTheme: AppBarTheme(
+      color: Colors.grey[10000],
+    ),
+    brightness: Brightness.dark,
+    scaffoldBackgroundColor: Colors.black,
+    focusColor: Colors.white,
+    textTheme: GoogleFonts.openSansTextTheme(Theme.of(context).textTheme)
+        .apply(bodyColor: _lightPrimary, displayColor: _lightPrimary),
+    textSelectionTheme: const TextSelectionThemeData(cursorColor: _darkAccent));
