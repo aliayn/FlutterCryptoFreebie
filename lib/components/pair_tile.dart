@@ -1,4 +1,5 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:crypto_freebie/components/line_chart.dart';
 import 'package:crypto_freebie/controllers/pairTile/pair_tile_controller.dart';
 import 'package:crypto_freebie/models/markets/pair/pair.dart';
 import 'package:crypto_freebie/routes/router.dart';
@@ -7,10 +8,9 @@ import 'package:get/get.dart';
 
 import '../utils/keys.dart';
 import '../utils/utils.dart';
-import 'line_chart.dart';
-
 
 Widget pairTile({required Pair pair}) => GetX<PairTileController>(
+    init: Get.put(PairTileController()),
     initState: ((state) => state.controller?.getFeed(pair)),
     builder: ((controller) => Container(
         key: Keys.pairTile,
@@ -22,10 +22,10 @@ Widget pairTile({required Pair pair}) => GetX<PairTileController>(
             padding: const EdgeInsets.symmetric(horizontal: 15),
             height: 100,
             child: Builder(builder: ((context) {
-              if (controller.loading.value) {
+              if (controller.pairSummaryLoading.value) {
                 return _loadingWidget();
-              } else if (controller.error.value != '') {
-                return _errorWidget(controller.error);
+              } else if (controller.pairSummaryError.value != '') {
+                return _errorWidget(controller.pairSummaryError.value);
               } else {
                 var summary = controller.pairSummary.value!;
                 return Row(
@@ -47,18 +47,22 @@ Widget pairTile({required Pair pair}) => GetX<PairTileController>(
                     Expanded(
                       flex: 4,
                       child: Container(
-                        padding: const EdgeInsets.symmetric(horizontal: 5),
-                        height: 50,
-                        child: graph.when(
-                            data: (data) => lineChartWidget(
-                                  color: summary.price.change.absolute < 0
-                                      ? Colors.red
-                                      : const Color(0xff02d39a),
-                                  data: getPoints(data),
-                                ),
-                            loading: () => lineChartWidget(loading: true),
-                            error: (e, ex) => lineChartWidget(error: true)),
-                      ),
+                          padding: const EdgeInsets.symmetric(horizontal: 5),
+                          height: 50,
+                          child: Builder(builder: (context) {
+                            if (controller.graph.value != null) {
+                              return lineChartWidget(
+                                color: summary.price.change.absolute < 0
+                                    ? Colors.red
+                                    : const Color(0xff02d39a),
+                                data: getPoints(controller.graph.value!),
+                              );
+                            } else if (controller.graphLoading.value) {
+                              return lineChartWidget(loading: true);
+                            } else {
+                              return lineChartWidget(error: true);
+                            }
+                          })),
                     ),
                     Expanded(
                       flex: 4,

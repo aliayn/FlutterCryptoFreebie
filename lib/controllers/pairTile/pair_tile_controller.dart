@@ -11,22 +11,30 @@ class PairTileController extends BaseController {
   final _cancelToken = CancelToken();
   final pairSummary = Rx<PairSummary?>(null);
   final graph = Rx<Graph?>(null);
-  final loading = false.obs;
-  final error = ''.obs;
+  final pairSummaryLoading = false.obs;
+  final pairSummaryError = ''.obs;
+  final graphLoading = false.obs;
+  final graphError = ''.obs;
 
   getFeed(Pair pair) {
-    Future.wait([_getPairSummery(pair), _getGraph(pair)]).then((value) {
-      pairSummary(value[0] as PairSummary);
-      graph(value[1] as Graph);
-    }).catchError((onError) {
-      error(error.toString().tr);
-    });
+    _getPairSummery(pair);
+    _getGraph(pair);
   }
 
-  Future<PairSummary> _getPairSummery(Pair pair) =>
-      provider.getPairSummary(pair.exchange, pair.pair, _cancelToken);
+  _getPairSummery(Pair pair) async {
+    pairSummaryLoading(true);
+    await provider
+        .getPairSummary(pair.exchange, pair.pair, _cancelToken)
+        .then((value) => pairSummary(value))
+        .catchError((error) {
+      pairSummaryError(error.toString().tr);
+    });
 
-  Future<Graph> _getGraph(Pair pair) {
+    pairSummaryLoading(false);
+  }
+
+  _getGraph(Pair pair) async {
+    graphLoading(true);
     String interval = timeDataProvider.periods;
     String fromHours = timeDataProvider.before;
     String before = "";
@@ -39,7 +47,14 @@ class PairTileController extends BaseController {
           .toString();
     }
 
-    return provider.getPairGraph(pair.exchange, pair.pair,
-        periods: interval, before: before);
+    await provider
+        .getPairGraph(pair.exchange, pair.pair,
+            periods: interval, before: before)
+        .then((value) => graph(value))
+        .catchError((error) {
+      graphError(error.toString().tr);
+    });
+
+    graphLoading(false);
   }
 }

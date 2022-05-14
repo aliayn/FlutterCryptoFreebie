@@ -25,6 +25,12 @@ class SearchController extends BaseController with StateMixin<List<Pair>> {
   }
 
   @override
+  void onReady() {
+    getPair();
+    super.onReady();
+  }
+
+  @override
   void onClose() {
     _cancelToken.cancel();
     super.onClose();

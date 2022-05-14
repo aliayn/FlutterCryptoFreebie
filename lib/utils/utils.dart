@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:get_storage/get_storage.dart';
+import 'package:intl/intl.dart';
 
 import '../models/graph/graph/graph.dart';
 
@@ -40,6 +41,12 @@ List<double> getPoints(Graph graph) {
   } else {
     return [];
   }
+}
+
+String epochToString(String epoch) {
+  final DateTime timeStamp =
+      DateTime.fromMillisecondsSinceEpoch(int.parse(epoch) * 1000);
+  return DateFormat('dd/MM/yyyy').format(timeStamp);
 }
 
 const List<double> demoGraphData = [

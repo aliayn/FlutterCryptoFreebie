@@ -2,6 +2,7 @@ import 'package:crypto_freebie/controllers/detail/detail_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../components/details_widget.dart';
 import '../../components/line_chart.dart';
 import '../../components/time_bar_selector.dart';
 import '../../components/title_price.dart';
@@ -51,7 +52,7 @@ class DetailPage extends GetView<DetailController> {
             const SizedBox(
               height: 15,
             ),
-            DetailsWidget(pair: pair),
+            detailsWidget(pair),
             const SizedBox(
               height: 30,
             ),

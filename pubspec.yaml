@@ -15,6 +15,7 @@ dependencies:
   cupertino_icons: ^1.0.2
   font_awesome_flutter: ^10.1.0
   sizer: ^2.0.13
+  intl: ^0.17.0
   get: ^4.6.1
   get_storage: ^2.0.3
   google_fonts: ^2.3.2
@@ -24,6 +25,8 @@ dependencies:
   auto_size_text: ^3.0.0
   floor: ^1.2.0
   sqflite: ^2.0.2
+  flutter_candlesticks:
+    git: https://github.com/salvadordeveloper/flutter-candlesticks.git
   freezed_annotation:
   dio: ^4.0.4
   retrofit: 

@@ -3,6 +3,7 @@
         "btcusdt",
         "circlepath",
         "ohlc",
-        "orderbook"
+        "orderbook",
+        "vsync"
     ]
 }

@@ -1,7 +1,6 @@
 import 'dart:ui';
 
 import 'package:crypto_freebie/base/base_controller.dart';
-import 'package:crypto_freebie/database/storage.dart';
 import 'package:crypto_freebie/locale/locale_keys.dart';
 import 'package:crypto_freebie/theme/theme_service.dart';
 import 'package:dio/dio.dart';
@@ -9,9 +8,9 @@ import 'package:get/get.dart';
 
 import '../../models/exchanges/exchange/exchange.dart';
 import '../../models/markets/pair/pair.dart';
+import '../../utils/utils.dart';
 
 class SettingsController extends BaseController {
-  final _storage = Storage.instance;
   final CancelToken _cancelToken = CancelToken();
   final themeMode = ThemeService.instance.isDarkMode().obs;
 
@@ -23,13 +22,13 @@ class SettingsController extends BaseController {
   var exchanges = <Exchange>[].obs;
 
   init() {
-    if (_storage.getLanguage() == 'en') {
+    if (getLanguage() == 'en') {
       language(LocaleKeys.english.tr);
     } else {
       language(LocaleKeys.spanish.tr);
     }
-    pair(_storage.getPair());
-    exchange(_storage.getExchange());
+    pair(getPair());
+    exchange(getExchange());
     _getPairs();
     _getExchanges();
   }
@@ -50,19 +49,19 @@ class SettingsController extends BaseController {
   }
 
   setExchange(value) {
-    _storage.setExchange(value);
+    setExchange(value);
     exchange(value);
   }
 
   setPair(value) {
-    _storage.setPair(value);
+    setPair(value);
     pair(value);
   }
 
   setLanguage(value) {
     Get.updateLocale(Locale(value));
-    _storage.setLanguage(value);
-    if (_storage.getLanguage() == 'en') {
+    setLanguage(value);
+    if (getLanguage() == 'en') {
       language(LocaleKeys.english.tr);
     } else {
       language(LocaleKeys.spanish.tr);
