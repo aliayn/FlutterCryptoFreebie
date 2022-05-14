@@ -5,19 +5,22 @@ import 'package:get/get.dart';
 
 import '../../models/markets/pair/pair.dart';
 
-class TitlePriceController extends BaseController {
+class TitlePriceController extends BaseController with StateMixin<PairSummary> {
   final _cancelToken = CancelToken();
-  var pairSummery = Rx<PairSummary?>(null);
-  var isLoading = false.obs;
-  var error = ''.obs;
 
   getPairSummery(Pair pair) async {
-    isLoading(true);
-    pairSummery.value = await provider
+    change(null, status: RxStatus.loading());
+    provider
         .getPairSummary(pair.exchange, pair.pair, _cancelToken)
+        .then((value) => {change(value, status: RxStatus.success())})
         .catchError((e) {
-      error(e.toString());
+      change(null, status: RxStatus.error(e.toString().tr));
     });
-    isLoading(false);
+  }
+
+  @override
+  void onClose() {
+    _cancelToken.cancel();
+    super.onClose();
   }
 }

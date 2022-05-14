@@ -2,7 +2,7 @@ import 'package:crypto_freebie/screens/detail/detail_page.dart';
 import 'package:crypto_freebie/screens/main/main_page.dart';
 import 'package:get/route_manager.dart';
 
-import '../controllers/main/main_binding.dart';
+import '../controllers/main_binding.dart';
 
 abstract class Routes {
   static const main = '/';
