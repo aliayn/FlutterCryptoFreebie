@@ -1,5 +1,5 @@
 import 'package:crypto_freebie/components/pair_tile.dart';
-import 'package:crypto_freebie/controllers/search_controller.dart';
+import 'package:crypto_freebie/controllers/search/search_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 

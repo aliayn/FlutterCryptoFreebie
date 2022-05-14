@@ -1,3 +1,4 @@
+import 'package:crypto_freebie/controllers/detail_binding.dart';
 import 'package:crypto_freebie/screens/detail/detail_page.dart';
 import 'package:crypto_freebie/screens/main/main_page.dart';
 import 'package:get/route_manager.dart';
@@ -17,8 +18,8 @@ abstract class AppPages {
         page: () => const MainPage(),
         binding: MainBinding()),
     GetPage(
-      name: Routes.detail,
-      page: () => const DetailPage(),
-    ),
+        name: Routes.detail,
+        page: () => const DetailPage(),
+        binding: DetailBinding()),
   ];
 }

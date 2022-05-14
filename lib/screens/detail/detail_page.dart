@@ -15,7 +15,7 @@ class DetailPage extends GetView<DetailController> {
 
   @override
   Widget build(BuildContext context) {
-    final Pair pair = Get.arguments[1];
+    final Pair pair = Get.arguments[0];
     return Scaffold(
       key: Keys.detailScreen,
       appBar: AppBar(
