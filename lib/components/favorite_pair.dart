@@ -2,6 +2,7 @@ import 'package:crypto_freebie/components/title_price.dart';
 import 'package:crypto_freebie/routes/router.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sizer/sizer.dart';
 
 import '../locale/locale_keys.dart';
 import '../models/markets/favorite_pair/favorite_pair.dart';
@@ -35,7 +36,7 @@ Widget favoritePairWidget(final FavoritePair data) => Builder(
                       ),
                       const SizedBox(width: 10),
                       Text(LocaleKeys.openChart.tr,
-                          style: Theme.of(context).textTheme.headline3),
+                          style: TextStyle(fontSize: 14.sp)),
                     ],
                   ),
                 ),

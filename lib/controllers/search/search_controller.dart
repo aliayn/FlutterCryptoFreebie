@@ -16,7 +16,7 @@ class SearchController extends BaseController with StateMixin<List<Pair>> {
       if (search != "") {
         list = pairs.where((element) => element.pair.contains(search)).toList();
       } else {
-        list = search;
+        list = pairs;
       }
       change(list, status: RxStatus.success());
     } on Exception catch (e) {

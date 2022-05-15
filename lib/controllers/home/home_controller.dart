@@ -6,38 +6,22 @@ import '../../models/markets/favorite_pair/favorite_pair.dart';
 import '../../models/markets/pair/pair.dart';
 import '../../utils/utils.dart';
 
-class HomeController extends BaseController {
+class HomeController extends BaseController with StateMixin {
   final _cancelToken = CancelToken();
   final favoritePair = Rx<FavoritePair?>(null);
-  final favoriteLoading = false.obs;
-  final favoriteError = ''.obs;
+  final pairs = RxList<Pair>();
 
-  final pairs = <Pair>[].obs;
-  final pairsLoading = false.obs;
-  final pairsError = ''.obs;
-
-  getFeed() {
-    getFavoritePair();
-    getPairs();
-  }
-
-  getFavoritePair() async {
-    favoriteLoading(true);
-    var pairSummery = await provider
-        .getPairSummary(getExchange(), getPair(), _cancelToken)
-        .catchError((e) {
-      favoriteError(e.toString());
-    });
-    favoritePair(FavoritePair(pair: getPair(), pairSummary: pairSummery));
-    favoriteLoading(false);
-  }
-
-  getPairs() async {
-    pairsLoading(true);
-    pairs.assignAll(
-        await provider.getPairs(getExchange(), _cancelToken).catchError((e) {
-      pairsError(e.toString());
-    }));
-    pairsLoading(true);
+  getFeed() async {
+    change(null, status: RxStatus.loading());
+    try {
+      Pair pair = Pair(pair: getPair(), exchange: getExchange());
+      var pairSummery =
+          await provider.getPairSummary(getExchange(), getPair(), _cancelToken);
+      pairs.assignAll(await provider.getPairs(getExchange(), _cancelToken));
+      favoritePair(FavoritePair(pair: pair, pairSummary: pairSummery));
+      change(null, status: RxStatus.success());
+    } on Exception catch (e) {
+      change(null, status: RxStatus.error(e.toString().tr));
+    }
   }
 }

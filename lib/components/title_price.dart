@@ -4,6 +4,7 @@ import 'package:crypto_freebie/components/loading.dart';
 import 'package:crypto_freebie/controllers/titlePrice/title_price_controller.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sizer/sizer.dart';
 
 import '../models/markets/pair/pair.dart';
 
@@ -16,12 +17,10 @@ Widget titlePrice({required Pair pair}) {
           builder: (context) => Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  AutoSizeText(pair.pair,
-                      maxLines: 1,
-                      style: Theme.of(context).textTheme.headline2),
+                  AutoSizeText(pair.pair.toUpperCase(),
+                      maxLines: 1, style: TextStyle(fontSize: 24.sp)),
                   AutoSizeText(data!.price.last.toString(),
-                      maxLines: 1,
-                      style: Theme.of(context).textTheme.headline1),
+                      maxLines: 1, style: TextStyle(fontSize: 20.sp)),
                   Row(children: [
                     AutoSizeText(data.price.change.absolute.toStringAsFixed(5),
                         textAlign: TextAlign.start,
@@ -32,8 +31,7 @@ Widget titlePrice({required Pair pair}) {
                             color: data.price.change.absolute >= 0
                                 ? Colors.green
                                 : Colors.red,
-                            fontSize:
-                                Theme.of(context).textTheme.headline5?.fontSize,
+                            fontSize: 15.sp,
                             fontWeight: FontWeight.w800)),
                     AutoSizeText(
                         ' (${data.price.change.percentage.toStringAsFixed(2)}%)',
@@ -41,7 +39,7 @@ Widget titlePrice({required Pair pair}) {
                         minFontSize: 0,
                         stepGranularity: 0.1,
                         maxLines: 1,
-                        style: Theme.of(context).textTheme.headline4),
+                        style: TextStyle(fontSize: 14.sp)),
                   ]),
                 ],
               )),

@@ -10,12 +10,13 @@ class TitlePriceController extends BaseController with StateMixin<PairSummary> {
 
   getPairSummery(Pair pair) async {
     change(null, status: RxStatus.loading());
-    provider
-        .getPairSummary(pair.exchange, pair.pair, _cancelToken)
-        .then((value) => {change(value, status: RxStatus.success())})
-        .catchError((e) {
+    try {
+      var pairSummery =
+          await provider.getPairSummary(pair.exchange, pair.pair, _cancelToken);
+      change(pairSummery, status: RxStatus.success());
+    } on Exception catch (e) {
       change(null, status: RxStatus.error(e.toString().tr));
-    });
+    }
   }
 
   @override
