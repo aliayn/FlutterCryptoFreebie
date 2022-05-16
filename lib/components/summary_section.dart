@@ -13,6 +13,7 @@ late final SummarySectionController _controller =
     Get.put(SummarySectionController());
 
 Widget summarySection(Pair pair) {
+  _controller.getPairSummary(pair);
   return _controller.obx(
       (data) => Container(
             padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
@@ -131,7 +132,7 @@ class SummarySectionController extends BaseController
     with StateMixin<PairSummary> {
   final cancelToken = CancelToken();
 
-  getTrades(Pair pair) {
+  getPairSummary(Pair pair) {
     change(null, status: RxStatus.loading());
     provider
         .getPairSummary(pair.exchange, pair.pair, cancelToken)

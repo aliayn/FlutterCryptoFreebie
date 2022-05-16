@@ -8,15 +8,15 @@ import '../../models/markets/pair/pair.dart';
 class TitlePriceController extends BaseController with StateMixin<PairSummary> {
   final _cancelToken = CancelToken();
 
-  getPairSummery(Pair pair) async {
+   getPairSummary(Pair pair) {
     change(null, status: RxStatus.loading());
-    try {
-      var pairSummery =
-          await provider.getPairSummary(pair.exchange, pair.pair, _cancelToken);
-      change(pairSummery, status: RxStatus.success());
-    } on Exception catch (e) {
-      change(null, status: RxStatus.error(e.toString().tr));
-    }
+    provider
+        .getPairSummary(pair.exchange, pair.pair, _cancelToken)
+        .then((value) {
+      change(value, status: RxStatus.success());
+    }).catchError((error) {
+      change(null, status: RxStatus.error(error.toString().tr));
+    });
   }
 
   @override

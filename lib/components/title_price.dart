@@ -11,7 +11,7 @@ import '../models/markets/pair/pair.dart';
 late final TitlePriceController _controller = Get.put(TitlePriceController());
 
 Widget titlePrice({required Pair pair}) {
-  _controller.getPairSummery(pair);
+  _controller.getPairSummary(pair);
   return _controller.obx(
       (data) => Builder(
           builder: (context) => Column(
