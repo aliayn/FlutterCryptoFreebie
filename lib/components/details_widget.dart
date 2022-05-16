@@ -11,8 +11,7 @@ import 'ohlc_section.dart';
 late final DetailsWidgetController _controller =
     Get.put(DetailsWidgetController());
 
-Widget detailsWidget(Pair pair) {
-  return Builder(
+Widget detailsWidget(Pair pair) => Builder(
       builder: (context) => Column(
             children: [
               TabBar(
@@ -26,18 +25,10 @@ Widget detailsWidget(Pair pair) {
                 isScrollable: true,
                 controller: _controller.tabController,
                 tabs: [
-                  SizedBox(
-                      width: 100,
-                      child: Tab(
-                        text: LocaleKeys.summary.tr,
-                      )),
-                  Tab(
-                    text: LocaleKeys.orderbook.tr,
-                  ),
+                  SizedBox(width: 100, child: Tab(text: LocaleKeys.summary.tr)),
+                  Tab(text: LocaleKeys.orderbook.tr),
                   Tab(text: LocaleKeys.trades.tr),
-                  Tab(
-                    text: LocaleKeys.ohlc.tr,
-                  ),
+                  Tab(text: LocaleKeys.ohlc.tr),
                 ],
               ),
               SizedBox(
@@ -54,7 +45,6 @@ Widget detailsWidget(Pair pair) {
               ),
             ],
           ));
-}
 
 class DetailsWidgetController extends GetxController
     with GetSingleTickerProviderStateMixin {

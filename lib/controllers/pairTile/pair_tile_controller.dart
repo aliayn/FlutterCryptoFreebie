@@ -7,34 +7,13 @@ import 'package:get/get.dart';
 import '../../models/markets/pair/pair.dart';
 import '../../utils/time.dart';
 
-class PairTileController extends BaseController {
+class PairTileController extends BaseController with StateMixin {
   final _cancelToken = CancelToken();
   final pairSummary = Rx<PairSummary?>(null);
   final graph = Rx<Graph?>(null);
-  final pairSummaryLoading = false.obs;
-  final pairSummaryError = ''.obs;
-  final graphLoading = false.obs;
-  final graphError = ''.obs;
 
-  getFeed(Pair pair) {
-    _getPairSummery(pair);
-    _getGraph(pair);
-  }
-
-  _getPairSummery(Pair pair) async {
-    pairSummaryLoading(true);
-    await provider
-        .getPairSummary(pair.exchange, pair.pair, _cancelToken)
-        .then((value) => pairSummary(value))
-        .catchError((error) {
-      pairSummaryError(error.toString().tr);
-    });
-
-    pairSummaryLoading(false);
-  }
-
-  _getGraph(Pair pair) async {
-    graphLoading(true);
+  getFeed(Pair pair) async {
+    change(null, status: RxStatus.loading());
     String interval = timeDataProvider.periods;
     String fromHours = timeDataProvider.before;
     String before = "";
@@ -47,14 +26,14 @@ class PairTileController extends BaseController {
           .toString();
     }
 
-    await provider
-        .getPairGraph(pair.exchange, pair.pair,
-            periods: interval, before: before)
-        .then((value) => graph(value))
-        .catchError((error) {
-      graphError(error.toString().tr);
-    });
-
-    graphLoading(false);
+    try {
+      graph(await provider.getPairGraph(pair.exchange, pair.pair,
+          periods: interval, before: before));
+      pairSummary(await provider.getPairSummary(
+          pair.exchange, pair.pair, _cancelToken));
+      change(null, status: RxStatus.success());
+    } on Exception catch (e) {
+      change(null, status: RxStatus.error(e.toString().tr));
+    }
   }
 }

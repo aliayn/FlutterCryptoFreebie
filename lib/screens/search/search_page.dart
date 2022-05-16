@@ -50,7 +50,7 @@ class SearchPage extends GetView<SearchController> {
                         padding: EdgeInsets.zero,
                         itemCount: data!.length,
                         itemBuilder: (context, int index) {
-                          return pairTile(pair: data[index]);
+                          return PairTile(pair: data[index]);
                         },
                       ),
                       if (data.isEmpty)

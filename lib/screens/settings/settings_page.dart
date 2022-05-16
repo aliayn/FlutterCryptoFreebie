@@ -13,6 +13,7 @@ class SettingsPage extends GetView<SettingsController> {
 
   @override
   Widget build(BuildContext context) {
+    controller.init();
     return Container(
       key: Keys.settingsScreen,
       child: Column(

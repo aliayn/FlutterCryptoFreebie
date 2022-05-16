@@ -1,5 +1,7 @@
 import 'package:auto_size_text/auto_size_text.dart';
+import 'package:crypto_freebie/components/error.dart';
 import 'package:crypto_freebie/components/line_chart.dart';
+import 'package:crypto_freebie/components/loading.dart';
 import 'package:crypto_freebie/controllers/pairTile/pair_tile_controller.dart';
 import 'package:crypto_freebie/models/markets/pair/pair.dart';
 import 'package:crypto_freebie/routes/router.dart';
@@ -9,28 +11,36 @@ import 'package:get/get.dart';
 import '../utils/keys.dart';
 import '../utils/utils.dart';
 
-Widget pairTile({required Pair pair}) => GetX<PairTileController>(
-    init: Get.put(PairTileController()),
-    initState: ((state) => state.controller?.getFeed(pair)),
-    builder: ((controller) {
-      controller.pairSummaryLoading.value;
-      return Container(
+class PairTile extends StatefulWidget {
+  final Pair pair;
+  const PairTile({Key? key, required this.pair}) : super(key: key);
+
+  @override
+  State<PairTile> createState() => _PairTileState();
+}
+
+class _PairTileState extends State<PairTile>
+    with AutomaticKeepAliveClientMixin {
+  final PairTileController controller = PairTileController();
+
+  @override
+  Widget build(BuildContext context) {
+    super.build(context);
+    Pair pair = widget.pair;
+    controller.getFeed(pair);
+    return controller.obx(
+      (state) {
+        var summary = controller.pairSummary.value!;
+        return Container(
           key: Keys.pairTile,
           child: GestureDetector(
-            onTap: () {
-              goToDetailPage(pair: pair);
-            },
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 15),
-              height: 100,
-              child: Builder(builder: ((context) {
-                if (controller.pairSummaryLoading.value) {
-                  return _loadingWidget();
-                } else if (controller.pairSummaryError.value != '') {
-                  return _errorWidget(controller.pairSummaryError.value);
-                } else {
-                  var summary = controller.pairSummary.value!;
-                  return Row(
+              onTap: () {
+                goToDetailPage(pair: pair);
+              },
+              child: Container(
+                  padding: const EdgeInsets.symmetric(horizontal: 15),
+                  height: 100,
+                  child: Row(
                     crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
                       Expanded(
@@ -51,20 +61,11 @@ Widget pairTile({required Pair pair}) => GetX<PairTileController>(
                         child: Container(
                             padding: const EdgeInsets.symmetric(horizontal: 5),
                             height: 50,
-                            child: Builder(builder: (context) {
-                              if (controller.graph.value != null) {
-                                return lineChartWidget(
-                                  color: summary.price.change.absolute < 0
-                                      ? Colors.red
-                                      : const Color(0xff02d39a),
-                                  data: getPoints(controller.graph.value!),
-                                );
-                              } else if (controller.graphLoading.value) {
-                                return lineChartWidget(loading: true);
-                              } else {
-                                return lineChartWidget(error: true);
-                              }
-                            })),
+                            child: lineChartWidget(
+                                color: summary.price.change.absolute < 0
+                                    ? Colors.red
+                                    : const Color(0xff02d39a),
+                                data: getPoints(controller.graph.value!))),
                       ),
                       Expanded(
                         flex: 4,
@@ -118,13 +119,14 @@ Widget pairTile({required Pair pair}) => GetX<PairTileController>(
                         ),
                       ),
                     ],
-                  );
-                }
-              })),
-            ),
-          ));
-    }));
+                  ))),
+        );
+      },
+      onLoading: loading(),
+      onError: error,
+    );
+  }
 
-_loadingWidget() => const Center(child: CircularProgressIndicator());
-
-_errorWidget(value) => Center(child: Text(value));
+  @override
+  bool get wantKeepAlive => true;
+}

@@ -41,7 +41,7 @@ class HomePage extends GetView<HomeController> {
                                 padding: const EdgeInsets.only(top: 0.0),
                                 itemCount: controller.pairs.length,
                                 itemBuilder: (context, int index) {
-                                  return pairTile(
+                                  return PairTile(
                                       pair: controller.pairs[index]);
                                 }),
                           )

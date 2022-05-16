@@ -4,6 +4,8 @@ import 'package:crypto_freebie/controllers/search/search_controller.dart';
 import 'package:crypto_freebie/controllers/settings/settings_controller.dart';
 import 'package:get/instance_manager.dart';
 
+import 'pairTile/pair_tile_controller.dart';
+
 class MainBinding extends Bindings {
   @override
   void dependencies() {
@@ -11,5 +13,6 @@ class MainBinding extends Bindings {
     Get.lazyPut<HomeController>(() => HomeController());
     Get.lazyPut<SearchController>(() => SearchController());
     Get.lazyPut<SettingsController>(() => SettingsController());
+    Get.lazyPut<PairTileController>(() => PairTileController());
   }
 }

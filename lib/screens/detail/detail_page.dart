@@ -19,12 +19,11 @@ class DetailPage extends GetView<DetailController> {
     return Scaffold(
       key: Keys.detailScreen,
       appBar: AppBar(
-        actions: [
-          Container(
-            width: 120,
-            margin: const EdgeInsets.symmetric(vertical: 6, horizontal: 5),
-          )
-        ],
+        title: Text(
+          pair.pair.toUpperCase(),
+          style: const TextStyle(color: Colors.white, fontSize: 25),
+        ),
+        centerTitle: true,
       ),
       body: SingleChildScrollView(
         child: Column(

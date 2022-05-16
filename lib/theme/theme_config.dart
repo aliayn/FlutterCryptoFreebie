@@ -20,8 +20,24 @@ ThemeData lightTheme(context) => ThemeData(
     cardColor: Colors.grey[500],
     unselectedWidgetColor: Colors.black45,
     focusColor: Colors.black,
-    textTheme: GoogleFonts.openSansTextTheme(Theme.of(context).textTheme)
-        .apply(bodyColor: _darkPrimary, displayColor: _darkPrimary),
+    textTheme: GoogleFonts.openSansTextTheme(const TextTheme(
+      headline1: TextStyle(
+          color: Colors.black, fontSize: 40, fontWeight: FontWeight.w500),
+      headline2: TextStyle(
+          color: Colors.black, fontSize: 34, fontWeight: FontWeight.w400),
+      headline3: TextStyle(
+          color: Colors.black, fontSize: 22, fontWeight: FontWeight.w500),
+      headline4: TextStyle(
+          color: Colors.black54, fontSize: 16, fontWeight: FontWeight.bold),
+      headline5: TextStyle(
+          color: Colors.black, fontSize: 19, fontWeight: FontWeight.w700),
+      headline6: TextStyle(
+          color: Colors.black, fontSize: 13, fontWeight: FontWeight.w400),
+      subtitle1: TextStyle(
+          color: Colors.black87, fontSize: 14, fontWeight: FontWeight.normal),
+      subtitle2: TextStyle(
+          color: Colors.black, fontSize: 16, fontWeight: FontWeight.bold),
+    )).apply(bodyColor: _darkPrimary, displayColor: _darkPrimary),
     textSelectionTheme:
         const TextSelectionThemeData(cursorColor: _lightAccent));
 
@@ -37,6 +53,21 @@ ThemeData darkTheme(context) => ThemeData(
     brightness: Brightness.dark,
     scaffoldBackgroundColor: Colors.black,
     focusColor: Colors.white,
-    textTheme: GoogleFonts.openSansTextTheme(Theme.of(context).textTheme)
-        .apply(bodyColor: _lightPrimary, displayColor: _lightPrimary),
+    textTheme: GoogleFonts.openSansTextTheme(const TextTheme(
+      headline1: TextStyle(
+            color: Colors.white, fontSize: 40, fontWeight: FontWeight.w500),
+        headline2: TextStyle(
+            color: Colors.white, fontSize: 34, fontWeight: FontWeight.w400),
+        headline3: TextStyle(
+            color: Colors.white, fontSize: 22, fontWeight: FontWeight.w500),
+        headline4: TextStyle(
+            color: Colors.white70, fontSize: 16, fontWeight: FontWeight.bold),
+        headline5: TextStyle(
+            color: Colors.white, fontSize: 19, fontWeight: FontWeight.w700),
+        headline6: TextStyle(
+            color: Colors.white, fontSize: 13, fontWeight: FontWeight.w400),
+        subtitle1: TextStyle(
+            color: Colors.white70, fontSize: 14, fontWeight: FontWeight.normal),
+        subtitle2: TextStyle(
+            color: Colors.white, fontSize: 16, fontWeight: FontWeight.bold))).apply(bodyColor: _lightPrimary, displayColor: _lightPrimary),
     textSelectionTheme: const TextSelectionThemeData(cursorColor: _darkAccent));
