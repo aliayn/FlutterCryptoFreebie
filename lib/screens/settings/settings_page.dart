@@ -21,6 +21,7 @@ class SettingsPage extends GetView<SettingsController> {
           AppBar(
             title: Text(
               LocaleKeys.settingsTitle.tr,
+              style: const TextStyle(color: Colors.white, fontSize: 25),
             ),
           ),
           Expanded(

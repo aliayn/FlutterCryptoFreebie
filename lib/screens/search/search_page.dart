@@ -17,7 +17,10 @@ class SearchPage extends GetView<SearchController> {
       child: Column(
         children: [
           AppBar(
-            title: Text(LocaleKeys.searchTitle.tr),
+            title: Text(
+              LocaleKeys.searchTitle.tr,
+              style: const TextStyle(color: Colors.white, fontSize: 25),
+            ),
           ),
           Expanded(
             child: Column(

@@ -23,36 +23,34 @@ class HomePage extends GetView<HomeController> {
           style: const TextStyle(color: Colors.white, fontSize: 25),
         ),
       ),
-      body: controller.obx(
-          ((state) => Container(
-                key: Keys.homeScreen,
+      body: controller.obx(((state) {
+        var pairList = controller.pairs;
+        return Container(
+          key: Keys.homeScreen,
+          child: Column(
+            children: [
+              Expanded(
                 child: Column(
                   children: [
-                    Expanded(
-                      child: Column(
-                        children: [
-                          SizedBox(
-                            height: 190,
-                            child: favoritePairWidget(
-                                controller.favoritePair.value!),
-                          ),
-                          Expanded(
-                            child: ListView.builder(
-                                padding: const EdgeInsets.only(top: 0.0),
-                                itemCount: controller.pairs.length,
-                                itemBuilder: (context, int index) {
-                                  return PairTile(
-                                      pair: controller.pairs[index]);
-                                }),
-                          )
-                        ],
-                      ),
+                    SizedBox(
+                      height: 190,
+                      child: favoritePairWidget(controller.favoritePair!),
                     ),
+                    Expanded(
+                      child: ListView.builder(
+                          padding: const EdgeInsets.only(top: 0.0),
+                          itemCount: pairList.length,
+                          itemBuilder: (context, int index) {
+                            return PairTile(pair: pairList[index]);
+                          }),
+                    )
                   ],
                 ),
-              )),
-          onLoading: loading(),
-          onError: error),
+              ),
+            ],
+          ),
+        );
+      }), onLoading: loading(), onError: error),
     );
   }
 }

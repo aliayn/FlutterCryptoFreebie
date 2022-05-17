@@ -42,7 +42,7 @@ class MainPage extends GetView<MainController> {
 
   _navBarsItems(context) => <BottomNavigationBarItem>[
         BottomNavigationBarItem(
-          label: LocaleKeys.homeTitle,
+          label: LocaleKeys.homeTitle.tr,
           icon: Container(
             margin: const EdgeInsets.only(bottom: 5),
             child: const Icon(
