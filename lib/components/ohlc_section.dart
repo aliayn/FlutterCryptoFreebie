@@ -10,9 +10,9 @@ import '../models/graph/graph/graph.dart';
 import '../models/markets/pair/pair.dart';
 import '../utils/time.dart';
 
-late final OHLCSectionController _controller = Get.put(OHLCSectionController());
+late final OHLCSectionController _controller = Get.find<OHLCSectionController>();
 
-Widget oHLCSection(Pair pair) {
+Widget oHLCSection(Pair pair, [Graph? graph]) {
   _controller.getGraph(pair);
   return Container(
     margin: const EdgeInsets.symmetric(horizontal: 30, vertical: 40),
@@ -39,7 +39,10 @@ Widget oHLCSection(Pair pair) {
 
 class OHLCSectionController extends BaseController with StateMixin<Graph> {
   final cancelToken = CancelToken();
-  getGraph(Pair pair) {
+  getGraph(Pair pair, [Graph? graph]) {
+    if (graph != null) {
+      change(graph, status: RxStatus.success());
+    }
     change(null, status: RxStatus.loading());
     String interval = timeDataProvider.periods;
     String fromHours = timeDataProvider.before;
@@ -53,7 +56,7 @@ class OHLCSectionController extends BaseController with StateMixin<Graph> {
           .toString();
     }
 
-     provider
+    provider
         .getPairGraph(pair.exchange, pair.pair,
             periods: interval, before: before)
         .then((value) => change(value, status: RxStatus.success()))

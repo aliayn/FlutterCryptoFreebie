@@ -6,7 +6,10 @@ import 'package:get/get.dart';
 import '../../utils/time.dart';
 
 class DetailController extends BaseController with StateMixin<Graph> {
-  getGraph(Pair pair) async {
+  getGraph(Pair pair, [Graph? graph]) async {
+    if (graph != null) {
+      change(graph, status: RxStatus.success());
+    }
 
     change(null, status: RxStatus.loading());
 

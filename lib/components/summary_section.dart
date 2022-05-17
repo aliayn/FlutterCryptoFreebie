@@ -9,133 +9,133 @@ import 'package:get/get.dart';
 import '../locale/locale_keys.dart';
 import '../models/pair/pair_summary/pair_summary.dart';
 
-late final SummarySectionController _controller =
-    Get.put(SummarySectionController());
+late final _controller = Get.find<SummarySectionController>();
 
-Widget summarySection(Pair pair) {
-  _controller.getPairSummary(pair);
-  return _controller.obx(
-      (data) => Container(
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
-            child: Builder(
-                builder: (context) => Column(
-                      children: [
-                        Row(
-                          children: [
-                            Text(
-                              LocaleKeys.price.tr,
-                              style: Theme.of(context).textTheme.subtitle2,
-                            )
-                          ],
-                        ),
-                        const SizedBox(height: 5),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              LocaleKeys.last.tr,
-                              style: Theme.of(context).textTheme.subtitle1,
-                            ),
-                            Text(
-                              data!.price.last.toString(),
-                              style: Theme.of(context).textTheme.subtitle1,
-                            )
-                          ],
-                        ),
-                        const SizedBox(height: 5),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              LocaleKeys.high.tr,
-                              style: Theme.of(context).textTheme.subtitle1,
-                            ),
-                            Text(
-                              data.price.high.toString(),
-                              style: Theme.of(context).textTheme.subtitle1,
-                            )
-                          ],
-                        ),
-                        const SizedBox(height: 5),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              LocaleKeys.low.tr,
-                              style: Theme.of(context).textTheme.subtitle1,
-                            ),
-                            Text(
-                              data.price.low.toString(),
-                              style: Theme.of(context).textTheme.subtitle1,
-                            )
-                          ],
-                        ),
-                        const SizedBox(height: 5),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              LocaleKeys.change.tr,
-                              style: Theme.of(context).textTheme.subtitle1,
-                            ),
-                            Text(
-                              data.price.change.absolute.toString(),
-                              style: Theme.of(context).textTheme.subtitle1,
-                            )
-                          ],
-                        ),
-                        const SizedBox(height: 10),
-                        Row(
-                          children: [
-                            Text(
-                              LocaleKeys.volume.tr,
-                              style: Theme.of(context).textTheme.subtitle2,
-                            )
-                          ],
-                        ),
-                        const SizedBox(height: 5),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              LocaleKeys.volume.tr,
-                              style: Theme.of(context).textTheme.subtitle1,
-                            ),
-                            Text(
-                              data.volume.toString(),
-                              style: Theme.of(context).textTheme.subtitle1,
-                            )
-                          ],
-                        ),
-                        const SizedBox(height: 5),
-                        Row(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Text(
-                              LocaleKeys.quoteVolume.tr,
-                              style: Theme.of(context).textTheme.subtitle1,
-                            ),
-                            Text(
-                              data.volumeQuote.toString(),
-                              style: Theme.of(context).textTheme.subtitle1,
-                            )
-                          ],
-                        ),
-                      ],
-                    )),
-          ),
-      onLoading: loading(),
-      onError: error);
+Widget summarySection(Pair pair, [PairSummary? pairSummary]) {
+  _controller.getPairSummary(pair, pairSummary);
+  return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 15),
+      child: Builder(
+          builder: (context) => _controller.obx(
+              (data) => Column(
+                    children: [
+                      Row(
+                        children: [
+                          Text(
+                            LocaleKeys.price.tr,
+                            style: Theme.of(context).textTheme.subtitle2,
+                          )
+                        ],
+                      ),
+                      const SizedBox(height: 5),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            LocaleKeys.last.tr,
+                            style: Theme.of(context).textTheme.subtitle1,
+                          ),
+                          Text(
+                            data!.price.last.toString(),
+                            style: Theme.of(context).textTheme.subtitle1,
+                          )
+                        ],
+                      ),
+                      const SizedBox(height: 5),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            LocaleKeys.high.tr,
+                            style: Theme.of(context).textTheme.subtitle1,
+                          ),
+                          Text(
+                            data.price.high.toString(),
+                            style: Theme.of(context).textTheme.subtitle1,
+                          )
+                        ],
+                      ),
+                      const SizedBox(height: 5),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            LocaleKeys.low.tr,
+                            style: Theme.of(context).textTheme.subtitle1,
+                          ),
+                          Text(
+                            data.price.low.toString(),
+                            style: Theme.of(context).textTheme.subtitle1,
+                          )
+                        ],
+                      ),
+                      const SizedBox(height: 5),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            LocaleKeys.change.tr,
+                            style: Theme.of(context).textTheme.subtitle1,
+                          ),
+                          Text(
+                            data.price.change.absolute.toString(),
+                            style: Theme.of(context).textTheme.subtitle1,
+                          )
+                        ],
+                      ),
+                      const SizedBox(height: 10),
+                      Row(
+                        children: [
+                          Text(
+                            LocaleKeys.volume.tr,
+                            style: Theme.of(context).textTheme.subtitle2,
+                          )
+                        ],
+                      ),
+                      const SizedBox(height: 5),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            LocaleKeys.volume.tr,
+                            style: Theme.of(context).textTheme.subtitle1,
+                          ),
+                          Text(
+                            data.volume.toString(),
+                            style: Theme.of(context).textTheme.subtitle1,
+                          )
+                        ],
+                      ),
+                      const SizedBox(height: 5),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            LocaleKeys.quoteVolume.tr,
+                            style: Theme.of(context).textTheme.subtitle1,
+                          ),
+                          Text(
+                            data.volumeQuote.toString(),
+                            style: Theme.of(context).textTheme.subtitle1,
+                          )
+                        ],
+                      ),
+                    ],
+                  ),
+              onLoading: loading(),
+              onError: error)));
 }
 
 class SummarySectionController extends BaseController
     with StateMixin<PairSummary> {
-  final cancelToken = CancelToken();
 
-  getPairSummary(Pair pair) {
+  getPairSummary(Pair pair, [PairSummary? pairSummary]) {
+    if (pairSummary != null) {
+      change(pairSummary, status: RxStatus.success());
+    }
     change(null, status: RxStatus.loading());
     provider
-        .getPairSummary(pair.exchange, pair.pair, cancelToken)
+        .getPairSummary(pair.exchange, pair.pair)
         .then((value) {
       change(value, status: RxStatus.success());
     }).catchError((error) {
@@ -143,9 +143,4 @@ class SummarySectionController extends BaseController
     });
   }
 
-  @override
-  void onClose() {
-    cancelToken.cancel();
-    super.onClose();
-  }
 }

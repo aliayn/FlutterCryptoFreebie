@@ -16,7 +16,7 @@ Widget favoritePairWidget(final FavoritePair data) => Builder(
               const SizedBox(
                 height: 5,
               ),
-              titlePrice(pair: data.pair),
+              titlePrice(pair: data.pair, pairSummary: data.pairSummary),
               Container(
                 margin: const EdgeInsets.only(top: 10),
                 color: Theme.of(context).dividerColor,
@@ -24,7 +24,8 @@ Widget favoritePairWidget(final FavoritePair data) => Builder(
                 width: double.infinity,
               ),
               InkWell(
-                onTap: () => goToDetailPage(pair: data.pair),
+                onTap: () =>
+                    goToDetailPage(pair: data.pair, summary: data.pairSummary),
                 child: Container(
                   padding: const EdgeInsets.symmetric(vertical: 10),
                   child: Row(

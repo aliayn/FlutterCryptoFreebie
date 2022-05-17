@@ -8,7 +8,7 @@ import '../locale/locale_keys.dart';
 import '../models/markets/pair/pair.dart';
 import '../models/orderbook/orderbook/orderbook.dart';
 
-late final OrderBookSectionController _controller = Get.put(OrderBookSectionController());
+late final _controller = Get.find<OrderBookSectionController>();
 
 Widget orderBookSection(Pair pair) {
   _controller.getOrderBook(pair);

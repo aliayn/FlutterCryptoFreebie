@@ -1,4 +1,6 @@
 import 'package:crypto_freebie/controllers/detail/detail_controller.dart';
+import 'package:crypto_freebie/models/graph/graph/graph.dart';
+import 'package:crypto_freebie/models/pair/pair_summary/pair_summary.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -16,7 +18,9 @@ class DetailPage extends GetView<DetailController> {
   @override
   Widget build(BuildContext context) {
     final Pair pair = Get.arguments[0];
-    controller.getGraph(pair);
+    final PairSummary pairSummary = Get.arguments[1];
+    final Graph? graph = Get.arguments[2];
+    controller.getGraph(pair, graph);
     return Scaffold(
       key: Keys.detailScreen,
       appBar: AppBar(
@@ -26,7 +30,7 @@ class DetailPage extends GetView<DetailController> {
         ),
         centerTitle: true,
       ),
-      body: SingleChildScrollView(
+       body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -35,7 +39,7 @@ class DetailPage extends GetView<DetailController> {
             ),
             Container(
                 padding: const EdgeInsets.symmetric(horizontal: 15),
-                child: titlePrice(pair: pair)),
+                child: titlePrice(pair: pair,pairSummary: pairSummary)),
             const SizedBox(
               height: 20,
             ),
@@ -52,7 +56,7 @@ class DetailPage extends GetView<DetailController> {
             const SizedBox(
               height: 15,
             ),
-            detailsWidget(pair),
+            detailsWidget(pair, pairSummary, graph),
             const SizedBox(
               height: 30,
             ),

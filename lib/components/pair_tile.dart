@@ -31,11 +31,12 @@ class _PairTileState extends State<PairTile>
     return controller.obx(
       (state) {
         var summary = controller.pairSummary.value!;
+        var graph = controller.graph.value!;
         return Container(
           key: Keys.pairTile,
           child: GestureDetector(
               onTap: () {
-                goToDetailPage(pair: pair);
+                goToDetailPage(pair: pair, summary: summary, graph: graph);
               },
               child: Container(
                   padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -65,7 +66,7 @@ class _PairTileState extends State<PairTile>
                                 color: summary.price.change.absolute < 0
                                     ? Colors.red
                                     : const Color(0xff02d39a),
-                                data: getPoints(controller.graph.value!))),
+                                data: getPoints(graph))),
                       ),
                       Expanded(
                         flex: 4,

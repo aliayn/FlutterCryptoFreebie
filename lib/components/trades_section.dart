@@ -2,7 +2,6 @@ import 'package:crypto_freebie/base/base_controller.dart';
 import 'package:crypto_freebie/components/error.dart';
 import 'package:crypto_freebie/components/loading.dart';
 import 'package:crypto_freebie/models/markets/pair/pair.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -10,8 +9,7 @@ import '../locale/locale_keys.dart';
 import '../models/trades/trade/trade.dart';
 import '../utils/utils.dart';
 
-late final TradesSectionController _controller =
-    Get.put(TradesSectionController());
+late final _controller = Get.find<TradesSectionController>();
 
 Widget tradesSection(Pair pair) {
   _controller.getTrades(pair);
@@ -101,20 +99,12 @@ Widget tradesSection(Pair pair) {
 
 class TradesSectionController extends BaseController
     with StateMixin<List<Trade>> {
-  final cancelToken = CancelToken();
-
   getTrades(Pair pair) {
     change(null, status: RxStatus.loading());
-    provider.getTrades(pair.exchange, pair.pair, cancelToken).then((value) {
+    provider.getTrades(pair.exchange, pair.pair).then((value) {
       change(value, status: RxStatus.success());
     }).catchError((error) {
       change(null, status: RxStatus.error(error.toString().tr));
     });
-  }
-
-  @override
-  void onClose() {
-    cancelToken.cancel();
-    super.onClose();
   }
 }
