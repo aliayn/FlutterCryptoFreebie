@@ -1,28 +1,17 @@
 import 'package:crypto_freebie/base/base_controller.dart';
 import 'package:crypto_freebie/models/markets/pair/pair.dart';
 import 'package:crypto_freebie/utils/utils.dart';
-import 'package:dio/dio.dart';
 import 'package:get/get.dart';
 
-class SearchController extends BaseController with StateMixin<List<Pair>> {
-  final CancelToken _cancelToken = CancelToken();
-
-  getPair() async {
-    change(null, status: RxStatus.loading());
-    try {
-      final search = getSearchText();
-      final pairs = await provider.getPairs(getExchange(), _cancelToken);
-      List<Pair> list = [];
-      if (search != "") {
-        list = pairs.where((element) => element.pair.contains(search)).toList();
-      } else {
-        list = pairs;
-      }
-      change(list, status: RxStatus.success());
-    } on Exception catch (e) {
-      change(null, status: RxStatus.error(e.toString().tr));
-    }
-  }
+class SearchController extends BaseController with StateMixin {
+  var searchText = RxString('');
+  var pairsList = <Pair>[];
+  var usdtPairs = <Pair>[];
+  var btcPairs = <Pair>[];
+  var ethPairs = <Pair>[];
+  var bnbPairs = <Pair>[];
+  var busdPairs = <Pair>[];
+  var futuresPairs = <Pair>[];
 
   @override
   void onReady() {
@@ -30,9 +19,25 @@ class SearchController extends BaseController with StateMixin<List<Pair>> {
     super.onReady();
   }
 
-  @override
-  void onClose() {
-    _cancelToken.cancel();
-    super.onClose();
+  getPair() async {
+    change(null, status: RxStatus.loading());
+    try {
+      pairsList = await provider.getPairs(getExchange());
+      _sortPairsList(pairsList);
+
+      change(null, status: RxStatus.success());
+    } on Exception catch (e) {
+      change(null, status: RxStatus.error(e.toString().tr));
+    }
+  }
+
+  _sortPairsList(List<Pair> list) {
+    usdtPairs = list.where((element) => element.pair.contains('usdt')).toList();
+    btcPairs = list.where((element) => element.pair.contains('btc')).toList();
+    ethPairs = list.where((element) => element.pair.contains('eth')).toList();
+    bnbPairs = list.where((element) => element.pair.contains('bnb')).toList();
+    busdPairs = list.where((element) => element.pair.contains('busd')).toList();
+    futuresPairs =
+        list.where((element) => element.pair.contains('futures')).toList();
   }
 }

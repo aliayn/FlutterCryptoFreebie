@@ -53,7 +53,7 @@ class _PairTileState extends State<PairTile>
                               textAlign: TextAlign.start,
                               minFontSize: 0,
                               stepGranularity: 0.1,
-                              maxLines: 1,
+                              maxLines: 2,
                               style: Theme.of(context).textTheme.headline5),
                         ),
                       ),
@@ -76,10 +76,12 @@ class _PairTileState extends State<PairTile>
                             mainAxisAlignment: MainAxisAlignment.start,
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
-                              AutoSizeText(
-                                summary.price.last.toStringAsFixed(2),
-                                minFontSize: 10,
-                                style: Theme.of(context).textTheme.headline5,
+                              Center(
+                                child: AutoSizeText(
+                                  summary.price.last.toStringAsFixed(2),
+                                  minFontSize: 10,
+                                  style: Theme.of(context).textTheme.headline5,
+                                ),
                               ),
                               const SizedBox(
                                 height: 5,
@@ -123,8 +125,11 @@ class _PairTileState extends State<PairTile>
                   ))),
         );
       },
-      onLoading: loading(),
-      onError: error,
+      onLoading: SizedBox(height: 100, child: loading()),
+      onError: (e) => SizedBox(
+        height: 100,
+        child: error(e),
+      ),
     );
   }
 
