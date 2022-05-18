@@ -125,7 +125,7 @@ class _PairTileState extends State<PairTile>
                   ))),
         );
       },
-      onLoading: SizedBox(height: 100, child: loading()),
+      onLoading: SizedBox(height: 100, child: loadingPairTile()),
       onError: (e) => SizedBox(
         height: 100,
         child: error(e),
