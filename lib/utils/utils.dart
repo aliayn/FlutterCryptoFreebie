@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:ui';
 
 import 'package:get_storage/get_storage.dart';
@@ -7,10 +8,14 @@ import '../models/graph/graph/graph.dart';
 
 final _box = GetStorage();
 
+erase() {
+ // _box.remove(_searchTextKey);
+}
+
 const String _defaultLocale = "en";
 const String _defaultExchange = "binance";
 const String _defaultPair = "btcusdt";
-const String _defaultSearchText = "";
+const List _defaultSearchText = [];
 
 const _languageKey = 'language';
 const _exchangeKey = 'exchange';
@@ -21,9 +26,25 @@ setPair(value) => _box.write(_pairKey, value);
 
 getPair() => _box.read(_pairKey) ?? _defaultPair;
 
-setSearchText(value) => _box.write(_searchTextKey, value);
+setSearchText(value) {
+  List list = getSearchText();
+  list = List.from(list);
+  if (!list.contains(value)) list.add(value);
+  return _box.write(_searchTextKey, jsonEncode(list));
+}
 
-getSearchText() => _box.read(_searchTextKey) ?? _defaultSearchText;
+deleteSearchText(value){
+  List list = getSearchText();
+  list = List.from(list);
+  if (list.contains(value)) list.remove(value);
+  return _box.write(_searchTextKey, jsonEncode(list));
+}
+
+getSearchText() {
+  var list = _box.read(_searchTextKey);
+  if (list != null) return jsonDecode(list);
+  return _defaultSearchText;
+}
 
 setLanguage(value) => _box.write(_languageKey, value);
 

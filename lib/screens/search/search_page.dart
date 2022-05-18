@@ -2,9 +2,11 @@ import 'package:crypto_freebie/components/error.dart';
 import 'package:crypto_freebie/components/loading.dart';
 import 'package:crypto_freebie/components/pair_tile.dart';
 import 'package:crypto_freebie/controllers/search/search_controller.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
+import '../../components/search_pair.dart';
 import '../../locale/locale_keys.dart';
 import '../../models/markets/pair/pair.dart';
 import '../../utils/keys.dart';
@@ -22,7 +24,18 @@ class SearchPage extends GetView<SearchController> {
             LocaleKeys.searchTitle.tr,
             style: const TextStyle(color: Colors.white, fontSize: 25),
           ),
-          bottom:  TabBar(
+          actions: [
+            IconButton(
+              icon: const Icon(CupertinoIcons.search),
+              onPressed: () {
+                showSearch(
+                  context: context,
+                  delegate: SearchPairDelegate(controller),
+                );
+              },
+            ),
+          ],
+          bottom: TabBar(
               labelColor: Colors.white,
               unselectedLabelColor: Colors.white,
               isScrollable: true,
@@ -53,12 +66,10 @@ class SearchPage extends GetView<SearchController> {
                         _pairListWidget(controller.futuresPairs),
                       ]),
                       onLoading: TabBarView(children: <Widget>[
-                        for (var i = 0; i < 5; i += 1)
-                          loading()
+                        for (var i = 0; i < 6; i += 1) loading()
                       ]),
                       onError: (e) => TabBarView(children: <Widget>[
-                        for (var i = 0; i < 5; i += 1)
-                          error(e)
+                        for (var i = 0; i < 6; i += 1) error(e)
                       ]),
                     ))
                   ],

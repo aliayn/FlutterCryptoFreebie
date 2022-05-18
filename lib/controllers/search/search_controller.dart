@@ -4,7 +4,6 @@ import 'package:crypto_freebie/utils/utils.dart';
 import 'package:get/get.dart';
 
 class SearchController extends BaseController with StateMixin {
-  var searchText = RxString('');
   var pairsList = <Pair>[];
   var usdtPairs = <Pair>[];
   var btcPairs = <Pair>[];
@@ -12,6 +11,7 @@ class SearchController extends BaseController with StateMixin {
   var bnbPairs = <Pair>[];
   var busdPairs = <Pair>[];
   var futuresPairs = <Pair>[];
+  var searchPairs = RxList<Pair>();
 
   @override
   void onReady() {
@@ -39,5 +39,10 @@ class SearchController extends BaseController with StateMixin {
     busdPairs = list.where((element) => element.pair.contains('busd')).toList();
     futuresPairs =
         list.where((element) => element.pair.contains('futures')).toList();
+  }
+
+  addSearchQuery(String query) {
+    searchPairs.value =
+        pairsList.where((element) => element.pair.contains(query)).toList();
   }
 }

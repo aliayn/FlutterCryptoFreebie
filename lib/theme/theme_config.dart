@@ -32,7 +32,7 @@ ThemeData lightTheme(context) => ThemeData(
       headline5: TextStyle(
           color: Colors.black, fontSize: 19, fontWeight: FontWeight.w700),
       headline6: TextStyle(
-          color: Colors.black, fontSize: 13, fontWeight: FontWeight.w400),
+          color: Colors.black, fontSize: 17, fontWeight: FontWeight.w400),
       subtitle1: TextStyle(
           color: Colors.black87, fontSize: 14, fontWeight: FontWeight.normal),
       subtitle2: TextStyle(
@@ -65,7 +65,7 @@ ThemeData darkTheme(context) => ThemeData(
         headline5: TextStyle(
             color: Colors.white, fontSize: 19, fontWeight: FontWeight.w700),
         headline6: TextStyle(
-            color: Colors.white, fontSize: 13, fontWeight: FontWeight.w400),
+            color: Colors.white, fontSize: 17, fontWeight: FontWeight.w400),
         subtitle1: TextStyle(
             color: Colors.white70, fontSize: 14, fontWeight: FontWeight.normal),
         subtitle2: TextStyle(
