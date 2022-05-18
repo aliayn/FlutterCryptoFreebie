@@ -20,7 +20,12 @@ class SearchPairDelegate extends SearchDelegate {
   }
 
   @override
-  TextStyle get searchFieldStyle => TextStyle(fontSize: 16.sp);
+  InputDecorationTheme? get searchFieldDecorationTheme => InputDecorationTheme(
+        border: InputBorder.none,
+        labelStyle:
+            TextStyle(fontSize: 14.sp, color: Colors.white),
+            hintStyle: TextStyle(fontSize: 14.sp, color:Colors.white)
+      );
 
   @override
   String? get searchFieldLabel => LocaleKeys.searchBar.tr;
@@ -42,14 +47,6 @@ class SearchPairDelegate extends SearchDelegate {
     assert(context != null);
     final ThemeData theme = Theme.of(context);
     assert(theme != null);
-    theme.copyWith(
-        inputDecorationTheme: const InputDecorationTheme(
-      border: InputBorder.none,
-      focusedBorder: InputBorder.none,
-      enabledBorder: InputBorder.none,
-      errorBorder: InputBorder.none,
-      disabledBorder: InputBorder.none,
-    ));
     return theme;
   }
 
@@ -102,7 +99,7 @@ class SearchPairDelegate extends SearchDelegate {
                                   ),
                                 ),
                                 GestureDetector(
-                                  child: const Icon(CupertinoIcons.xmark,
+                                  child: const Icon(CupertinoIcons.delete,
                                       size: 16),
                                   onTap: () {
                                     deleteSearchText(

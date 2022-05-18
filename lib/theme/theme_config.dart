@@ -44,11 +44,11 @@ ThemeData lightTheme(context) => ThemeData(
 ThemeData darkTheme(context) => ThemeData(
     primaryColor: Colors.black12,
     bottomNavigationBarTheme: BottomNavigationBarThemeData(
-        backgroundColor: Colors.grey[10000],
+        backgroundColor: Colors.grey[900],
         selectedItemColor: Colors.white,
         unselectedItemColor: Colors.white70),
     appBarTheme: AppBarTheme(
-      color: Colors.grey[10000],
+      color: Colors.grey[900]
     ),
     brightness: Brightness.dark,
     scaffoldBackgroundColor: Colors.black,
