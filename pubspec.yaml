@@ -23,7 +23,7 @@ dependencies:
   flutter_dotenv: ^5.0.2
   shimmer: ^2.0.0
   flutter_spinkit: ^5.1.0
-  dot_navigation_bar: ^1.0.1+4
+  google_nav_bar: ^5.0.6
   fl_chart: ^0.36.1
   auto_size_text: ^3.0.0
   floor: ^1.2.0

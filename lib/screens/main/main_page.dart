@@ -3,10 +3,10 @@ import 'package:crypto_freebie/screens/search/search_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:google_nav_bar/google_nav_bar.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../locale/locale_keys.dart';
-import '../../utils/keys.dart';
 import '../home/home_page.dart';
 import '../settings/settings_page.dart';
 
@@ -16,7 +16,8 @@ class MainPage extends GetView<MainController> {
   @override
   Widget build(BuildContext context) => Obx(
         () => Scaffold(
-            bottomNavigationBar: _buildBottomNavigationMenu(),
+            bottomNavigationBar: _buildGNav(context),
+            extendBody: true,
             body: IndexedStack(
               index: controller.tabIndex.value,
               children: _buildScreens(),
@@ -29,50 +30,41 @@ class MainPage extends GetView<MainController> {
         const SettingsPage(),
       ];
 
-  _buildBottomNavigationMenu() => Builder(
-      builder: (context) => SizedBox(
-            height: 11.h,
-            child: BottomNavigationBar(
-              key: Keys.navBar,
-              onTap: controller.changeTabIndex,
-              currentIndex: controller.tabIndex.value,
-              items: _navBarsItems(context),
-            ),
-          ));
-
-  _navBarsItems(context) => <BottomNavigationBarItem>[
-        BottomNavigationBarItem(
-          label: LocaleKeys.homeTitle.tr,
-          icon: Container(
-            margin: const EdgeInsets.only(bottom: 5),
-            child: const Icon(
-              CupertinoIcons.home,
-              size: 20.0,
-              key: Keys.navHome,
-            ),
+  _buildGNav(context) => Padding(
+        padding: EdgeInsets.only(bottom: 6.h, right: 8.w, left: 8.w),
+        child: Container(
+          decoration: BoxDecoration(
+              color:
+                  Theme.of(context).bottomNavigationBarTheme.backgroundColor!,
+              borderRadius: const BorderRadius.all(Radius.circular(30))),
+          width: double.maxFinite,
+          height: 6.5.h,
+          child: GNav(
+            gap: 8,
+            activeColor:
+                Theme.of(context).bottomNavigationBarTheme.selectedItemColor,
+            iconSize: 24,
+            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+            duration: const Duration(milliseconds: 400),
+            color:
+                Theme.of(context).bottomNavigationBarTheme.unselectedItemColor,
+            tabs: [
+              GButton(
+                icon: CupertinoIcons.home,
+                text: LocaleKeys.homeTitle.tr,
+              ),
+              GButton(
+                icon: CupertinoIcons.search,
+                text: LocaleKeys.searchTitle.tr,
+              ),
+              GButton(
+                icon: CupertinoIcons.settings,
+                text: LocaleKeys.settingsTitle.tr,
+              ),
+            ],
+            selectedIndex: controller.tabIndex.value,
+            onTabChange: controller.changeTabIndex,
           ),
         ),
-        BottomNavigationBarItem(
-          label: LocaleKeys.searchTitle.tr,
-          icon: Container(
-            margin: const EdgeInsets.only(bottom: 5),
-            child: const Icon(
-              CupertinoIcons.search,
-              size: 20.0,
-              key: Keys.navSearch,
-            ),
-          ),
-        ),
-        BottomNavigationBarItem(
-          label: LocaleKeys.settingsTitle.tr,
-          icon: Container(
-            margin: const EdgeInsets.only(bottom: 5),
-            child: const Icon(
-              CupertinoIcons.settings,
-              size: 20.0,
-              key: Keys.navSettings,
-            ),
-          ),
-        ),
-      ];
+      );
 }
