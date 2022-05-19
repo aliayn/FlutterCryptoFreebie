@@ -6,12 +6,12 @@ import 'dart:math';
 import '../locale/locale_keys.dart';
 import '../utils/utils.dart';
 
-Widget lineChartWidget({
-  final List<double> data = const [],
-  final Color color = const Color(0xff02d39a),
-  final bool loading = false,
-  final bool error = false,
-}) {
+Widget lineChartWidget(
+    {final List<double> data = const [],
+    final Color color = const Color(0xff02d39a),
+    final bool loading = false,
+    final bool error = false,
+    final bool expand = false}) {
   return Builder(
       builder: (context) =>
           Stack(alignment: AlignmentDirectional.center, children: [
@@ -24,7 +24,8 @@ Widget lineChartWidget({
                       data.isNotEmpty && !loading & !error
                           ? data
                           : demoGraphData,
-                      color),
+                      color,
+                      expand),
                   swapAnimationDuration: const Duration(seconds: 0),
                 ),
               ),
@@ -41,7 +42,8 @@ Widget lineChartWidget({
           ]));
 }
 
-LineChartData mainData(List<double> data, Color color) => LineChartData(
+LineChartData mainData(List<double> data, Color color, bool expand) =>
+    LineChartData(
       gridData: FlGridData(
         show: true,
         drawVerticalLine: false,
@@ -80,7 +82,7 @@ LineChartData mainData(List<double> data, Color color) => LineChartData(
             show: false,
           ),
           belowBarData: BarAreaData(
-            show: true,
+            show: expand,
             gradientFrom: const Offset(0, .9),
             gradientTo: const Offset(0, 0.5),
             colors: [color.withOpacity(.01), color.withOpacity(.3)],

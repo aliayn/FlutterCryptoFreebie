@@ -30,7 +30,7 @@ class DetailPage extends GetView<DetailController> {
         ),
         centerTitle: true,
       ),
-       body: SingleChildScrollView(
+      body: SingleChildScrollView(
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
@@ -39,14 +39,15 @@ class DetailPage extends GetView<DetailController> {
             ),
             Container(
                 padding: const EdgeInsets.symmetric(horizontal: 15),
-                child: titlePrice(pair: pair,pairSummary: pairSummary)),
+                child: titlePrice(pair: pair, pairSummary: pairSummary)),
             const SizedBox(
               height: 20,
             ),
             SizedBox(
                 height: 250,
                 child: controller.obx(
-                    (state) => lineChartWidget(data: getPoints(state!)),
+                    (state) =>
+                        lineChartWidget(data: getPoints(state!), expand: true),
                     onLoading: lineChartWidget(loading: true),
                     onError: (error) => lineChartWidget(error: true))),
             const SizedBox(
