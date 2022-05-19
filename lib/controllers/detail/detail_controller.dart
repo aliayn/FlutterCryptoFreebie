@@ -13,8 +13,8 @@ class DetailController extends BaseController with StateMixin<Graph> {
 
     change(null, status: RxStatus.loading());
 
-    String interval = timeDataProvider.periods;
-    String fromHours = timeDataProvider.before;
+    String interval = timeDataProvider.value.periods;
+    String fromHours = timeDataProvider.value.before;
     String before = "";
     if (fromHours.isNotEmpty) {
       before = (DateTime.now()

@@ -1,7 +1,6 @@
 import 'package:crypto_freebie/base/base_controller.dart';
 import 'package:crypto_freebie/components/error.dart';
 import 'package:crypto_freebie/components/loading.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import '../locale/locale_keys.dart';
@@ -115,7 +114,6 @@ Widget orderBookSection(Pair pair) {
 
 class OrderBookSectionController extends BaseController
     with StateMixin<OrderBook> {
-  final cancelToken = CancelToken();
   getOrderBook(Pair pair) {
     change(null, status: RxStatus.loading());
     provider
@@ -124,11 +122,5 @@ class OrderBookSectionController extends BaseController
         .catchError((error) {
       change(null, status: RxStatus.error(error.toString().tr));
     });
-  }
-
-  @override
-  void onClose() {
-    cancelToken.cancel();
-    super.onClose();
   }
 }

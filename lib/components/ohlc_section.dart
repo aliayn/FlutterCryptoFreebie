@@ -1,7 +1,6 @@
 import 'package:crypto_freebie/base/base_controller.dart';
 import 'package:crypto_freebie/components/error.dart';
 import 'package:crypto_freebie/components/loading.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_candlesticks/flutter_candlesticks.dart';
 import 'package:get/get.dart';
@@ -10,7 +9,8 @@ import '../models/graph/graph/graph.dart';
 import '../models/markets/pair/pair.dart';
 import '../utils/time.dart';
 
-late final OHLCSectionController _controller = Get.find<OHLCSectionController>();
+late final OHLCSectionController _controller =
+    Get.find<OHLCSectionController>();
 
 Widget oHLCSection(Pair pair, [Graph? graph]) {
   _controller.getGraph(pair);
@@ -38,14 +38,13 @@ Widget oHLCSection(Pair pair, [Graph? graph]) {
 }
 
 class OHLCSectionController extends BaseController with StateMixin<Graph> {
-  final cancelToken = CancelToken();
   getGraph(Pair pair, [Graph? graph]) {
     if (graph != null) {
       change(graph, status: RxStatus.success());
     }
     change(null, status: RxStatus.loading());
-    String interval = timeDataProvider.periods;
-    String fromHours = timeDataProvider.before;
+    String interval = timeDataProvider.value.periods;
+    String fromHours = timeDataProvider.value.before;
     String before = "";
     if (fromHours.isNotEmpty) {
       before = (DateTime.now()
@@ -63,11 +62,5 @@ class OHLCSectionController extends BaseController with StateMixin<Graph> {
         .catchError((error) {
       change(null, status: RxStatus.error(error.toString().tr));
     });
-  }
-
-  @override
-  void onClose() {
-    cancelToken.cancel();
-    super.onClose();
   }
 }

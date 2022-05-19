@@ -21,7 +21,7 @@ class MyApp extends GetView {
   Widget build(BuildContext context) => Sizer(
         builder: ((context, orientation, deviceType) => GetMaterialApp(
               debugShowCheckedModeBanner: true,
-              locale:getDefaultLocale(),
+              locale: getDefaultLocale(),
               fallbackLocale: const Locale('en', 'US'),
               translationsKeys: AppTranslation.keys,
               getPages: AppPages.routes,

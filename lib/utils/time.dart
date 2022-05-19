@@ -1,3 +1,5 @@
+import 'package:get/get.dart';
+
 class TimeGraphData {
   String name;
   String periods;
@@ -14,4 +16,4 @@ final timeList = [
   TimeGraphData("ALL", "", "")
 ];
 
-TimeGraphData timeDataProvider = TimeGraphData("1M", "60", "12");
+var timeDataProvider = TimeGraphData("1M", "60", "12").obs;

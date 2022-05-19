@@ -12,13 +12,13 @@ Widget timBarSelector() => Builder(
                     .mapIndexed(
                       (e, i) => InkWell(
                         onTap: () {
-                          timeDataProvider = e;
+                          timeDataProvider(e);
                         },
                         child: Container(
                           padding: const EdgeInsets.symmetric(
                               vertical: 3, horizontal: 8),
                           decoration: BoxDecoration(
-                              color: timeDataProvider.name == e.name
+                              color: timeDataProvider.value.name == e.name
                                   ? Theme.of(context).cardColor
                                   : Colors.transparent,
                               borderRadius:
@@ -26,7 +26,7 @@ Widget timBarSelector() => Builder(
                           child: Center(
                             child: Text(
                               e.name,
-                              style: timeDataProvider.name == e.name
+                              style: timeDataProvider.value.name == e.name
                                   ? Theme.of(context)
                                       .textTheme
                                       .headline3!
