@@ -5,8 +5,10 @@ import 'package:crypto_freebie/components/loading.dart';
 import 'package:crypto_freebie/controllers/pairTile/pair_tile_controller.dart';
 import 'package:crypto_freebie/models/markets/pair/pair.dart';
 import 'package:crypto_freebie/routes/router.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sizer/sizer.dart';
 import 'package:uuid/uuid.dart';
 
 import '../utils/keys.dart';
@@ -64,12 +66,7 @@ class _PairTileState extends State<PairTile>
                           width: 80,
                           child: Hero(
                             tag: _pairNameTag,
-                            child: AutoSizeText(pair.pair.toUpperCase(),
-                                textAlign: TextAlign.start,
-                                minFontSize: 0,
-                                stepGranularity: 0.1,
-                                maxLines: 2,
-                                style: Theme.of(context).textTheme.headline5),
+                            child: createPairName(pair),
                           ),
                         ),
                       ),
@@ -81,7 +78,7 @@ class _PairTileState extends State<PairTile>
                             child: lineChartWidget(
                                 color: summary.price.change.absolute < 0
                                     ? Colors.red
-                                    : const Color(0xff02d39a),
+                                    : Colors.green,
                                 data: getPoints(graph))),
                       ),
                       Expanded(
@@ -157,6 +154,21 @@ class _PairTileState extends State<PairTile>
         child: error(e),
       ),
     );
+  }
+
+  createPairName(Pair pair) {
+    return Row(mainAxisSize: MainAxisSize.min, children: [
+      Text(
+        pair.pair.replaceAll('usdt', '').toUpperCase(),
+        style: TextStyle(color: CupertinoColors.white, fontSize: 8.sp),
+      ),
+      Text('/',
+          style:
+              TextStyle(color: CupertinoColors.inactiveGray, fontSize: 6.sp)),
+      Text('usdt'.toUpperCase(),
+          style:
+              TextStyle(color: CupertinoColors.inactiveGray, fontSize: 6.sp)),
+    ]);
   }
 
   @override

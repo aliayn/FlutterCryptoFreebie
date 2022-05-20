@@ -18,7 +18,7 @@ dependencies:
   intl: ^0.17.0
   get: ^4.6.1
   uuid: ^3.0.6
-  hidable: ^1.0.2
+  flutter_svg: ^1.0.3
   get_storage: ^2.0.3
   google_fonts: ^2.3.2
   settings_ui: ^1.0.0
