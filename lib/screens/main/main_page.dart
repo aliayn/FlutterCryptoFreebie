@@ -38,7 +38,7 @@ class MainPage extends GetView<MainController> {
                   Theme.of(context).bottomNavigationBarTheme.backgroundColor!,
               borderRadius: const BorderRadius.all(Radius.circular(30))),
           width: double.maxFinite,
-          height: 6.5.h,
+          height: 8.h,
           child: GNav(
             gap: 8,
             activeColor:

@@ -7,6 +7,7 @@ import 'package:crypto_freebie/models/markets/pair/pair.dart';
 import 'package:crypto_freebie/routes/router.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:uuid/uuid.dart';
 
 import '../utils/keys.dart';
 import '../utils/utils.dart';
@@ -22,6 +23,11 @@ class PairTile extends StatefulWidget {
 class _PairTileState extends State<PairTile>
     with AutomaticKeepAliveClientMixin {
   final PairTileController controller = PairTileController();
+  static const uuid = Uuid();
+  final String _pairNameTag = uuid.v4();
+  final String _pairPriceTag = uuid.v4();
+  final String _pairChangeTag = uuid.v4();
+  final String _pairChangePercentTag = uuid.v4();
 
   @override
   Widget build(BuildContext context) {
@@ -36,7 +42,14 @@ class _PairTileState extends State<PairTile>
           key: Keys.pairTile,
           child: GestureDetector(
               onTap: () {
-                goToDetailPage(pair: pair, summary: summary, graph: graph);
+                goToDetailPage(
+                    pair: pair,
+                    summary: summary,
+                    graph: graph,
+                    pairNameTag: _pairNameTag,
+                    pairPriceTag: _pairPriceTag,
+                    pairChangeTag: _pairChangeTag,
+                    pairChangePercentTag: _pairChangePercentTag);
               },
               child: Container(
                   padding: const EdgeInsets.symmetric(horizontal: 15),
@@ -49,12 +62,15 @@ class _PairTileState extends State<PairTile>
                         child: Container(
                           padding: const EdgeInsets.symmetric(vertical: 15),
                           width: 80,
-                          child: AutoSizeText(pair.pair.toUpperCase(),
-                              textAlign: TextAlign.start,
-                              minFontSize: 0,
-                              stepGranularity: 0.1,
-                              maxLines: 2,
-                              style: Theme.of(context).textTheme.headline5),
+                          child: Hero(
+                            tag: _pairNameTag,
+                            child: AutoSizeText(pair.pair.toUpperCase(),
+                                textAlign: TextAlign.start,
+                                minFontSize: 0,
+                                stepGranularity: 0.1,
+                                maxLines: 2,
+                                style: Theme.of(context).textTheme.headline5),
+                          ),
                         ),
                       ),
                       Expanded(
@@ -77,10 +93,14 @@ class _PairTileState extends State<PairTile>
                             crossAxisAlignment: CrossAxisAlignment.end,
                             children: [
                               Center(
-                                child: AutoSizeText(
-                                  summary.price.last.toStringAsFixed(2),
-                                  minFontSize: 10,
-                                  style: Theme.of(context).textTheme.headline5,
+                                child: Hero(
+                                  tag: _pairPriceTag,
+                                  child: AutoSizeText(
+                                    summary.price.last.toStringAsFixed(2),
+                                    minFontSize: 10,
+                                    style:
+                                        Theme.of(context).textTheme.headline5,
+                                  ),
                                 ),
                               ),
                               const SizedBox(
@@ -90,32 +110,38 @@ class _PairTileState extends State<PairTile>
                                   mainAxisAlignment: MainAxisAlignment.end,
                                   children: [
                                     Expanded(
+                                      child: Hero(
+                                        tag: _pairChangeTag,
+                                        child: AutoSizeText(
+                                            summary.price.change.absolute
+                                                .toStringAsFixed(5),
+                                            textAlign: TextAlign.end,
+                                            minFontSize: 0,
+                                            stepGranularity: 0.1,
+                                            maxLines: 1,
+                                            style: Theme.of(context)
+                                                .textTheme
+                                                .headline5!
+                                                .apply(
+                                                    color: summary.price.change
+                                                                .absolute >=
+                                                            0
+                                                        ? Colors.green
+                                                        : Colors.red)),
+                                      ),
+                                    ),
+                                    Hero(
+                                      tag: _pairChangePercentTag,
                                       child: AutoSizeText(
-                                          summary.price.change.absolute
-                                              .toStringAsFixed(5),
+                                          ' (${summary.price.change.percentage.toStringAsFixed(2)}%)',
                                           textAlign: TextAlign.end,
                                           minFontSize: 0,
                                           stepGranularity: 0.1,
                                           maxLines: 1,
                                           style: Theme.of(context)
                                               .textTheme
-                                              .headline5!
-                                              .apply(
-                                                  color: summary.price.change
-                                                              .absolute >=
-                                                          0
-                                                      ? Colors.green
-                                                      : Colors.red)),
+                                              .headline6),
                                     ),
-                                    AutoSizeText(
-                                        ' (${summary.price.change.percentage.toStringAsFixed(2)}%)',
-                                        textAlign: TextAlign.end,
-                                        minFontSize: 0,
-                                        stepGranularity: 0.1,
-                                        maxLines: 1,
-                                        style: Theme.of(context)
-                                            .textTheme
-                                            .headline6),
                                   ]),
                             ],
                           ),

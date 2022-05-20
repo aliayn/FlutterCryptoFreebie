@@ -20,6 +20,12 @@ class DetailPage extends GetView<DetailController> {
     final Pair pair = Get.arguments[0];
     final PairSummary pairSummary = Get.arguments[1];
     final Graph? graph = Get.arguments[2];
+
+    final String _pairNameTag = Get.arguments[3];
+    final String _pairPriceTag = Get.arguments[4];
+    final String _pairChangeTag = Get.arguments[5];
+    final String _pairChangePercentTag = Get.arguments[6];
+
     controller.getGraph(pair, graph);
     return Scaffold(
       key: Keys.detailScreen,
@@ -39,7 +45,13 @@ class DetailPage extends GetView<DetailController> {
             ),
             Container(
                 padding: const EdgeInsets.symmetric(horizontal: 15),
-                child: titlePrice(pair: pair, pairSummary: pairSummary)),
+                child: titlePrice(
+                    pair: pair,
+                    pairSummary: pairSummary,
+                    pairNameTag: _pairNameTag,
+                    pairPriceTag: _pairPriceTag,
+                    pairChangeTag: _pairChangeTag,
+                    pairChangePercentTag: _pairChangePercentTag)),
             const SizedBox(
               height: 20,
             ),
