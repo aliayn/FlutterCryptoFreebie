@@ -1,6 +1,4 @@
 import 'package:crypto_freebie/base/base_controller.dart';
-import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
 
 class MainController extends BaseController {

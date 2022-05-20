@@ -17,8 +17,8 @@ class MainPage extends GetView<MainController> {
   @override
   Widget build(BuildContext context) => Obx(
         () => Scaffold(
-            bottomNavigationBar: _buildGNav(context),
-            extendBody: true,
+          // bottomNavigationBar: _buildGNav(context),
+          extendBody: true,
           body: FadeIndexedStack(
             index: controller.tabIndex.value,
             children: _buildScreens(),

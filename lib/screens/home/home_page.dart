@@ -1,12 +1,15 @@
 import 'package:crypto_freebie/components/error.dart';
 import 'package:crypto_freebie/components/loading.dart';
 import 'package:crypto_freebie/controllers/home/home_controller.dart';
-import 'package:crypto_freebie/controllers/main/main_controller.dart';
+import 'package:crypto_freebie/controllers/search/search_controller.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
+import 'package:sizer/sizer.dart';
 
 import '../../components/favorite_pair.dart';
 import '../../components/pair_tile.dart';
+import '../../components/search_pair.dart';
 import '../../utils/keys.dart';
 
 class HomePage extends GetView<HomeController> {
@@ -28,9 +31,32 @@ class HomePage extends GetView<HomeController> {
                 Expanded(
                   child: Column(
                     children: [
-                      SizedBox(
-                        height: 190,
-                        child: favoritePairWidget(controller.favoritePair!),
+                      Stack(
+                        children: [
+                          Expanded(
+                            child: SizedBox(
+                              height: 190,
+                              child:
+                                  favoritePairWidget(controller.favoritePair!),
+                            ),
+                          ),
+                          Align(
+                            alignment: Alignment.topRight,
+                            child: Padding(
+                              padding: EdgeInsets.only(right: 2.w),
+                              child: IconButton(
+                                icon: const Icon(CupertinoIcons.search),
+                                onPressed: () {
+                                  showSearch(
+                                    context: context,
+                                    delegate: SearchPairDelegate(
+                                        Get.find<SearchController>()),
+                                  );
+                                },
+                              ),
+                            ),
+                          ),
+                        ],
                       ),
                       Expanded(
                         child: ListView.builder(

@@ -1,6 +1,5 @@
 import 'package:crypto_freebie/providers/api_provider.dart';
 import 'package:dio/dio.dart';
-import 'package:get/get.dart';
 
 import '../models/exchanges/exchange/exchange.dart';
 import '../models/graph/graph/graph.dart';
@@ -9,8 +8,7 @@ import '../models/orderbook/orderbook/orderbook.dart';
 import '../models/pair/pair_summary/pair_summary.dart';
 import '../models/trades/trade/trade.dart';
 
-class AppProvider  {
-
+class AppProvider {
   //-----------------------------Api-----------------------------------------
 
   Future<List<Pair>> getPairs(String market, [CancelToken? cancelToken]) =>

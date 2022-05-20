@@ -2,7 +2,6 @@ import 'package:crypto_freebie/base/base_controller.dart';
 import 'package:crypto_freebie/components/error.dart';
 import 'package:crypto_freebie/components/loading.dart';
 import 'package:crypto_freebie/models/markets/pair/pair.dart';
-import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -128,19 +127,15 @@ Widget summarySection(Pair pair, [PairSummary? pairSummary]) {
 
 class SummarySectionController extends BaseController
     with StateMixin<PairSummary> {
-
   getPairSummary(Pair pair, [PairSummary? pairSummary]) {
     if (pairSummary != null) {
       change(pairSummary, status: RxStatus.success());
     }
     change(null, status: RxStatus.loading());
-    provider
-        .getPairSummary(pair.exchange, pair.pair)
-        .then((value) {
+    provider.getPairSummary(pair.exchange, pair.pair).then((value) {
       change(value, status: RxStatus.success());
     }).catchError((error) {
       change(null, status: RxStatus.error(error.toString().tr));
     });
   }
-
 }
