@@ -1,6 +1,4 @@
-import 'package:crypto_freebie/components/fade_indexed_stack.dart';
 import 'package:crypto_freebie/controllers/main/main_controller.dart';
-import 'package:crypto_freebie/screens/search/search_page.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
@@ -15,22 +13,10 @@ class MainPage extends GetView<MainController> {
   const MainPage({Key? key}) : super(key: key);
 
   @override
-  Widget build(BuildContext context) => Obx(
-        () => Scaffold(
-          // bottomNavigationBar: _buildGNav(context),
-          extendBody: true,
-          body: FadeIndexedStack(
-            index: controller.tabIndex.value,
-            children: _buildScreens(),
-          ),
-        ),
+  Widget build(BuildContext context) => const Scaffold(
+        extendBody: true,
+        body: HomePage(),
       );
-
-  _buildScreens() => [
-        const HomePage(),
-        const SearchPage(),
-        const SettingsPage(),
-      ];
 
   _buildGNav(context) => AnimatedContainer(
         duration: const Duration(milliseconds: 200),
