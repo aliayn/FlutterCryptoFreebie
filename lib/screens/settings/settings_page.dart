@@ -14,77 +14,76 @@ class SettingsPage extends GetView<SettingsController> {
   @override
   Widget build(BuildContext context) {
     controller.init();
+    var height = MediaQuery.of(context).viewPadding.top;
     return Container(
       key: Keys.settingsScreen,
-      child: Column(
-        children: [
-          AppBar(
-            title: Text(
-              LocaleKeys.settingsTitle.tr,
-              style: const TextStyle(color: Colors.white, fontSize: 25),
-            ),
-          ),
-          Expanded(
-            child: SettingsList(
-              contentPadding: EdgeInsets.zero,
-              sections: [
-                SettingsSection(
-                  title: LocaleKeys.languageSection.tr,
-                  tiles: [
-                    SettingsTile(
-                        title: LocaleKeys.language.tr,
-                        subtitle: controller.language.value.tr,
+      child: Padding(
+        padding: EdgeInsets.only(top: height),
+        child: Column(
+          children: [
+            Expanded(
+              child: SettingsList(
+                contentPadding: EdgeInsets.zero,
+                sections: [
+                  SettingsSection(
+                    title: LocaleKeys.languageSection.tr,
+                    tiles: [
+                      SettingsTile(
+                          title: LocaleKeys.language.tr,
+                          subtitle: controller.language.value.tr,
+                          leading: const Icon(
+                            CupertinoIcons.globe,
+                            size: 24,
+                          ),
+                          onPressed: (context) =>
+                              showLanguageSelectionDialog(context)),
+                    ],
+                  ),
+                  SettingsSection(
+                    title: LocaleKeys.dataSection.tr,
+                    tiles: [
+                      SettingsTile(
+                        title: LocaleKeys.exchange.tr,
+                        subtitle: controller.exchange.value,
                         leading: const Icon(
-                          CupertinoIcons.globe,
+                          CupertinoIcons.arrow_2_circlepath,
                           size: 24,
                         ),
                         onPressed: (context) =>
-                            showLanguageSelectionDialog(context)),
-                  ],
-                ),
-                SettingsSection(
-                  title: LocaleKeys.dataSection.tr,
-                  tiles: [
-                    SettingsTile(
-                      title: LocaleKeys.exchange.tr,
-                      subtitle: controller.exchange.value,
-                      leading: const Icon(
-                        CupertinoIcons.arrow_2_circlepath,
-                        size: 24,
+                            showExchangeSelectDialog(context),
                       ),
-                      onPressed: (context) => showExchangeSelectDialog(context),
-                    ),
-                    SettingsTile(
-                        title: LocaleKeys.topPair.tr,
-                        subtitle: controller.pair.value.tr,
+                      SettingsTile(
+                          title: LocaleKeys.topPair.tr,
+                          subtitle: controller.pair.value.tr,
+                          leading: const Icon(
+                            CupertinoIcons.bitcoin,
+                            size: 24,
+                          ),
+                          onPressed: (context) =>
+                              showTopPairSelectDialog(context)),
+                    ],
+                  ),
+                  SettingsSection(
+                    title: LocaleKeys.designSection.tr,
+                    tiles: [
+                      SettingsTile(
+                        title: LocaleKeys.appTheme.tr,
+                        subtitle: controller.themeMode.value
+                            ? LocaleKeys.dark.tr
+                            : LocaleKeys.light.tr,
                         leading: const Icon(
-                          CupertinoIcons.bitcoin,
+                          CupertinoIcons.moon,
                           size: 24,
                         ),
-                        onPressed: (context) =>
-                            showTopPairSelectDialog(context)),
-                  ],
-                ),
-                SettingsSection(
-                  title: LocaleKeys.designSection.tr,
-                  tiles: [
-                    SettingsTile(
-                      title: LocaleKeys.appTheme.tr,
-                      subtitle: controller.themeMode.value
-                          ? LocaleKeys.dark.tr
-                          : LocaleKeys.light.tr,
-                      leading: const Icon(
-                        CupertinoIcons.moon,
-                        size: 24,
+                        onPressed: (context) => showThemeSelectDialog(context),
                       ),
-                      onPressed: (context) => showThemeSelectDialog(context),
-                    ),
-                  ],
-                ),
-              ],
+                    ],
+                  ),
+                ],
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
     );
   }

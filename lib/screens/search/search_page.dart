@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
 import '../../components/search_pair.dart';
+import '../../controllers/main/main_controller.dart';
 import '../../locale/locale_keys.dart';
 import '../../models/markets/pair/pair.dart';
 import '../../utils/keys.dart';

@@ -1,3 +1,4 @@
+import 'package:crypto_freebie/components/fade_indexed_stack.dart';
 import 'package:crypto_freebie/controllers/main/main_controller.dart';
 import 'package:crypto_freebie/screens/search/search_page.dart';
 import 'package:flutter/cupertino.dart';
@@ -18,10 +19,11 @@ class MainPage extends GetView<MainController> {
         () => Scaffold(
             bottomNavigationBar: _buildGNav(context),
             extendBody: true,
-            body: IndexedStack(
-              index: controller.tabIndex.value,
-              children: _buildScreens(),
-            )),
+          body: FadeIndexedStack(
+            index: controller.tabIndex.value,
+            children: _buildScreens(),
+          ),
+        ),
       );
 
   _buildScreens() => [
@@ -30,41 +32,51 @@ class MainPage extends GetView<MainController> {
         const SettingsPage(),
       ];
 
-  _buildGNav(context) => Padding(
-        padding: EdgeInsets.only(bottom: 6.h, right: 8.w, left: 8.w),
-        child: Container(
-          decoration: BoxDecoration(
-              color:
-                  Theme.of(context).bottomNavigationBarTheme.backgroundColor!,
-              borderRadius: const BorderRadius.all(Radius.circular(30))),
-          width: double.maxFinite,
-          height: 8.h,
-          child: GNav(
-            gap: 8,
-            activeColor:
-                Theme.of(context).bottomNavigationBarTheme.selectedItemColor,
-            iconSize: 24,
-            padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-            duration: const Duration(milliseconds: 400),
-            color:
-                Theme.of(context).bottomNavigationBarTheme.unselectedItemColor,
-            tabs: [
-              GButton(
-                icon: CupertinoIcons.home,
-                text: LocaleKeys.homeTitle.tr,
+  _buildGNav(context) => AnimatedContainer(
+        duration: const Duration(milliseconds: 200),
+        height: 12.h,
+        child: Wrap(children: [
+          Padding(
+            padding: EdgeInsets.only(bottom: 6.h, right: 8.w, left: 8.w),
+            child: Container(
+              decoration: BoxDecoration(
+                  color: Theme.of(context)
+                      .bottomNavigationBarTheme
+                      .backgroundColor!,
+                  borderRadius: const BorderRadius.all(Radius.circular(30))),
+              width: double.maxFinite,
+              height: 8.h,
+              child: GNav(
+                gap: 8,
+                activeColor: Theme.of(context)
+                    .bottomNavigationBarTheme
+                    .selectedItemColor,
+                iconSize: 24,
+                padding:
+                    const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+                duration: const Duration(milliseconds: 400),
+                color: Theme.of(context)
+                    .bottomNavigationBarTheme
+                    .unselectedItemColor,
+                tabs: [
+                  GButton(
+                    icon: CupertinoIcons.home,
+                    text: LocaleKeys.homeTitle.tr,
+                  ),
+                  GButton(
+                    icon: CupertinoIcons.search,
+                    text: LocaleKeys.searchTitle.tr,
+                  ),
+                  GButton(
+                    icon: CupertinoIcons.settings,
+                    text: LocaleKeys.settingsTitle.tr,
+                  ),
+                ],
+                selectedIndex: controller.tabIndex.value,
+                onTabChange: controller.changeTabIndex,
               ),
-              GButton(
-                icon: CupertinoIcons.search,
-                text: LocaleKeys.searchTitle.tr,
-              ),
-              GButton(
-                icon: CupertinoIcons.settings,
-                text: LocaleKeys.settingsTitle.tr,
-              ),
-            ],
-            selectedIndex: controller.tabIndex.value,
-            onTabChange: controller.changeTabIndex,
+            ),
           ),
-        ),
+        ]),
       );
 }

@@ -1,10 +1,10 @@
-
-
 import 'package:crypto_freebie/base/base_controller.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/rendering.dart';
 import 'package:get/get.dart';
 
-class MainController extends BaseController{
-  var tabIndex = 0.obs;
+class MainController extends BaseController {
+  final tabIndex = 0.obs;
 
-   changeTabIndex(int index) => tabIndex(index);
+  changeTabIndex(int index) => tabIndex(index);
 }
