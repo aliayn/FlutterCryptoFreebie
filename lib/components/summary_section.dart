@@ -1,7 +1,10 @@
+import 'dart:math';
+
 import 'package:crypto_freebie/base/base_controller.dart';
 import 'package:crypto_freebie/components/error.dart';
 import 'package:crypto_freebie/components/loading.dart';
 import 'package:crypto_freebie/models/markets/pair/pair.dart';
+import 'package:crypto_freebie/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
@@ -35,7 +38,7 @@ Widget summarySection(Pair pair, [PairSummary? pairSummary]) {
                             style: Theme.of(context).textTheme.subtitle1,
                           ),
                           Text(
-                            data!.price.last.toString(),
+                            formatNumbers(data!.price.last,decimalDigits: 4),
                             style: Theme.of(context).textTheme.subtitle1,
                           )
                         ],
@@ -49,7 +52,7 @@ Widget summarySection(Pair pair, [PairSummary? pairSummary]) {
                             style: Theme.of(context).textTheme.subtitle1,
                           ),
                           Text(
-                            data.price.high.toString(),
+                            formatNumbers(data.price.high,decimalDigits: 4),
                             style: Theme.of(context).textTheme.subtitle1,
                           )
                         ],
@@ -63,7 +66,7 @@ Widget summarySection(Pair pair, [PairSummary? pairSummary]) {
                             style: Theme.of(context).textTheme.subtitle1,
                           ),
                           Text(
-                            data.price.low.toString(),
+                            formatNumbers(data.price.low,decimalDigits: 4),
                             style: Theme.of(context).textTheme.subtitle1,
                           )
                         ],
@@ -77,7 +80,7 @@ Widget summarySection(Pair pair, [PairSummary? pairSummary]) {
                             style: Theme.of(context).textTheme.subtitle1,
                           ),
                           Text(
-                            data.price.change.absolute.toString(),
+                            formatNumbers(data.price.change.absolute,decimalDigits: 5),
                             style: Theme.of(context).textTheme.subtitle1,
                           )
                         ],
@@ -100,7 +103,7 @@ Widget summarySection(Pair pair, [PairSummary? pairSummary]) {
                             style: Theme.of(context).textTheme.subtitle1,
                           ),
                           Text(
-                            data.volume.toString(),
+                            '${formatNumbers(data.volume/pow(10, 6))}M',
                             style: Theme.of(context).textTheme.subtitle1,
                           )
                         ],
@@ -114,7 +117,7 @@ Widget summarySection(Pair pair, [PairSummary? pairSummary]) {
                             style: Theme.of(context).textTheme.subtitle1,
                           ),
                           Text(
-                            data.volumeQuote.toString(),
+                            '${formatNumbers(data.volumeQuote/pow(10, 6))}M',
                             style: Theme.of(context).textTheme.subtitle1,
                           )
                         ],

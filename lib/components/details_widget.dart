@@ -1,3 +1,4 @@
+import 'package:crypto_freebie/components/circle_tab_indicator.dart';
 import 'package:crypto_freebie/components/order_book_section.dart';
 import 'package:crypto_freebie/components/summary_section.dart';
 import 'package:crypto_freebie/components/trades_section.dart';
@@ -21,9 +22,8 @@ Widget detailsWidget(Pair pair, [PairSummary? pairSummary, Graph? graph]) =>
                   unselectedLabelColor: Theme.of(context).unselectedWidgetColor,
                   unselectedLabelStyle: Theme.of(context).textTheme.headline4,
                   labelStyle: Theme.of(context).textTheme.headline4,
-                  indicatorWeight: 4,
-                  indicatorSize: TabBarIndicatorSize.label,
-                  indicatorColor: Theme.of(context).focusColor,
+                  indicatorSize: TabBarIndicatorSize.tab,
+                  indicator: CircleTabIndicator(color: Theme.of(context).focusColor,radius: 4),
                   isScrollable: true,
                   controller: _controller.tabController,
                   tabs: [
