@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:crypto_freebie/models/pair/pair_summary/pair_summary.dart';
+import 'package:crypto_freebie/utils/utils.dart';
 import 'package:flutter/material.dart';
 import 'package:sizer/sizer.dart';
 
@@ -24,14 +25,15 @@ Widget titlePrice({
               ),
               Hero(
                 tag: pairPriceTag,
-                child: AutoSizeText(pairSummary.price.last.toString(),
+                child: AutoSizeText(formatNumbers(pairSummary.price.last),
                     maxLines: 1, style: TextStyle(fontSize: 20.sp)),
               ),
               Row(children: [
                 Hero(
                   tag: pairChangeTag,
                   child: AutoSizeText(
-                      pairSummary.price.change.absolute.toStringAsFixed(5),
+                      formatNumbers(pairSummary.price.change.absolute,
+                          decimalDigits: 3),
                       textAlign: TextAlign.start,
                       minFontSize: 0,
                       stepGranularity: 0.1,
@@ -45,13 +47,16 @@ Widget titlePrice({
                 ),
                 Hero(
                   tag: pairChangePercentTag,
-                  child: AutoSizeText(
-                      ' (${pairSummary.price.change.percentage.toStringAsFixed(2)}%)',
-                      textAlign: TextAlign.start,
-                      minFontSize: 0,
-                      stepGranularity: 0.1,
-                      maxLines: 1,
-                      style: TextStyle(fontSize: 14.sp)),
+                  child: Padding(
+                    padding: const EdgeInsets.only(left: 4.0),
+                    child: AutoSizeText(
+                        ' (${formatPercentNumber(pairSummary.price.change.percentage)})',
+                        textAlign: TextAlign.start,
+                        minFontSize: 0,
+                        stepGranularity: 0.1,
+                        maxLines: 1,
+                        style: TextStyle(fontSize: 14.sp)),
+                  ),
                 ),
               ]),
             ],

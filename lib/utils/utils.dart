@@ -9,7 +9,7 @@ import '../models/graph/graph/graph.dart';
 final _box = GetStorage();
 
 erase() {
- // _box.remove(_searchTextKey);
+  // _box.remove(_searchTextKey);
 }
 
 const String _defaultLocale = "en";
@@ -33,7 +33,7 @@ setSearchText(value) {
   return _box.write(_searchTextKey, jsonEncode(list));
 }
 
-deleteSearchText(value){
+deleteSearchText(value) {
   List list = getSearchText();
   list = List.from(list);
   if (list.contains(value)) list.remove(value);
@@ -68,6 +68,14 @@ String epochToString(String epoch) {
   final DateTime timeStamp =
       DateTime.fromMillisecondsSinceEpoch(int.parse(epoch) * 1000);
   return DateFormat('dd/MM/yyyy').format(timeStamp);
+}
+
+String formatNumbers(double number,{int decimalDigits = 2}) {
+  return NumberFormat.currency(name: r'$', decimalDigits: decimalDigits).format(number);
+}
+
+String formatPercentNumber(double number,{int decimalDigits = 2}) {
+  return NumberFormat.decimalPercentPattern(decimalDigits: decimalDigits).format(number);
 }
 
 const List<double> demoGraphData = [

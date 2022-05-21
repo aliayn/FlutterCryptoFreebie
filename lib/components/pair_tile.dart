@@ -1,18 +1,22 @@
+import 'dart:math';
+
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:crypto_freebie/components/error.dart';
-import 'package:crypto_freebie/components/line_chart.dart';
 import 'package:crypto_freebie/components/loading.dart';
 import 'package:crypto_freebie/controllers/pairTile/pair_tile_controller.dart';
 import 'package:crypto_freebie/models/markets/pair/pair.dart';
 import 'package:crypto_freebie/routes/router.dart';
+import 'package:crypto_freebie/utils/const.dart';
+import 'package:crypto_freebie/utils/utils.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:get/get.dart';
 import 'package:sizer/sizer.dart';
 import 'package:uuid/uuid.dart';
 
+import '../models/pair/pair_summary/pair_summary.dart';
 import '../utils/keys.dart';
-import '../utils/utils.dart';
 
 class PairTile extends StatefulWidget {
   final Pair pair;
@@ -40,112 +44,59 @@ class _PairTileState extends State<PairTile>
       (state) {
         var summary = controller.pairSummary.value!;
         var graph = controller.graph.value!;
-        return Container(
-          key: Keys.pairTile,
-          child: GestureDetector(
-              onTap: () {
-                goToDetailPage(
-                    pair: pair,
-                    summary: summary,
-                    graph: graph,
-                    pairNameTag: _pairNameTag,
-                    pairPriceTag: _pairPriceTag,
-                    pairChangeTag: _pairChangeTag,
-                    pairChangePercentTag: _pairChangePercentTag);
-              },
-              child: Container(
-                  padding: const EdgeInsets.symmetric(horizontal: 15),
-                  height: 100,
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.center,
-                    children: [
-                      Expanded(
-                        flex: 3,
-                        child: Container(
-                          padding: const EdgeInsets.symmetric(vertical: 15),
-                          width: 80,
-                          child: Hero(
-                            tag: _pairNameTag,
-                            child: createPairName(pair),
-                          ),
-                        ),
-                      ),
-                      Expanded(
-                        flex: 4,
-                        child: Container(
-                            padding: const EdgeInsets.symmetric(horizontal: 5),
-                            height: 50,
-                            child: lineChartWidget(
-                                color: summary.price.change.absolute < 0
-                                    ? Colors.red
-                                    : Colors.green,
-                                data: getPoints(graph))),
-                      ),
-                      Expanded(
-                        flex: 4,
-                        child: Container(
-                          padding: const EdgeInsets.only(top: 25, left: 10),
-                          child: Column(
-                            mainAxisAlignment: MainAxisAlignment.start,
-                            crossAxisAlignment: CrossAxisAlignment.end,
-                            children: [
-                              Center(
-                                child: Hero(
-                                  tag: _pairPriceTag,
-                                  child: AutoSizeText(
-                                    summary.price.last.toStringAsFixed(2),
-                                    minFontSize: 10,
-                                    style:
-                                        Theme.of(context).textTheme.headline5,
+        return Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Container(
+            key: Keys.pairTile,
+            decoration: BoxDecoration(gradient: createBackgroundColor(summary)),
+            child: GestureDetector(
+                onTap: () {
+                  goToDetailPage(
+                      pair: pair,
+                      summary: summary,
+                      graph: graph,
+                      pairNameTag: _pairNameTag,
+                      pairPriceTag: _pairPriceTag,
+                      pairChangeTag: _pairChangeTag,
+                      pairChangePercentTag: _pairChangePercentTag);
+                },
+                child: SizedBox(
+                    height: 11.h,
+                    child: Stack(
+                      children: [
+                        Align(
+                            alignment: Alignment.centerLeft,
+                            child: createCoinAvatar(pair)),
+                        Align(
+                          alignment: Alignment.centerLeft,
+                          child: Padding(
+                            padding: EdgeInsets.only(left: 22.0.w),
+                            child: Stack(
+                              children: [
+                                Align(
+                                  alignment: Alignment.topLeft,
+                                  child: Padding(
+                                    padding: EdgeInsets.only(top: 1.5.h),
+                                    child: createPairName(pair),
                                   ),
                                 ),
-                              ),
-                              const SizedBox(
-                                height: 5,
-                              ),
-                              Row(
-                                  mainAxisAlignment: MainAxisAlignment.end,
-                                  children: [
-                                    Expanded(
-                                      child: Hero(
-                                        tag: _pairChangeTag,
-                                        child: AutoSizeText(
-                                            summary.price.change.absolute
-                                                .toStringAsFixed(5),
-                                            textAlign: TextAlign.end,
-                                            minFontSize: 0,
-                                            stepGranularity: 0.1,
-                                            maxLines: 1,
-                                            style: Theme.of(context)
-                                                .textTheme
-                                                .headline5!
-                                                .apply(
-                                                    color: summary.price.change
-                                                                .absolute >=
-                                                            0
-                                                        ? Colors.green
-                                                        : Colors.red)),
-                                      ),
-                                    ),
-                                    Hero(
-                                      tag: _pairChangePercentTag,
-                                      child: AutoSizeText(
-                                          ' (${summary.price.change.percentage.toStringAsFixed(2)}%)',
-                                          textAlign: TextAlign.end,
-                                          minFontSize: 0,
-                                          stepGranularity: 0.1,
-                                          maxLines: 1,
-                                          style: Theme.of(context)
-                                              .textTheme
-                                              .headline6),
-                                    ),
-                                  ]),
-                            ],
+                                Align(
+                                    alignment: Alignment.bottomLeft,
+                                    child: Padding(
+                                      padding: EdgeInsets.only(bottom: 2.7.h),
+                                      child: createVolText(summary),
+                                    ))
+                              ],
+                            ),
                           ),
                         ),
-                      ),
-                    ],
-                  ))),
+                        Align(
+                          alignment: Alignment.topRight,
+                          child: createPairPrice(summary),
+                        ),
+                      ],
+                    ))),
+          ),
         );
       },
       onLoading: SizedBox(height: 100, child: loadingPairTile()),
@@ -156,19 +107,102 @@ class _PairTileState extends State<PairTile>
     );
   }
 
+  createPairPrice(PairSummary summary) => Padding(
+        padding: EdgeInsets.only(top: 2.5.h, right: 3.w),
+        child: AutoSizeText(
+          formatNumbers(summary.price.last),
+          minFontSize: 0,
+          maxLines: 1,
+          style: TextStyle(
+              fontSize: 14.sp,
+              color: summary.price.change.absolute >= 0
+                  ? Colors.green
+                  : Colors.red),
+        ),
+      );
+
+  createCoinAvatar(Pair pair) => Padding(
+        padding: EdgeInsets.only(left: 4.w, right: 4.w),
+        child: SvgPicture.asset(
+          coins[pair.pair]!,
+          width: 50,
+          height: 50,
+          fit: BoxFit.contain,
+          color: Colors.white,
+        ),
+      );
+
+  createVolText(PairSummary summary) {
+    var vol = formatNumbers(summary.volumeQuote / pow(10, 6));
+    return AutoSizeText(
+      'Vol.${vol}M',
+      maxFontSize: 10.sp,
+      style: const TextStyle(color: CupertinoColors.inactiveGray),
+    );
+  }
+
+  createBackgroundColor(summary) {
+    if (summary.price.change.absolute < 0) {
+      return LinearGradient(
+          colors: [
+            CupertinoColors.inactiveGray.withOpacity(0.08),
+            Colors.red.withOpacity(0.1),
+          ],
+          begin: const FractionalOffset(0.0, 0.0),
+          end: const FractionalOffset(1.0, 0.0),
+          stops: const [0.0, 1.5],
+          tileMode: TileMode.decal);
+    } else if (summary.price.change.absolute > 0) {
+      return LinearGradient(
+          colors: [
+            CupertinoColors.inactiveGray.withOpacity(0.08),
+            Colors.green.withOpacity(0.1),
+          ],
+          begin: const FractionalOffset(0.0, 0.0),
+          end: const FractionalOffset(1.0, 0.0),
+          stops: const [0.0, 1.5],
+          tileMode: TileMode.decal);
+    } else {
+      return LinearGradient(
+          colors: [
+            CupertinoColors.inactiveGray.withOpacity(0.08),
+            CupertinoColors.inactiveGray.withOpacity(0.08),
+          ],
+          begin: const FractionalOffset(0.0, 0.0),
+          end: const FractionalOffset(1.0, 0.0),
+          stops: const [0.0, 1.5],
+          tileMode: TileMode.decal);
+    }
+  }
+
   createPairName(Pair pair) {
-    return Row(mainAxisSize: MainAxisSize.min, children: [
-      Text(
-        pair.pair.replaceAll('usdt', '').toUpperCase(),
-        style: TextStyle(color: CupertinoColors.white, fontSize: 8.sp),
-      ),
-      Text('/',
-          style:
-              TextStyle(color: CupertinoColors.inactiveGray, fontSize: 6.sp)),
-      Text('usdt'.toUpperCase(),
-          style:
-              TextStyle(color: CupertinoColors.inactiveGray, fontSize: 6.sp)),
-    ]);
+    var coinSize = 14.sp;
+    var usdtSize = 10.sp;
+    return Padding(
+      padding: const EdgeInsets.only(top: 8.0),
+      child: Row(
+          mainAxisSize: MainAxisSize.max,
+          mainAxisAlignment: MainAxisAlignment.start,
+          children: [
+            Text(
+              pair.pair.replaceAll('usdt', '').toUpperCase(),
+              style:
+                  TextStyle(color: CupertinoColors.white, fontSize: coinSize),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 4.0),
+              child: Text('/',
+                  style: TextStyle(
+                      color: CupertinoColors.inactiveGray, fontSize: usdtSize)),
+            ),
+            Padding(
+              padding: const EdgeInsets.only(top: 4.0),
+              child: Text('usdt'.toUpperCase(),
+                  style: TextStyle(
+                      color: CupertinoColors.inactiveGray, fontSize: usdtSize)),
+            ),
+          ]),
+    );
   }
 
   @override
