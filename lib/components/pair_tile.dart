@@ -130,7 +130,7 @@ class _PairTileState extends State<PairTile>
   createCoinAvatar(Pair pair) => Padding(
         padding: EdgeInsets.only(left: 4.w, right: 4.w),
         child: SvgPicture.asset(
-          coins[pair.pair]!,
+          coins[pair.pair] ?? usdtFile,
           width: 50,
           height: 50,
           fit: BoxFit.contain,

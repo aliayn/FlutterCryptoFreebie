@@ -21,11 +21,9 @@ class SearchPairDelegate extends SearchDelegate {
 
   @override
   InputDecorationTheme? get searchFieldDecorationTheme => InputDecorationTheme(
-        border: InputBorder.none,
-        labelStyle:
-            TextStyle(fontSize: 14.sp, color: Colors.white),
-            hintStyle: TextStyle(fontSize: 14.sp, color:Colors.white)
-      );
+      border: InputBorder.none,
+      labelStyle: TextStyle(fontSize: 14.sp, color: Colors.white),
+      hintStyle: TextStyle(fontSize: 14.sp, color: Colors.white));
 
   @override
   String? get searchFieldLabel => LocaleKeys.searchBar.tr;
@@ -37,6 +35,7 @@ class SearchPairDelegate extends SearchDelegate {
         icon: const Icon(Icons.clear),
         onPressed: () {
           query = '';
+          showSuggestions(context);
         },
       ),
     ];

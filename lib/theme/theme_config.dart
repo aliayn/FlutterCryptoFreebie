@@ -13,7 +13,7 @@ ThemeData lightTheme(context) => ThemeData(
         selectedItemColor: Colors.white,
         unselectedItemColor: Colors.white70),
     appBarTheme: const AppBarTheme(
-      color: Colors.blueGrey,
+      color: Colors.transparent,
     ),
     brightness: Brightness.light,
     scaffoldBackgroundColor: Colors.white,
@@ -47,7 +47,7 @@ ThemeData darkTheme(context) => ThemeData(
         backgroundColor: Colors.grey[900],
         selectedItemColor: Colors.white,
         unselectedItemColor: Colors.white70),
-    appBarTheme: AppBarTheme(color: Colors.grey[900]),
+    appBarTheme: const AppBarTheme(color: Colors.transparent),
     brightness: Brightness.dark,
     scaffoldBackgroundColor: Colors.black,
     focusColor: Colors.white,
