@@ -6,7 +6,9 @@ import 'package:get/get_state_manager/get_state_manager.dart';
 import '../utils/time.dart';
 
 Widget timBarSelector() => Obx(
-      () => Builder(
+      () {
+        timeDataProvider.value;
+        return Builder(
             builder: (context) => Container(
                   decoration: const BoxDecoration(
                       borderRadius: BorderRadius.all(Radius.circular(35))),
@@ -48,7 +50,8 @@ Widget timBarSelector() => Obx(
                             ),
                           )
                           .toList()),
-                )),
+                ));
+      },
     );
 
 extension IndexedIterable<E> on Iterable<E> {
