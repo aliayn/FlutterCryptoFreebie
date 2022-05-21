@@ -6,7 +6,12 @@ import 'package:get/get.dart';
 import '../../utils/time.dart';
 
 class DetailController extends BaseController with StateMixin<Graph> {
-  getGraph(Pair pair, [Graph? graph]) async {
+  getFeed(Pair pair, [Graph? graph]) {
+    _listenToTimeBar(pair, graph);
+    _getGraph(pair, graph);
+  }
+
+  _getGraph(Pair pair, [Graph? graph]) async {
     if (graph != null) {
       change(graph, status: RxStatus.success());
     }
@@ -31,6 +36,12 @@ class DetailController extends BaseController with StateMixin<Graph> {
         .then((value) => change(value, status: RxStatus.success()))
         .catchError((error) {
       change(null, status: RxStatus.error(error.toString().tr));
+    });
+  }
+
+  _listenToTimeBar(Pair pair, [Graph? graph]) {
+    timeDataProvider.listen((time) {
+      _getGraph(pair, graph);
     });
   }
 }

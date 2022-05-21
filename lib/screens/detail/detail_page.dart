@@ -26,7 +26,7 @@ class DetailPage extends GetView<DetailController> {
     final String _pairChangeTag = Get.arguments[5];
     final String _pairChangePercentTag = Get.arguments[6];
 
-    controller.getGraph(pair, graph);
+    controller.getFeed(pair, graph);
     return Scaffold(
       key: Keys.detailScreen,
       appBar: AppBar(
