@@ -1,3 +1,5 @@
+import 'package:crypto_freebie/utils/utils.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get_state_manager/get_state_manager.dart';
 
@@ -5,37 +7,43 @@ import '../utils/time.dart';
 
 Widget timBarSelector() => Obx(
       () {
-        var timeData = timeDataProvider.value;
+        timeDataProvider.value;
         return Builder(
             builder: (context) => Container(
+                  decoration: const BoxDecoration(
+                      borderRadius: BorderRadius.all(Radius.circular(35))),
                   padding: const EdgeInsets.symmetric(horizontal: 15),
                   child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceAround,
                       crossAxisAlignment: CrossAxisAlignment.center,
                       children: timeList
                           .mapIndexed(
-                            (e, i) => InkWell(
+                            (e, i) => GestureDetector(
                               onTap: () {
                                 timeDataProvider(e);
                               },
                               child: Container(
-                                padding: const EdgeInsets.symmetric(
-                                    vertical: 3, horizontal: 8),
+                                padding: const EdgeInsets.only(
+                                    left: 16, right: 16, top: 6, bottom: 6),
                                 decoration: BoxDecoration(
-                                    color: timeData.name == e.name
-                                        ? Theme.of(context).cardColor
+                                    color: timeDataProvider.value.name == e.name
+                                        ? HexColor.fromHex('#36454F')
                                         : Colors.transparent,
                                     borderRadius: const BorderRadius.all(
-                                        Radius.circular(5))),
+                                        Radius.circular(35))),
                                 child: Center(
                                   child: Text(
                                     e.name,
-                                    style: timeData.name == e.name
-                                        ? Theme.of(context)
-                                            .textTheme
-                                            .headline3!
-                                            .apply(color: Colors.white)
-                                        : Theme.of(context).textTheme.headline4,
+                                    style: Theme.of(context)
+                                        .textTheme
+                                        .headline4!
+                                        .apply(
+                                            color: timeDataProvider
+                                                        .value.name ==
+                                                    e.name
+                                                ? CupertinoColors.white
+                                                : CupertinoColors
+                                                    .darkBackgroundGray),
                                   ),
                                 ),
                               ),

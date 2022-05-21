@@ -42,18 +42,29 @@ class HomePage extends GetView<HomeController> {
                           ),
                           Align(
                             alignment: Alignment.topRight,
-                            child: Padding(
-                              padding: EdgeInsets.only(right: 2.w),
-                              child: IconButton(
-                                icon: const Icon(CupertinoIcons.search),
-                                onPressed: () {
-                                  showSearch(
-                                    context: context,
-                                    delegate: SearchPairDelegate(
-                                        Get.find<SearchController>()),
-                                  );
-                                },
-                              ),
+                            child: Row(
+                              mainAxisSize: MainAxisSize.min,
+                              children: [
+                                IconButton(
+                                  icon: const Icon(CupertinoIcons.search),
+                                  onPressed: () {
+                                    showSearch(
+                                      context: context,
+                                      delegate: SearchPairDelegate(
+                                          Get.find<SearchController>()),
+                                    );
+                                  },
+                                ),
+                                Padding(
+                                  padding: EdgeInsets.only(right: 2.w),
+                                  child: IconButton(
+                                    icon: const Icon(CupertinoIcons.ellipsis_vertical),
+                                    onPressed: () {
+                                      
+                                    },
+                                  ),
+                                ),
+                              ],
                             ),
                           ),
                         ],

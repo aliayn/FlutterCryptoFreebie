@@ -8,12 +8,10 @@ class TimeGraphData {
 }
 
 final timeList = [
-  TimeGraphData("1h", "60", "1"),
   TimeGraphData("1d", "300", "24"),
   TimeGraphData("1w", "1800", "168"),
   TimeGraphData("1m", "3600", "730"),
   TimeGraphData("1y", "86400", "8760"),
-  TimeGraphData("All", "", "")
 ];
 
-var timeDataProvider = TimeGraphData("1M", "60", "12").obs;
+final timeDataProvider = Rx<TimeGraphData>(TimeGraphData("1M", "60", "12"));
