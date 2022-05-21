@@ -20,6 +20,8 @@ abstract class AppPages {
     GetPage(
         name: Routes.detail,
         page: () => const DetailPage(),
+        transition: Transition.fadeIn,
+        transitionDuration: const Duration(milliseconds: 400),
         binding: DetailBinding()),
   ];
 }

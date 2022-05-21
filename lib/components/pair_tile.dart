@@ -43,59 +43,59 @@ class _PairTileState extends State<PairTile>
     return controller.obx(
       (state) {
         var summary = controller.pairSummary.value!;
-        var graph = controller.graph.value!;
         return Padding(
           padding: const EdgeInsets.all(8.0),
-          child: Container(
-            key: Keys.pairTile,
-            decoration: BoxDecoration(gradient: createBackgroundColor(summary)),
-            child: GestureDetector(
-                onTap: () {
-                  goToDetailPage(
-                      pair: pair,
-                      summary: summary,
-                      graph: graph,
-                      pairNameTag: _pairNameTag,
-                      pairPriceTag: _pairPriceTag,
-                      pairChangeTag: _pairChangeTag,
-                      pairChangePercentTag: _pairChangePercentTag);
-                },
-                child: SizedBox(
-                    height: 11.h,
-                    child: Stack(
-                      children: [
-                        Align(
-                            alignment: Alignment.centerLeft,
-                            child: createCoinAvatar(pair)),
-                        Align(
+          child: GestureDetector(
+            onTap: () {
+              goToDetailPage(
+                  pair: pair,
+                  summary: summary,
+                  pairNameTag: _pairNameTag,
+                  pairPriceTag: _pairPriceTag,
+                  pairChangeTag: _pairChangeTag,
+                  pairChangePercentTag: _pairChangePercentTag);
+            },
+            child: Container(
+              key: Keys.pairTile,
+              decoration:
+                  BoxDecoration(gradient: createBackgroundColor(summary)),
+              child: SizedBox(
+                  height: 11.h,
+                  child: Stack(
+                    children: [
+                      Align(
                           alignment: Alignment.centerLeft,
-                          child: Padding(
-                            padding: EdgeInsets.only(left: 22.0.w),
-                            child: Stack(
-                              children: [
-                                Align(
-                                  alignment: Alignment.topLeft,
-                                  child: Padding(
-                                    padding: EdgeInsets.only(top: 1.5.h),
-                                    child: createPairName(pair),
-                                  ),
+                          child: createCoinAvatar(pair)),
+                      Align(
+                        alignment: Alignment.centerLeft,
+                        child: Padding(
+                          padding: EdgeInsets.only(left: 22.0.w),
+                          child: Stack(
+                            children: [
+                              Align(
+                                alignment: Alignment.topLeft,
+                                child: Padding(
+                                  padding: EdgeInsets.only(top: 1.5.h),
+                                  child: createPairName(pair, _pairNameTag),
                                 ),
-                                Align(
-                                    alignment: Alignment.bottomLeft,
-                                    child: Padding(
-                                      padding: EdgeInsets.only(bottom: 2.7.h),
-                                      child: createVolText(summary),
-                                    ))
-                              ],
-                            ),
+                              ),
+                              Align(
+                                  alignment: Alignment.bottomLeft,
+                                  child: Padding(
+                                    padding: EdgeInsets.only(bottom: 2.7.h),
+                                    child: createVolText(summary),
+                                  ))
+                            ],
                           ),
                         ),
-                        Align(
-                          alignment: Alignment.topRight,
-                          child: createPairPrice(summary),
-                        ),
-                      ],
-                    ))),
+                      ),
+                      Align(
+                        alignment: Alignment.topRight,
+                        child: createPairPrice(summary, _pairPriceTag),
+                      ),
+                    ],
+                  )),
+            ),
           ),
         );
       },
@@ -107,17 +107,23 @@ class _PairTileState extends State<PairTile>
     );
   }
 
-  createPairPrice(PairSummary summary) => Padding(
+  createPairPrice(PairSummary summary, pairPriceTag) => Padding(
         padding: EdgeInsets.only(top: 2.5.h, right: 3.w),
-        child: AutoSizeText(
-          formatNumbers(summary.price.last),
-          minFontSize: 0,
-          maxLines: 1,
-          style: TextStyle(
-              fontSize: 14.sp,
-              color: summary.price.change.absolute >= 0
-                  ? Colors.green
-                  : Colors.red),
+        child: Hero(
+          tag: pairPriceTag,
+          child: Material(
+            type: MaterialType.transparency,
+            child: AutoSizeText(
+              formatNumbers(summary.price.last),
+              minFontSize: 0,
+              maxLines: 1,
+              style: TextStyle(
+                  fontSize: 14.sp,
+                  color: summary.price.change.absolute >= 0
+                      ? Colors.green
+                      : Colors.red),
+            ),
+          ),
         ),
       );
 
@@ -175,33 +181,41 @@ class _PairTileState extends State<PairTile>
     }
   }
 
-  createPairName(Pair pair) {
+  createPairName(Pair pair, pairNameTag) {
     var coinSize = 14.sp;
     var usdtSize = 10.sp;
     return Padding(
       padding: const EdgeInsets.only(top: 8.0),
-      child: Row(
-          mainAxisSize: MainAxisSize.max,
-          mainAxisAlignment: MainAxisAlignment.start,
-          children: [
-            Text(
-              pair.pair.replaceAll('usdt', '').toUpperCase(),
-              style:
-                  TextStyle(color: CupertinoColors.white, fontSize: coinSize),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 4.0),
-              child: Text('/',
+      child: Hero(
+        tag: pairNameTag,
+        child: Material(
+          type: MaterialType.transparency,
+          child: Row(
+              mainAxisSize: MainAxisSize.max,
+              mainAxisAlignment: MainAxisAlignment.start,
+              children: [
+                Text(
+                  pair.pair.replaceAll('usdt', '').toUpperCase(),
                   style: TextStyle(
-                      color: CupertinoColors.inactiveGray, fontSize: usdtSize)),
-            ),
-            Padding(
-              padding: const EdgeInsets.only(top: 4.0),
-              child: Text('usdt'.toUpperCase(),
-                  style: TextStyle(
-                      color: CupertinoColors.inactiveGray, fontSize: usdtSize)),
-            ),
-          ]),
+                      color: CupertinoColors.white, fontSize: coinSize),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 4.0),
+                  child: Text('/',
+                      style: TextStyle(
+                          color: CupertinoColors.inactiveGray,
+                          fontSize: usdtSize)),
+                ),
+                Padding(
+                  padding: const EdgeInsets.only(top: 4.0),
+                  child: Text('usdt'.toUpperCase(),
+                      style: TextStyle(
+                          color: CupertinoColors.inactiveGray,
+                          fontSize: usdtSize)),
+                ),
+              ]),
+        ),
+      ),
     );
   }
 

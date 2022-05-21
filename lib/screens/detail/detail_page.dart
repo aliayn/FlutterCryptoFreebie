@@ -30,9 +30,16 @@ class DetailPage extends GetView<DetailController> {
     return Scaffold(
       key: Keys.detailScreen,
       appBar: AppBar(
-        title: Text(
-          pair.pair.toUpperCase(),
-          style: const TextStyle(color: Colors.white, fontSize: 25),
+        backgroundColor: Colors.transparent,
+        title: Hero(
+          tag: _pairNameTag,
+          child: Material(
+            type: MaterialType.transparency,
+            child: Text(
+              pair.pair.toUpperCase(),
+              style: const TextStyle(color: Colors.white, fontSize: 25),
+            ),
+          ),
         ),
         centerTitle: true,
       ),
@@ -47,6 +54,7 @@ class DetailPage extends GetView<DetailController> {
                 padding: const EdgeInsets.symmetric(horizontal: 15),
                 child: titlePrice(
                     pair: pair,
+                    hasTitle: false,
                     pairSummary: pairSummary,
                     pairNameTag: _pairNameTag,
                     pairPriceTag: _pairPriceTag,

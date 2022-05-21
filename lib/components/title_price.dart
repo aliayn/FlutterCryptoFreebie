@@ -6,59 +6,70 @@ import 'package:sizer/sizer.dart';
 
 import '../models/markets/pair/pair.dart';
 
-Widget titlePrice({
-  required Pair pair,
-  required PairSummary pairSummary,
-  required String pairNameTag,
-  required String pairPriceTag,
-  required String pairChangeTag,
-  required String pairChangePercentTag,
-}) {
-  return Builder(
-      builder: (context) => Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Hero(
-                tag: pairNameTag,
-                child: AutoSizeText(pair.pair.toUpperCase(),
-                    maxLines: 1, style: TextStyle(fontSize: 24.sp)),
-              ),
-              Hero(
-                tag: pairPriceTag,
-                child: AutoSizeText(formatNumbers(pairSummary.price.last),
-                    maxLines: 1, style: TextStyle(fontSize: 20.sp)),
-              ),
-              Row(children: [
+Widget titlePrice(
+        {required Pair pair,
+        required PairSummary pairSummary,
+        required String pairNameTag,
+        required String pairPriceTag,
+        required String pairChangeTag,
+        required String pairChangePercentTag,
+        bool hasTitle = true}) =>
+    Builder(
+        builder: (context) => Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                if (hasTitle) Hero(
+                        tag: pairNameTag,
+                        child: Material(
+                          type: MaterialType.transparency,
+                          child: AutoSizeText(pair.pair.toUpperCase(),
+                              maxLines: 1, style: TextStyle(fontSize: 24.sp)),
+                        ),
+                      ) else const SizedBox(),
                 Hero(
-                  tag: pairChangeTag,
-                  child: AutoSizeText(
-                      formatNumbers(pairSummary.price.change.absolute,
-                          decimalDigits: 3),
-                      textAlign: TextAlign.start,
-                      minFontSize: 0,
-                      stepGranularity: 0.1,
-                      maxLines: 1,
-                      style: TextStyle(
-                          color: pairSummary.price.change.absolute >= 0
-                              ? Colors.green
-                              : Colors.red,
-                          fontSize: 15.sp,
-                          fontWeight: FontWeight.w800)),
-                ),
-                Hero(
-                  tag: pairChangePercentTag,
-                  child: Padding(
-                    padding: const EdgeInsets.only(left: 4.0),
-                    child: AutoSizeText(
-                        ' (${formatPercentNumber(pairSummary.price.change.percentage)})',
-                        textAlign: TextAlign.start,
-                        minFontSize: 0,
-                        stepGranularity: 0.1,
-                        maxLines: 1,
-                        style: TextStyle(fontSize: 14.sp)),
+                  tag: pairPriceTag,
+                  child: Material(
+                    type: MaterialType.transparency,
+                    child: AutoSizeText(formatNumbers(pairSummary.price.last),
+                        maxLines: 1, style: TextStyle(fontSize: 20.sp)),
                   ),
                 ),
-              ]),
-            ],
-          ));
-}
+                Row(children: [
+                  Hero(
+                    tag: pairChangeTag,
+                    child: Material(
+                      type: MaterialType.transparency,
+                      child: AutoSizeText(
+                          formatNumbers(pairSummary.price.change.absolute,
+                              decimalDigits: 3),
+                          textAlign: TextAlign.start,
+                          minFontSize: 0,
+                          stepGranularity: 0.1,
+                          maxLines: 1,
+                          style: TextStyle(
+                              color: pairSummary.price.change.absolute >= 0
+                                  ? Colors.green
+                                  : Colors.red,
+                              fontSize: 15.sp,
+                              fontWeight: FontWeight.w800)),
+                    ),
+                  ),
+                  Hero(
+                    tag: pairChangePercentTag,
+                    child: Material(
+                      type: MaterialType.transparency,
+                      child: Padding(
+                        padding: const EdgeInsets.only(left: 4.0),
+                        child: AutoSizeText(
+                            ' (${formatPercentNumber(pairSummary.price.change.percentage)})',
+                            textAlign: TextAlign.start,
+                            minFontSize: 0,
+                            stepGranularity: 0.1,
+                            maxLines: 1,
+                            style: TextStyle(fontSize: 14.sp)),
+                      ),
+                    ),
+                  ),
+                ]),
+              ],
+            ));
