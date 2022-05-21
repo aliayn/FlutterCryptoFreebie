@@ -14,4 +14,4 @@ final timeList = [
   TimeGraphData("1y", "86400", "8760"),
 ];
 
-final timeDataProvider = Rx<TimeGraphData>(TimeGraphData("1M", "60", "12"));
+final timeDataProvider = Rx<TimeGraphData>(TimeGraphData("1m", "60", "12"));
