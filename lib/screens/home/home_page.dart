@@ -10,6 +10,7 @@ import 'package:sizer/sizer.dart';
 import '../../components/favorite_pair.dart';
 import '../../components/pair_tile.dart';
 import '../../components/search_pair.dart';
+import '../../locale/locale_keys.dart';
 import '../../utils/keys.dart';
 
 class HomePage extends GetView<HomeController> {
@@ -19,72 +20,80 @@ class HomePage extends GetView<HomeController> {
   Widget build(BuildContext context) {
     controller.getFeed();
     return Scaffold(
-      body: controller.obx(((state) {
-        var pairList = controller.pairs;
-        var height = MediaQuery.of(context).viewPadding.top;
-        return Container(
-          key: Keys.homeScreen,
-          child: Padding(
-            padding: EdgeInsets.only(top: height),
-            child: Column(
-              children: [
-                Expanded(
-                  child: Column(
-                    children: [
-                      Stack(
-                        children: [
-                          Expanded(
-                            child: SizedBox(
-                              height: 190,
-                              child:
-                                  favoritePairWidget(controller.favoritePair!),
-                            ),
-                          ),
-                          Align(
-                            alignment: Alignment.topRight,
-                            child: Row(
-                              mainAxisSize: MainAxisSize.min,
-                              children: [
-                                IconButton(
-                                  icon: const Icon(CupertinoIcons.search),
-                                  onPressed: () {
-                                    showSearch(
-                                      context: context,
-                                      delegate: SearchPairDelegate(
-                                          Get.find<SearchController>()),
-                                    );
-                                  },
+      body: controller.obx(
+          ((state) {
+            var pairList = controller.pairs;
+            return SafeArea(
+              child: Container(
+                key: Keys.homeScreen,
+                child: SingleChildScrollView(
+                  child: Column(children: [
+                    Stack(
+                      children: [
+                        SizedBox(
+                          height: 190,
+                          child: favoritePairWidget(controller.favoritePair!),
+                        ),
+                        Align(
+                          alignment: Alignment.topRight,
+                          child: Row(
+                            mainAxisSize: MainAxisSize.min,
+                            children: [
+                              IconButton(
+                                icon: const Icon(CupertinoIcons.search),
+                                onPressed: () {
+                                  showSearch(
+                                    context: context,
+                                    delegate: SearchPairDelegate(
+                                        Get.find<SearchController>()),
+                                  );
+                                },
+                              ),
+                              Padding(
+                                padding: EdgeInsets.only(right: 2.w),
+                                child: IconButton(
+                                  icon: const Icon(
+                                      CupertinoIcons.ellipsis_vertical),
+                                  onPressed: () {},
                                 ),
-                                Padding(
-                                  padding: EdgeInsets.only(right: 2.w),
-                                  child: IconButton(
-                                    icon: const Icon(CupertinoIcons.ellipsis_vertical),
-                                    onPressed: () {
-                                      
-                                    },
-                                  ),
-                                ),
-                              ],
-                            ),
+                              ),
+                            ],
                           ),
-                        ],
-                      ),
-                      Expanded(
-                        child: ListView.builder(
-                            padding: const EdgeInsets.only(top: 0.0),
-                            itemCount: pairList.length,
-                            itemBuilder: (context, int index) {
-                              return PairTile(pair: pairList[index]);
-                            }),
-                      )
-                    ],
-                  ),
+                        ),
+                      ],
+                    ),
+                    ListView.builder(
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        padding: const EdgeInsets.only(top: 0.0),
+                        itemCount: pairList.length,
+                        itemBuilder: (context, int index) {
+                          return PairTile(pair: pairList[index]);
+                        }),
+                  ]),
                 ),
-              ],
-            ),
-          ),
-        );
-      }), onLoading: loading(), onError: error),
+              ),
+            );
+          }),
+          onLoading: loading(),
+          onError: (e) {
+            return Center(
+              child: Column(
+                children: [
+                  error(e),
+                  Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: ElevatedButton(
+                      onPressed: (() {
+                        controller.getFeed();
+                      }),
+                      child: Text(LocaleKeys.tryAgain.tr),
+                    ),
+                  )
+                ],
+              ),
+            );
+          }),
     );
   }
 }

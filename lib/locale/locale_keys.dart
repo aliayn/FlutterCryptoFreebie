@@ -40,4 +40,5 @@ abstract class  LocaleKeys {
   static const errorRequestNotFound = 'errorRequestNotFound';
   static const errorInternalServer = 'errorInternalServer';
   static const errorSomethingWentWrong = 'errorSomethingWentWrong';
+  static const tryAgain = 'tryAgain';
 }

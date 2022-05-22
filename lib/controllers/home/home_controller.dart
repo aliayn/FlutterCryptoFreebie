@@ -28,7 +28,7 @@ class HomeController extends BaseController with StateMixin {
         .where((element) => coins.containsKey(element.pair.toString()))
         .toList();
 
-    pairs.addAll(usdtPairs);
+    pairs.assignAll(usdtPairs);
     change(null, status: RxStatus.success());
   }
 }

@@ -39,6 +39,7 @@ class EsLanguage {
         "errorBadRequest": "Bad request",
         "errorRequestNotFound": "The requested resource was not found",
         "errorIntenalServer": "Internal server error",
-        "errorSomethingWentWrong": "Something went wrong"
+        "errorSomethingWentWrong": "Something went wrong",
+        "tryAgain":"intentar otra vez"
       };
 }
