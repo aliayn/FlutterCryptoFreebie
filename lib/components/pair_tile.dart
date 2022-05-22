@@ -1,6 +1,5 @@
 import 'dart:math';
 
-import 'package:auto_size_text/auto_size_text.dart';
 import 'package:crypto_freebie/components/error.dart';
 import 'package:crypto_freebie/components/loading.dart';
 import 'package:crypto_freebie/controllers/pairTile/pair_tile_controller.dart';
@@ -113,9 +112,8 @@ class _PairTileState extends State<PairTile>
           tag: pairPriceTag,
           child: Material(
             type: MaterialType.transparency,
-            child: AutoSizeText(
+            child: Text(
               formatNumbers(summary.price.last),
-              minFontSize: 0,
               maxLines: 1,
               style: TextStyle(
                   fontSize: 14.sp,
@@ -140,10 +138,9 @@ class _PairTileState extends State<PairTile>
 
   createVolText(PairSummary summary) {
     var vol = formatNumbers(summary.volumeQuote / pow(10, 6));
-    return AutoSizeText(
+    return Text(
       'Vol.${vol}M',
-      maxFontSize: 10.sp,
-      style: const TextStyle(color: CupertinoColors.inactiveGray),
+      style:  TextStyle(fontSize: 10.sp,color: CupertinoColors.inactiveGray),
     );
   }
 

@@ -10,6 +10,7 @@ import 'package:sizer/sizer.dart';
 import '../../components/favorite_pair.dart';
 import '../../components/pair_tile.dart';
 import '../../components/search_pair.dart';
+import '../../components/tooltip_shape.dart';
 import '../../locale/locale_keys.dart';
 import '../../utils/keys.dart';
 
@@ -18,7 +19,6 @@ class HomePage extends GetView<HomeController> {
 
   @override
   Widget build(BuildContext context) {
-    controller.getFeed();
     return Scaffold(
       body: controller.obx(
           ((state) {
@@ -49,13 +49,54 @@ class HomePage extends GetView<HomeController> {
                                   );
                                 },
                               ),
-                              Padding(
-                                padding: EdgeInsets.only(right: 2.w),
-                                child: IconButton(
-                                  icon: const Icon(
-                                      CupertinoIcons.ellipsis_vertical),
-                                  onPressed: () {},
-                                ),
+                              PopupMenuButton(
+                                offset: const Offset(0, 50),
+                                shape: const TooltipShape(),
+                                onSelected: (index) => onPopupMenuButtonItemSelected(index, context),
+                                icon: const Icon(
+                                    CupertinoIcons.ellipsis_vertical),
+                                itemBuilder: (_) => <PopupMenuEntry>[
+                                  PopupMenuItem(
+                                      child: ListTile(
+                                    leading: const Icon(
+                                      CupertinoIcons.globe,
+                                      size: 24,
+                                    ),
+                                    title: Text(LocaleKeys.language.tr),
+                                  )),
+                                  PopupMenuItem(
+                                      child: ListTile(
+                                    leading: const Icon(
+                                      CupertinoIcons.arrow_2_circlepath,
+                                      size: 24,
+                                    ),
+                                    title: Text(LocaleKeys.exchange.tr),
+                                  )),
+                                  PopupMenuItem(
+                                      child: ListTile(
+                                    leading: const Icon(
+                                      CupertinoIcons.bitcoin,
+                                      size: 24,
+                                    ),
+                                    title: Text(LocaleKeys.topPair.tr),
+                                  )),
+                                  PopupMenuItem(
+                                      child: ListTile(
+                                    leading: const Icon(
+                                      CupertinoIcons.moon,
+                                      size: 24,
+                                    ),
+                                    title: Text(LocaleKeys.appTheme.tr),
+                                  )),
+                                  PopupMenuItem(
+                                      child: ListTile(
+                                    leading: const Icon(
+                                      CupertinoIcons.info,
+                                      size: 24,
+                                    ),
+                                    title: Text(LocaleKeys.about.tr),
+                                  )),
+                                ],
                               ),
                             ],
                           ),
@@ -95,5 +136,157 @@ class HomePage extends GetView<HomeController> {
             );
           }),
     );
+  }
+
+  showLanguageSelectionDialog(context) => Get.defaultDialog(
+      title: LocaleKeys.language.tr,
+      content: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              ListTile(
+                leading: const Icon(CupertinoIcons.flag),
+                title: Text(LocaleKeys.english.tr,
+                    style: TextStyle(fontSize: 14.sp)),
+                onTap: () {
+                  controller.setLanguage('en');
+                  Navigator.pop(context);
+                },
+              ),
+              ListTile(
+                leading: const Icon(CupertinoIcons.flag_fill),
+                title: Text(LocaleKeys.spanish.tr,
+                    style: TextStyle(fontSize: 14.sp)),
+                onTap: () {
+                  controller.setLanguage('es');
+                  Navigator.pop(context);
+                },
+              )
+            ],
+          ),
+        ),
+      ));
+
+  showExchangeSelectDialog(context) => Get.bottomSheet(
+        Container(
+          color: Theme.of(context).backgroundColor,
+          child: controller.exchangeList.isNotEmpty
+              ? ListView.builder(
+                  itemCount: controller.exchangeList.length,
+                  itemBuilder: (context, index) => GestureDetector(
+                    onTap: () {
+                      controller.changeExchange(
+                          controller.exchangeList[index].symbol);
+                      Get.back();
+                    },
+                    child: Center(
+                      child: Padding(
+                        padding: const EdgeInsets.all(8.0),
+                        child: Column(
+                          children: [
+                            Padding(
+                              padding: const EdgeInsets.all(8.0),
+                              child: Text(
+                                controller.exchangeList[index].name,
+                                style: TextStyle(fontSize: 14.sp),
+                              ),
+                            ),
+                            const Divider()
+                          ],
+                        ),
+                      ),
+                    ),
+                  ),
+                )
+              : Center(
+                  child: Text(
+                  LocaleKeys.errorSomethingWentWrong.tr,
+                  style: TextStyle(fontSize: 18.sp),
+                )),
+        ),
+      );
+
+      showTopPairSelectDialog(context) => Get.bottomSheet(Container(
+        color: Theme.of(context).backgroundColor,
+        child: controller.pairs.isNotEmpty
+            ? ListView.builder(
+                itemCount: controller.pairs.length,
+                itemBuilder: (context, index) => GestureDetector(
+                  onTap: () {
+                    controller.changePrimaryPair(controller.pairs[index].pair);
+                    Get.back();
+                  },
+                  child: Center(
+                    child: Padding(
+                      padding: const EdgeInsets.all(8.0),
+                      child: Column(
+                        children: [
+                          Padding(
+                            padding: const EdgeInsets.all(8.0),
+                            child: Text(controller.pairs[index].pair,
+                                style: TextStyle(fontSize: 14.sp)),
+                          ),
+                          const Divider()
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+              )
+            : Center(
+                child: Text(
+                LocaleKeys.errorSomethingWentWrong.tr,
+                style: TextStyle(fontSize: 18.sp),
+              )),
+      ));
+
+  showThemeSelectDialog(context) => Get.defaultDialog(
+      title: LocaleKeys.appTheme.tr,
+      content: Center(
+        child: Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              ListTile(
+                leading: const Icon(CupertinoIcons.lightbulb_fill),
+                title: Text(LocaleKeys.light.tr),
+                onTap: () {
+                  controller.switchTheme(false);
+                  Get.back();
+                },
+              ),
+              ListTile(
+                leading: const Icon(CupertinoIcons.lightbulb),
+                title: Text(LocaleKeys.dark.tr),
+                onTap: () {
+                  controller.switchTheme(true);
+                  Get.back();
+                },
+              )
+            ],
+          ),
+        ),
+      ));
+
+  onPopupMenuButtonItemSelected(index, context) {
+    switch (index) {
+      case 0:
+        showLanguageSelectionDialog(context);
+        break;
+      case 1:
+        showExchangeSelectDialog(context);
+        break;
+      case 2:
+        showTopPairSelectDialog(context);
+        break;
+      case 3:
+        showThemeSelectDialog(context);
+        break;
+    }
   }
 }

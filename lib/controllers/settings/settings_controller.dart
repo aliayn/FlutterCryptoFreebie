@@ -60,7 +60,6 @@ class SettingsController extends BaseController {
 
   setLanguage(value) {
     Get.updateLocale(Locale(value));
-    setLanguage(value);
     if (getLanguage() == 'en') {
       language(LocaleKeys.english.tr);
     } else {

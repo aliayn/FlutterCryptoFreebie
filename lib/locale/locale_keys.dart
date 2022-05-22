@@ -14,6 +14,7 @@ abstract class  LocaleKeys {
   static const light = 'light';
   static const designSection = 'designSection';
   static const appTheme = 'appTheme';
+  static const about = 'about';
   static const spanish = 'spanish';
   static const english = 'english';
   static const summary = 'summary';

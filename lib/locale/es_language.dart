@@ -13,6 +13,7 @@ class EsLanguage {
         "topPair": "Top Par",
         "designSection": "Diseño",
         "appTheme": "Tema",
+        "about": "Sobre nosotros",
         "spanish": "Español",
         "english": "Ingles",
         "summary": "Resumen",

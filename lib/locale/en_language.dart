@@ -13,6 +13,7 @@ class EnLanguage {
         "topPair": "Top Pair",
         "designSection": "Design",
         "appTheme": "App theme",
+        "about": "About us",
         "spanish": "Spanish",
         "english": "English",
         "summary": "Summary",
