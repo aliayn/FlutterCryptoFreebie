@@ -18,7 +18,7 @@ ThemeData lightTheme(context) => ThemeData(
         ),
     brightness: Brightness.light,
     scaffoldBackgroundColor: Colors.white,
-    cardColor: CupertinoColors.inactiveGray.withOpacity(0.3),
+    cardColor: CupertinoColors.inactiveGray.withOpacity(0.1),
     unselectedWidgetColor: Colors.black,
     focusColor: Colors.black,
     secondaryHeaderColor: CupertinoColors.lightBackgroundGray,

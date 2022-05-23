@@ -81,8 +81,7 @@ class SettingsPage extends GetView<SettingsController> {
                           CupertinoIcons.moon,
                           size: 24,
                         ),
-                        onPressed: (context) =>
-                            showThemeSelectDialog(context),
+                        onPressed: (context) => showThemeSelectDialog(context),
                       ),
                     ],
                   ),
@@ -166,53 +165,35 @@ class SettingsPage extends GetView<SettingsController> {
         ),
       );
 
-  showTopPairSelectDialog(context) {
-    Pair item = controller.pairs[0];
-    Get.bottomSheet(Container(
-      color: Theme.of(context).bottomNavigationBarTheme.backgroundColor,
-      height: 40.h,
-      child: Column(
-        children: [
-          SizedBox(
-            width: 100.w,
-            child: Padding(
-              padding: const EdgeInsets.all(8),
-              child: Align(
-                alignment: Alignment.centerRight,
-                child: TextButton(
-                  onPressed: (() {
-                    controller.setPair(item.pair);
-                    Get.back();
-                  }),
-                  child: Text('Done',
-                      textAlign: TextAlign.right,
-                      style: Theme.of(context).textTheme.headline4),
-                ),
+  showTopPairSelectDialog(context) async {
+    final selectedId = await showModalBottomSheet<int>(
+        context: context,
+        builder: (context) {
+          return Container(
+            color: Theme.of(context).bottomNavigationBarTheme.backgroundColor,
+            height: 40.h,
+            child: Expanded(
+              child: CupertinoPicker(
+                backgroundColor:
+                    Theme.of(context).bottomNavigationBarTheme.backgroundColor,
+                onSelectedItemChanged: (index) {},
+                itemExtent: 50.0,
+                children:
+                    List<Widget>.generate(controller.pairs.length, (index) {
+                  return Padding(
+                    padding: const EdgeInsets.all(8.0),
+                    child: Text(
+                      controller.pairs[index].pair.toUpperCase(),
+                      style: Theme.of(context).textTheme.headline3,
+                    ),
+                  );
+                }),
               ),
             ),
-          ),
-          Expanded(
-            child: CupertinoPicker(
-              backgroundColor:
-                  Theme.of(context).bottomNavigationBarTheme.backgroundColor,
-              onSelectedItemChanged: (index) {
-                item = controller.pairs[index];
-              },
-              itemExtent: 50.0,
-              children: List<Widget>.generate(controller.pairs.length, (index) {
-                return Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    controller.pairs[index].pair.toUpperCase(),
-                    style: Theme.of(context).textTheme.headline3,
-                  ),
-                );
-              }),
-            ),
-          ),
-        ],
-      ),
-    ));
+          );
+        });
+
+    controller.setPair(controller.pairs[selectedId ?? 0]);
   }
 
   showThemeSelectDialog(context) => Get.defaultDialog(
