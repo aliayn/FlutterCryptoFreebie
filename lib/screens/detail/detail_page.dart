@@ -30,7 +30,6 @@ class DetailPage extends GetView<DetailController> {
     return Scaffold(
       key: Keys.detailScreen,
       appBar: AppBar(
-        backgroundColor: Colors.transparent,
         title: Hero(
           tag: _pairNameTag,
           child: Material(

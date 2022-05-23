@@ -6,6 +6,7 @@ class EsLanguage {
         "searchBar": "Buscar moneda...",
         "noResults": "Sin resultados",
         "settingsTitle": "Ajustes",
+        "favoriteTitle": "Favorito",
         "languageSection": "Lenguage",
         "language": "Idioma",
         "dataSection": "Datos",

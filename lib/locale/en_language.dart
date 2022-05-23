@@ -6,6 +6,7 @@ class EnLanguage {
         "searchBar": "Search coin...",
         "noResults": "No results",
         "settingsTitle": "Settings",
+        "favoriteTitle": "Favorite",
         "languageSection": "Language",
         "language": "Language",
         "dataSection": "Data",

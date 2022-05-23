@@ -6,6 +6,7 @@ import 'package:settings_ui/settings_ui.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../locale/locale_keys.dart';
+import '../../models/markets/pair/pair.dart';
 import '../../utils/keys.dart';
 
 class SettingsPage extends GetView<SettingsController> {
@@ -14,11 +15,16 @@ class SettingsPage extends GetView<SettingsController> {
   @override
   Widget build(BuildContext context) {
     controller.init();
-    var height = MediaQuery.of(context).viewPadding.top;
-    return Container(
-      key: Keys.settingsScreen,
-      child: Padding(
-        padding: EdgeInsets.only(top: height),
+    return Scaffold(
+      appBar: AppBar(
+        centerTitle: true,
+        title: Text(
+          LocaleKeys.settingsTitle.tr,
+          style: const TextStyle(color: Colors.white, fontSize: 25),
+        ),
+      ),
+      body: Container(
+        key: Keys.settingsScreen,
         child: Column(
           children: [
             Expanded(
@@ -75,7 +81,8 @@ class SettingsPage extends GetView<SettingsController> {
                           CupertinoIcons.moon,
                           size: 24,
                         ),
-                        onPressed: (context) => showThemeSelectDialog(context),
+                        onPressed: (context) =>
+                            showThemeSelectDialog(context),
                       ),
                     ],
                   ),
@@ -159,39 +166,54 @@ class SettingsPage extends GetView<SettingsController> {
         ),
       );
 
-  showTopPairSelectDialog(context) => Get.bottomSheet(Container(
-        color: Theme.of(context).backgroundColor,
-        child: controller.pairs.isNotEmpty
-            ? ListView.builder(
-                itemCount: controller.pairs.length,
-                itemBuilder: (context, index) => GestureDetector(
-                  onTap: () {
-                    controller.setPair(controller.pairs[index].pair);
+  showTopPairSelectDialog(context) {
+    Pair item = controller.pairs[0];
+    Get.bottomSheet(Container(
+      color: Theme.of(context).bottomNavigationBarTheme.backgroundColor,
+      height: 40.h,
+      child: Column(
+        children: [
+          SizedBox(
+            width: 100.w,
+            child: Padding(
+              padding: const EdgeInsets.all(8),
+              child: Align(
+                alignment: Alignment.centerRight,
+                child: TextButton(
+                  onPressed: (() {
+                    controller.setPair(item.pair);
                     Get.back();
-                  },
-                  child: Center(
-                    child: Padding(
-                      padding: const EdgeInsets.all(8.0),
-                      child: Column(
-                        children: [
-                          Padding(
-                            padding: const EdgeInsets.all(8.0),
-                            child: Text(controller.pairs[index].pair,
-                                style: TextStyle(fontSize: 14.sp)),
-                          ),
-                          const Divider()
-                        ],
-                      ),
-                    ),
-                  ),
+                  }),
+                  child: Text('Done',
+                      textAlign: TextAlign.right,
+                      style: Theme.of(context).textTheme.headline4),
                 ),
-              )
-            : Center(
-                child: Text(
-                LocaleKeys.errorSomethingWentWrong.tr,
-                style: TextStyle(fontSize: 18.sp),
-              )),
-      ));
+              ),
+            ),
+          ),
+          Expanded(
+            child: CupertinoPicker(
+              backgroundColor:
+                  Theme.of(context).bottomNavigationBarTheme.backgroundColor,
+              onSelectedItemChanged: (index) {
+                item = controller.pairs[index];
+              },
+              itemExtent: 50.0,
+              children: List<Widget>.generate(controller.pairs.length, (index) {
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    controller.pairs[index].pair.toUpperCase(),
+                    style: Theme.of(context).textTheme.headline3,
+                  ),
+                );
+              }),
+            ),
+          ),
+        ],
+      ),
+    ));
+  }
 
   showThemeSelectDialog(context) => Get.defaultDialog(
       title: LocaleKeys.appTheme.tr,

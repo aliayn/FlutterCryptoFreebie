@@ -4,7 +4,7 @@ import '../components/ohlc_section.dart';
 import '../components/order_book_section.dart';
 import '../components/summary_section.dart';
 import '../components/trades_section.dart';
-import 'detail/detail_controller.dart';
+import '../controllers/detail/detail_controller.dart';
 
 class DetailBinding extends Bindings {
   @override

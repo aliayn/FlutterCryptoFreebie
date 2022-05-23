@@ -56,15 +56,15 @@ class _PairTileState extends State<PairTile>
             },
             child: Container(
               key: Keys.pairTile,
-              decoration:
-                  BoxDecoration(gradient: createBackgroundColor(summary)),
+              decoration: BoxDecoration(
+                  gradient: createBackgroundColor(summary, context)),
               child: SizedBox(
                   height: 11.h,
                   child: Stack(
                     children: [
                       Align(
                           alignment: Alignment.centerLeft,
-                          child: createCoinAvatar(pair)),
+                          child: createCoinAvatar(pair, context)),
                       Align(
                         alignment: Alignment.centerLeft,
                         child: Padding(
@@ -75,7 +75,7 @@ class _PairTileState extends State<PairTile>
                                 alignment: Alignment.topLeft,
                                 child: Padding(
                                   padding: EdgeInsets.only(top: 1.5.h),
-                                  child: createPairName(pair, _pairNameTag),
+                                  child: createPairName(pair, _pairNameTag,context),
                                 ),
                               ),
                               Align(
@@ -125,30 +125,30 @@ class _PairTileState extends State<PairTile>
         ),
       );
 
-  createCoinAvatar(Pair pair) => Padding(
+  createCoinAvatar(Pair pair, BuildContext context) => Padding(
         padding: EdgeInsets.only(left: 4.w, right: 4.w),
-        child: SvgPicture.asset(
-          coins[pair.pair] ?? usdtFile,
-          width: 50,
-          height: 50,
-          fit: BoxFit.contain,
-          color: Colors.white,
-        ),
+        child: SvgPicture.asset(coins[pair.pair] ?? usdtFile,
+            width: 50,
+            height: 50,
+            fit: BoxFit.contain,
+            color: Theme.of(context).focusColor),
       );
 
   createVolText(PairSummary summary) {
     var vol = formatNumbers(summary.volumeQuote / pow(10, 6));
     return Text(
       'Vol.${vol}M',
-      style:  TextStyle(fontSize: 10.sp,color: CupertinoColors.inactiveGray),
+      style: TextStyle(fontSize: 10.sp, color: CupertinoColors.inactiveGray),
     );
   }
 
-  createBackgroundColor(summary) {
+  createBackgroundColor(summary, context) {
+    CupertinoColors.inactiveGray.withOpacity(0.08);
+    var beginColor = Theme.of(context).cardColor;
     if (summary.price.change.absolute < 0) {
       return LinearGradient(
           colors: [
-            CupertinoColors.inactiveGray.withOpacity(0.08),
+            beginColor,
             Colors.red.withOpacity(0.1),
           ],
           begin: const FractionalOffset(0.0, 0.0),
@@ -158,7 +158,7 @@ class _PairTileState extends State<PairTile>
     } else if (summary.price.change.absolute > 0) {
       return LinearGradient(
           colors: [
-            CupertinoColors.inactiveGray.withOpacity(0.08),
+            beginColor,
             Colors.green.withOpacity(0.1),
           ],
           begin: const FractionalOffset(0.0, 0.0),
@@ -168,8 +168,8 @@ class _PairTileState extends State<PairTile>
     } else {
       return LinearGradient(
           colors: [
-            CupertinoColors.inactiveGray.withOpacity(0.08),
-            CupertinoColors.inactiveGray.withOpacity(0.08),
+            beginColor,
+            beginColor,
           ],
           begin: const FractionalOffset(0.0, 0.0),
           end: const FractionalOffset(1.0, 0.0),
@@ -178,7 +178,7 @@ class _PairTileState extends State<PairTile>
     }
   }
 
-  createPairName(Pair pair, pairNameTag) {
+  createPairName(Pair pair, pairNameTag,context) {
     var coinSize = 14.sp;
     var usdtSize = 10.sp;
     return Padding(
@@ -194,7 +194,7 @@ class _PairTileState extends State<PairTile>
                 Text(
                   pair.pair.replaceAll('usdt', '').toUpperCase(),
                   style: TextStyle(
-                      color: CupertinoColors.white, fontSize: coinSize),
+                      color: Theme.of(context).unselectedWidgetColor, fontSize: coinSize),
                 ),
                 Padding(
                   padding: const EdgeInsets.only(top: 4.0),

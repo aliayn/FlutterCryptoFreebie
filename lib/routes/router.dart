@@ -22,3 +22,5 @@ goToDetailPage({
       pairChangeTag,
       pairChangePercentTag
     ]);
+
+goToSettingPage() => Get.toNamed(Routes.settings);

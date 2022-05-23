@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:google_fonts/google_fonts.dart';
 
@@ -9,17 +10,18 @@ const Color _darkAccent = Color(0xff2ca8e2);
 ThemeData lightTheme(context) => ThemeData(
     iconTheme: const IconThemeData(color: Colors.black87),
     bottomNavigationBarTheme: const BottomNavigationBarThemeData(
-        backgroundColor: Colors.blueGrey,
+        backgroundColor: CupertinoColors.lightBackgroundGray,
         selectedItemColor: Colors.white,
         unselectedItemColor: Colors.white70),
     appBarTheme: const AppBarTheme(
-      color: Colors.transparent,
-    ),
+        //  color: Colors.transparent,
+        ),
     brightness: Brightness.light,
     scaffoldBackgroundColor: Colors.white,
-    cardColor: Colors.grey[500],
-    unselectedWidgetColor: Colors.black45,
+    cardColor: CupertinoColors.inactiveGray.withOpacity(0.3),
+    unselectedWidgetColor: Colors.black,
     focusColor: Colors.black,
+    secondaryHeaderColor: CupertinoColors.lightBackgroundGray,
     textTheme: GoogleFonts.openSansTextTheme(const TextTheme(
       headline1: TextStyle(
           color: Colors.black, fontSize: 40, fontWeight: FontWeight.w500),
@@ -43,14 +45,17 @@ ThemeData lightTheme(context) => ThemeData(
 
 ThemeData darkTheme(context) => ThemeData(
     primaryColor: Colors.black12,
-    bottomNavigationBarTheme: BottomNavigationBarThemeData(
-        backgroundColor: Colors.grey[900],
+    bottomNavigationBarTheme: const BottomNavigationBarThemeData(
+        backgroundColor: CupertinoColors.darkBackgroundGray,
         selectedItemColor: Colors.white,
         unselectedItemColor: Colors.white70),
     appBarTheme: const AppBarTheme(color: Colors.transparent),
     brightness: Brightness.dark,
     scaffoldBackgroundColor: Colors.black,
+    unselectedWidgetColor: Colors.white,
+    cardColor: CupertinoColors.inactiveGray.withOpacity(0.08),
     focusColor: Colors.white,
+    secondaryHeaderColor: CupertinoColors.darkBackgroundGray,
     textTheme: GoogleFonts.openSansTextTheme(const TextTheme(
             headline1: TextStyle(
                 color: Colors.white, fontSize: 40, fontWeight: FontWeight.w500),

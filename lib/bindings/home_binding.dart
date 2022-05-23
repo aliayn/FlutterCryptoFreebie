@@ -3,7 +3,7 @@ import 'package:crypto_freebie/controllers/search/search_controller.dart';
 import 'package:crypto_freebie/controllers/settings/settings_controller.dart';
 import 'package:get/instance_manager.dart';
 
-import 'pairTile/pair_tile_controller.dart';
+import '../controllers/pairTile/pair_tile_controller.dart';
 
 class HomeBinding extends Bindings {
   @override
