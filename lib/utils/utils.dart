@@ -10,7 +10,7 @@ import '../models/graph/graph/graph.dart';
 final _box = GetStorage();
 
 const String _defaultLocale = "en";
-const String _defaultExchange = "binance";
+const String _defaultExchange = "Binance";
 const String _defaultPair = "btcusdt";
 const List _defaultSearchText = [];
 
