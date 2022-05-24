@@ -6,7 +6,6 @@ import 'package:settings_ui/settings_ui.dart';
 import 'package:sizer/sizer.dart';
 
 import '../../locale/locale_keys.dart';
-import '../../models/markets/pair/pair.dart';
 import '../../utils/keys.dart';
 
 class SettingsPage extends GetView<SettingsController> {
@@ -94,76 +93,121 @@ class SettingsPage extends GetView<SettingsController> {
     );
   }
 
-  showLanguageSelectionDialog(context) => Get.defaultDialog(
-      title: LocaleKeys.language.tr,
-      content: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              ListTile(
-                leading: const Icon(CupertinoIcons.flag),
-                title: Text(LocaleKeys.english.tr,
-                    style: TextStyle(fontSize: 14.sp)),
-                onTap: () {
-                  controller.setLanguage('en');
-                  Navigator.pop(context);
-                },
-              ),
-              ListTile(
-                leading: const Icon(CupertinoIcons.flag_fill),
-                title: Text(LocaleKeys.spanish.tr,
-                    style: TextStyle(fontSize: 14.sp)),
-                onTap: () {
-                  controller.setLanguage('es');
-                  Navigator.pop(context);
-                },
-              )
-            ],
-          ),
-        ),
-      ));
-
-  showExchangeSelectDialog(context) => Get.bottomSheet(
-        Container(
-          color: Theme.of(context).backgroundColor,
-          child: controller.exchanges.isNotEmpty
-              ? ListView.builder(
-                  itemCount: controller.exchanges.length,
-                  itemBuilder: (context, index) => GestureDetector(
-                    onTap: () {
-                      controller
-                          .setExchange(controller.exchanges[index].symbol);
-                      Get.back();
-                    },
-                    child: Center(
-                      child: Padding(
-                        padding: const EdgeInsets.all(8.0),
-                        child: Column(
-                          children: [
-                            Padding(
-                              padding: const EdgeInsets.all(8.0),
-                              child: Text(
-                                controller.exchanges[index].name,
-                                style: TextStyle(fontSize: 14.sp),
-                              ),
-                            ),
-                            const Divider()
-                          ],
-                        ),
-                      ),
+  showLanguageSelectionDialog(context) => showDialog(
+        context: context,
+        builder: (context) => Dialog(
+            // title: LocaleKeys.language.tr,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+            elevation: 0,
+            backgroundColor: Colors.transparent,
+            child: Stack(children: [
+              Container(
+                padding: const EdgeInsets.only(
+                    left: 20, top: 45 + 20, right: 20, bottom: 20),
+                margin: const EdgeInsets.only(top: 45),
+                decoration: BoxDecoration(
+                    shape: BoxShape.rectangle,
+                    color: Theme.of(context)
+                        .bottomNavigationBarTheme
+                        .backgroundColor,
+                    borderRadius: BorderRadius.circular(20),
+                    boxShadow: const [
+                      BoxShadow(
+                          color: Colors.black,
+                          offset: Offset(0, 10),
+                          blurRadius: 10),
+                    ]),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      LocaleKeys.language.tr,
+                      style: const TextStyle(
+                          fontSize: 18, fontWeight: FontWeight.w600),
                     ),
-                  ),
-                )
-              : Center(
-                  child: Text(
-                  LocaleKeys.errorSomethingWentWrong.tr,
-                  style: TextStyle(fontSize: 18.sp),
-                )),
-        ),
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    Text(
+                      LocaleKeys.languageContent.tr,
+                      style: const TextStyle(fontSize: 14),
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(
+                      height: 25,
+                    ),
+                    ListTile(
+                      leading: controller.language.value == LocaleKeys.english
+                          ? const Icon(CupertinoIcons.check_mark)
+                          : const SizedBox(),
+                      title: Text(LocaleKeys.english.tr,
+                          style: TextStyle(fontSize: 10.sp)),
+                      onTap: () {
+                        Navigator.pop(context);
+                        controller.changeLanguage(LocaleKeys.english);
+                      },
+                    ),
+                    ListTile(
+                      leading: controller.language.value == LocaleKeys.spanish
+                          ? const Icon(CupertinoIcons.check_mark)
+                          : const SizedBox(),
+                      title: Text(LocaleKeys.spanish.tr,
+                          style: TextStyle(fontSize: 10.sp)),
+                      onTap: () {
+                        Navigator.pop(context);
+                        controller.changeLanguage(LocaleKeys.spanish);
+                      },
+                    )
+                  ],
+                ),
+              ),
+              Positioned(
+                left: 20,
+                right: 20,
+                child: CircleAvatar(
+                  backgroundColor: Colors.transparent,
+                  radius: 45,
+                  child: ClipRRect(
+                      borderRadius: const BorderRadius.all(Radius.circular(45)),
+                      child: Image.asset("assets/icons/icon.png")),
+                ),
+              )
+            ])),
       );
+
+  showExchangeSelectDialog(context) async {
+    final selectedId = await showModalBottomSheet<int>(
+        context: context,
+        builder: (context) {
+          return Container(
+            color: Theme.of(context).bottomNavigationBarTheme.backgroundColor,
+            height: 40.h,
+            child: CupertinoPicker(
+              backgroundColor:
+                  Theme.of(context).bottomNavigationBarTheme.backgroundColor,
+              onSelectedItemChanged: (index) {
+                print(controller.exchanges[index].name);
+              },
+              itemExtent: 50.0,
+              children:
+                  List<Widget>.generate(controller.exchanges.length, (index) {
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    controller.exchanges[index].name,
+                    style: Theme.of(context).textTheme.headline3,
+                  ),
+                );
+              }),
+            ),
+          );
+        });
+
+    controller.changeExchange(controller.exchanges[selectedId ?? 0].name);
+  }
 
   showTopPairSelectDialog(context) async {
     final selectedId = await showModalBottomSheet<int>(
@@ -172,57 +216,109 @@ class SettingsPage extends GetView<SettingsController> {
           return Container(
             color: Theme.of(context).bottomNavigationBarTheme.backgroundColor,
             height: 40.h,
-            child: Expanded(
-              child: CupertinoPicker(
-                backgroundColor:
-                    Theme.of(context).bottomNavigationBarTheme.backgroundColor,
-                onSelectedItemChanged: (index) {},
-                itemExtent: 50.0,
-                children:
-                    List<Widget>.generate(controller.pairs.length, (index) {
-                  return Padding(
-                    padding: const EdgeInsets.all(8.0),
-                    child: Text(
-                      controller.pairs[index].pair.toUpperCase(),
-                      style: Theme.of(context).textTheme.headline3,
-                    ),
-                  );
-                }),
-              ),
+            child: CupertinoPicker(
+              backgroundColor:
+                  Theme.of(context).bottomNavigationBarTheme.backgroundColor,
+              onSelectedItemChanged: (index) {},
+              itemExtent: 50.0,
+              children: List<Widget>.generate(controller.pairs.length, (index) {
+                return Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Text(
+                    controller.pairs[index].pair.toUpperCase(),
+                    style: Theme.of(context).textTheme.headline3,
+                  ),
+                );
+              }),
             ),
           );
         });
 
-    controller.setPair(controller.pairs[selectedId ?? 0]);
+    controller.changePair(controller.pairs[selectedId ?? 0].pair);
   }
 
-  showThemeSelectDialog(context) => Get.defaultDialog(
-      title: LocaleKeys.appTheme.tr,
-      content: Center(
-        child: Padding(
-          padding: const EdgeInsets.all(8.0),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.center,
-            children: [
-              ListTile(
-                leading: const Icon(CupertinoIcons.lightbulb_fill),
-                title: Text(LocaleKeys.light.tr),
-                onTap: () {
-                  controller.switchTheme(false);
-                  Get.back();
-                },
+  showThemeSelectDialog(context) => showDialog(
+        context: context,
+        builder: (context) => Dialog(
+            // title: LocaleKeys.language.tr,
+            shape: RoundedRectangleBorder(
+              borderRadius: BorderRadius.circular(20),
+            ),
+            elevation: 0,
+            backgroundColor: Colors.transparent,
+            child: Stack(children: [
+              Container(
+                padding: const EdgeInsets.only(
+                    left: 20, top: 45 + 20, right: 20, bottom: 20),
+                margin: const EdgeInsets.only(top: 45),
+                decoration: BoxDecoration(
+                    shape: BoxShape.rectangle,
+                    color: Theme.of(context)
+                        .bottomNavigationBarTheme
+                        .backgroundColor,
+                    borderRadius: BorderRadius.circular(20),
+                    boxShadow: const [
+                      BoxShadow(
+                          color: Colors.black,
+                          offset: Offset(0, 10),
+                          blurRadius: 10),
+                    ]),
+                child: Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    Text(
+                      LocaleKeys.appTheme.tr,
+                      style: const TextStyle(
+                          fontSize: 18, fontWeight: FontWeight.w600),
+                    ),
+                    const SizedBox(
+                      height: 15,
+                    ),
+                    Text(
+                      LocaleKeys.appThemeContent.tr,
+                      style: const TextStyle(fontSize: 14),
+                      textAlign: TextAlign.center,
+                    ),
+                    const SizedBox(
+                      height: 25,
+                    ),
+                    ListTile(
+                      leading: !controller.themeMode.value
+                          ? const Icon(CupertinoIcons.check_mark)
+                          : const SizedBox(),
+                      title: Text(LocaleKeys.light.tr,
+                          style: TextStyle(fontSize: 10.sp)),
+                      onTap: () {
+                        Navigator.pop(context);
+                        controller.switchTheme(false);
+                      },
+                    ),
+                    ListTile(
+                      leading: controller.themeMode.value
+                          ? const Icon(CupertinoIcons.check_mark)
+                          : const SizedBox(),
+                      title: Text(LocaleKeys.dark.tr,
+                          style: TextStyle(fontSize: 10.sp)),
+                      onTap: () {
+                        Navigator.pop(context);
+                        controller.switchTheme(true);
+                      },
+                    )
+                  ],
+                ),
               ),
-              ListTile(
-                leading: const Icon(CupertinoIcons.lightbulb),
-                title: Text(LocaleKeys.dark.tr),
-                onTap: () {
-                  controller.switchTheme(true);
-                  Get.back();
-                },
+              Positioned(
+                left: 20,
+                right: 20,
+                child: CircleAvatar(
+                  backgroundColor: Colors.transparent,
+                  radius: 45,
+                  child: ClipRRect(
+                      borderRadius: const BorderRadius.all(Radius.circular(45)),
+                      child: Image.asset("assets/icons/icon.png")),
+                ),
               )
-            ],
-          ),
-        ),
-      ));
+            ])),
+      );
 }

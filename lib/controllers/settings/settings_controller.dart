@@ -14,23 +14,24 @@ class SettingsController extends BaseController {
   final CancelToken _cancelToken = CancelToken();
   final themeMode = ThemeService.instance.isDarkMode().obs;
 
-  var language = ''.obs;
-  var pair = ''.obs;
-  var exchange = ''.obs;
+  var language = RxString(LocaleKeys.english);
+  var pair = RxString('');
+  var exchange = RxString('');
 
   var pairs = <Pair>[].obs;
   var exchanges = <Exchange>[].obs;
 
   init() {
-    if (getLanguage() == 'en') {
-      language(LocaleKeys.english.tr);
-    } else {
-      language(LocaleKeys.spanish.tr);
+    if (getLanguage() != 'en') {
+      language(LocaleKeys.spanish);
     }
     pair(getPair());
     exchange(getExchange());
     _getPairs();
     _getExchanges();
+    language.listen((p0) {
+      print(p0);
+    });
   }
 
   @override
@@ -48,22 +49,25 @@ class SettingsController extends BaseController {
     exchanges.assignAll(await provider.getExchanges(_cancelToken));
   }
 
-  setExchange(value) {
+  changeExchange(value) {
     setExchange(value);
     exchange(value);
   }
 
-  setPair(value) {
+  changePair(value) {
     setPair(value);
     pair(value);
   }
 
-  setLanguage(value) {
-    Get.updateLocale(Locale(value));
-    if (getLanguage() == 'en') {
-      language(LocaleKeys.english.tr);
+  changeLanguage(value) {
+    if (value == LocaleKeys.english) {
+      language(LocaleKeys.english);
+      setLanguage("en");
+      Get.updateLocale(const Locale("en"));
     } else {
-      language(LocaleKeys.spanish.tr);
+      language(LocaleKeys.spanish);
+      setLanguage("es");
+      Get.updateLocale(const Locale("es"));
     }
   }
 
