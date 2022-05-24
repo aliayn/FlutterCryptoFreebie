@@ -22,72 +22,75 @@ class SettingsPage extends GetView<SettingsController> {
           style: const TextStyle(color: Colors.white, fontSize: 25),
         ),
       ),
-      body: Container(
-        key: Keys.settingsScreen,
-        child: Column(
-          children: [
-            Expanded(
-              child: SettingsList(
-                contentPadding: EdgeInsets.zero,
-                sections: [
-                  SettingsSection(
-                    title: LocaleKeys.languageSection.tr,
-                    tiles: [
-                      SettingsTile(
-                          title: LocaleKeys.language.tr,
-                          subtitle: controller.language.value.tr,
+      body: Obx(
+        () => Container(
+          key: Keys.settingsScreen,
+          child: Column(
+            children: [
+              Expanded(
+                child: SettingsList(
+                  contentPadding: EdgeInsets.zero,
+                  sections: [
+                    SettingsSection(
+                      title: LocaleKeys.languageSection.tr,
+                      tiles: [
+                        SettingsTile(
+                            title: LocaleKeys.language.tr,
+                            subtitle: controller.language.value.tr,
+                            leading: const Icon(
+                              CupertinoIcons.globe,
+                              size: 24,
+                            ),
+                            onPressed: (context) =>
+                                showLanguageSelectionDialog(context)),
+                      ],
+                    ),
+                    SettingsSection(
+                      title: LocaleKeys.dataSection.tr,
+                      tiles: [
+                        SettingsTile(
+                          title: LocaleKeys.exchange.tr,
+                          subtitle: controller.exchange.value,
                           leading: const Icon(
-                            CupertinoIcons.globe,
+                            CupertinoIcons.arrow_2_circlepath,
                             size: 24,
                           ),
                           onPressed: (context) =>
-                              showLanguageSelectionDialog(context)),
-                    ],
-                  ),
-                  SettingsSection(
-                    title: LocaleKeys.dataSection.tr,
-                    tiles: [
-                      SettingsTile(
-                        title: LocaleKeys.exchange.tr,
-                        subtitle: controller.exchange.value,
-                        leading: const Icon(
-                          CupertinoIcons.arrow_2_circlepath,
-                          size: 24,
+                              showExchangeSelectDialog(context),
                         ),
-                        onPressed: (context) =>
-                            showExchangeSelectDialog(context),
-                      ),
-                      SettingsTile(
-                          title: LocaleKeys.topPair.tr,
-                          subtitle: controller.pair.value.tr,
+                        SettingsTile(
+                            title: LocaleKeys.topPair.tr,
+                            subtitle: controller.pair.value.toUpperCase(),
+                            leading: const Icon(
+                              CupertinoIcons.bitcoin,
+                              size: 24,
+                            ),
+                            onPressed: (context) =>
+                                showTopPairSelectDialog(context)),
+                      ],
+                    ),
+                    SettingsSection(
+                      title: LocaleKeys.designSection.tr,
+                      tiles: [
+                        SettingsTile(
+                          title: LocaleKeys.appTheme.tr,
+                          subtitle: controller.themeMode.value
+                              ? LocaleKeys.dark.tr
+                              : LocaleKeys.light.tr,
                           leading: const Icon(
-                            CupertinoIcons.bitcoin,
+                            CupertinoIcons.moon,
                             size: 24,
                           ),
                           onPressed: (context) =>
-                              showTopPairSelectDialog(context)),
-                    ],
-                  ),
-                  SettingsSection(
-                    title: LocaleKeys.designSection.tr,
-                    tiles: [
-                      SettingsTile(
-                        title: LocaleKeys.appTheme.tr,
-                        subtitle: controller.themeMode.value
-                            ? LocaleKeys.dark.tr
-                            : LocaleKeys.light.tr,
-                        leading: const Icon(
-                          CupertinoIcons.moon,
-                          size: 24,
+                              showThemeSelectDialog(context),
                         ),
-                        onPressed: (context) => showThemeSelectDialog(context),
-                      ),
-                    ],
-                  ),
-                ],
+                      ],
+                    ),
+                  ],
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );
@@ -179,7 +182,8 @@ class SettingsPage extends GetView<SettingsController> {
       );
 
   showExchangeSelectDialog(context) async {
-    final selectedId = await showModalBottomSheet<int>(
+    var selectedId = 0;
+    await showModalBottomSheet<int>(
         context: context,
         builder: (context) {
           return Container(
@@ -189,7 +193,7 @@ class SettingsPage extends GetView<SettingsController> {
               backgroundColor:
                   Theme.of(context).bottomNavigationBarTheme.backgroundColor,
               onSelectedItemChanged: (index) {
-                print(controller.exchanges[index].name);
+                selectedId = index;
               },
               itemExtent: 50.0,
               children:
@@ -204,13 +208,15 @@ class SettingsPage extends GetView<SettingsController> {
               }),
             ),
           );
-        });
-
-    controller.changeExchange(controller.exchanges[selectedId ?? 0].name);
+        }).whenComplete(() {
+      controller.changeExchange(controller.exchanges[selectedId]);
+    });
   }
 
   showTopPairSelectDialog(context) async {
-    final selectedId = await showModalBottomSheet<int>(
+    var selectedId = 0;
+
+    await showModalBottomSheet<int>(
         context: context,
         builder: (context) {
           return Container(
@@ -219,7 +225,9 @@ class SettingsPage extends GetView<SettingsController> {
             child: CupertinoPicker(
               backgroundColor:
                   Theme.of(context).bottomNavigationBarTheme.backgroundColor,
-              onSelectedItemChanged: (index) {},
+              onSelectedItemChanged: (index) {
+                selectedId = index;
+              },
               itemExtent: 50.0,
               children: List<Widget>.generate(controller.pairs.length, (index) {
                 return Padding(
@@ -232,9 +240,9 @@ class SettingsPage extends GetView<SettingsController> {
               }),
             ),
           );
-        });
-
-    controller.changePair(controller.pairs[selectedId ?? 0].pair);
+        }).whenComplete(() {
+      controller.changePair(controller.pairs[selectedId].pair);
+    });
   }
 
   showThemeSelectDialog(context) => showDialog(

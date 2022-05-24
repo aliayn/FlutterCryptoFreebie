@@ -1,16 +1,13 @@
 import 'dart:convert';
 import 'dart:ui';
 
+import 'package:flutter/material.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:intl/intl.dart';
 
 import '../models/graph/graph/graph.dart';
 
 final _box = GetStorage();
-
-erase() {
-  // _box.remove(_searchTextKey);
-}
 
 const String _defaultLocale = "en";
 const String _defaultExchange = "binance";
@@ -56,6 +53,10 @@ setExchange(value) => _box.write(_exchangeKey, value);
 
 getExchange() => _box.read(_exchangeKey) ?? _defaultExchange;
 
+listenToPair(callback) => _box.listenKey(_pairKey, callback);
+
+listenToExchange(callback) => _box.listenKey(_exchangeKey, callback);
+
 List<double> getPoints(Graph graph) {
   if (graph.pairs[0].points.isNotEmpty) {
     return graph.pairs[0].points.map((e) => e.closePrice).toList();
@@ -70,12 +71,14 @@ String epochToString(String epoch) {
   return DateFormat('dd/MM/yyyy').format(timeStamp);
 }
 
-String formatNumbers(double number,{int decimalDigits = 2}) {
-  return NumberFormat.currency(name: r'$', decimalDigits: decimalDigits).format(number);
+String formatNumbers(double number, {int decimalDigits = 2}) {
+  return NumberFormat.currency(name: r'$', decimalDigits: decimalDigits)
+      .format(number);
 }
 
-String formatPercentNumber(double number,{int decimalDigits = 2}) {
-  return NumberFormat.decimalPercentPattern(decimalDigits: decimalDigits).format(number);
+String formatPercentNumber(double number, {int decimalDigits = 2}) {
+  return NumberFormat.decimalPercentPattern(decimalDigits: decimalDigits)
+      .format(number);
 }
 
 extension HexColor on Color {

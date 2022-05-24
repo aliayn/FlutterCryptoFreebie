@@ -21,6 +21,7 @@ class HomeController extends BaseController with StateMixin {
     super.onInit();
     getFeed();
     _getExchangesList();
+    _setListeners();
   }
 
   getFeed() async {
@@ -65,5 +66,10 @@ class HomeController extends BaseController with StateMixin {
 
   _getExchangesList() async {
     exchangeList.assignAll(await provider.getExchanges());
+  }
+
+  _setListeners() {
+    listenToPair((value) => getFeed());
+    listenToExchange((value) => getFeed());
   }
 }

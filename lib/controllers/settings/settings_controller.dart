@@ -22,16 +22,13 @@ class SettingsController extends BaseController {
   var exchanges = <Exchange>[].obs;
 
   init() {
-    if (getLanguage() != 'en') {
+    if (getLanguage() != "es") {
       language(LocaleKeys.spanish);
     }
     pair(getPair());
     exchange(getExchange());
     _getPairs();
     _getExchanges();
-    language.listen((p0) {
-      print(p0);
-    });
   }
 
   @override
@@ -49,9 +46,9 @@ class SettingsController extends BaseController {
     exchanges.assignAll(await provider.getExchanges(_cancelToken));
   }
 
-  changeExchange(value) {
-    setExchange(value);
-    exchange(value);
+  changeExchange(Exchange value) {
+    setExchange(value.symbol);
+    exchange(value.name);
   }
 
   changePair(value) {

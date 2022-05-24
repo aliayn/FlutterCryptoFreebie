@@ -102,6 +102,7 @@ class HomePage extends GetView<HomeController> {
             return SizedBox.expand(
               child: Center(
                 child: Column(
+                  mainAxisSize: MainAxisSize.min,
                   children: [
                     error(e),
                     Padding(
