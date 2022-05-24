@@ -13,7 +13,6 @@ class SettingsPage extends GetView<SettingsController> {
 
   @override
   Widget build(BuildContext context) {
-    controller.init();
     return Scaffold(
       appBar: AppBar(
         centerTitle: true,
@@ -22,8 +21,9 @@ class SettingsPage extends GetView<SettingsController> {
           style: const TextStyle(color: Colors.white, fontSize: 25),
         ),
       ),
-      body: Obx(
-        () => Container(
+      body: GetX<SettingsController>(
+        initState: (state) => state.controller?.init(),
+        builder: (controller) => Container(
           key: Keys.settingsScreen,
           child: Column(
             children: [
@@ -41,8 +41,7 @@ class SettingsPage extends GetView<SettingsController> {
                               CupertinoIcons.globe,
                               size: 24,
                             ),
-                            onPressed: (context) =>
-                                showLanguageSelectionDialog(context)),
+                            onPressed: showLanguageSelectionDialog),
                       ],
                     ),
                     SettingsSection(
@@ -55,8 +54,7 @@ class SettingsPage extends GetView<SettingsController> {
                             CupertinoIcons.arrow_2_circlepath,
                             size: 24,
                           ),
-                          onPressed: (context) =>
-                              showExchangeSelectDialog(context),
+                          onPressed: showExchangeSelectDialog,
                         ),
                         SettingsTile(
                             title: LocaleKeys.topPair.tr,
@@ -65,8 +63,7 @@ class SettingsPage extends GetView<SettingsController> {
                               CupertinoIcons.bitcoin,
                               size: 24,
                             ),
-                            onPressed: (context) =>
-                                showTopPairSelectDialog(context)),
+                            onPressed: showTopPairSelectDialog),
                       ],
                     ),
                     SettingsSection(
@@ -81,8 +78,7 @@ class SettingsPage extends GetView<SettingsController> {
                             CupertinoIcons.moon,
                             size: 24,
                           ),
-                          onPressed: (context) =>
-                              showThemeSelectDialog(context),
+                          onPressed: showThemeSelectDialog,
                         ),
                       ],
                     ),

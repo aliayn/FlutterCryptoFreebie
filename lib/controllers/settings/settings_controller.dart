@@ -58,13 +58,15 @@ class SettingsController extends BaseController {
 
   changeLanguage(value) {
     if (value == LocaleKeys.english) {
-      language(LocaleKeys.english);
+      language.value = LocaleKeys.english;
       setLanguage("en");
       Get.updateLocale(const Locale("en"));
+      print(language.value);
     } else {
-      language(LocaleKeys.spanish);
+      language.value = LocaleKeys.spanish;
       setLanguage("es");
       Get.updateLocale(const Locale("es"));
+      print(language.value);
     }
   }
 
